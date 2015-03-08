@@ -241,6 +241,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
+  json
   pg
   pry-rails
   rails (= 4.2.0)
