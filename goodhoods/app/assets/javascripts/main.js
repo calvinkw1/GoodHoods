@@ -11,8 +11,10 @@ function initialize() {
     streetViewControl: true,
     overviewMapControl: true
   };
-  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+  
+  var map = new google.maps.Map(document.getElementById('map-canvas'), { 
     mapTypeId: google.maps.MapTypeId.ROADMAP
+
   });
 
   var defaultBounds = new google.maps.LatLngBounds(
@@ -23,7 +25,7 @@ function initialize() {
   // Create the search box and link it to the UI element.
   var input = (document.getElementById('search-input'));
 
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
   var searchBox = new google.maps.places.SearchBox((input));
 
@@ -62,7 +64,7 @@ function initialize() {
       });
 
       markers.push(marker);
-
+google.maps.event.addListener(marker, "click", openWindow);
       bounds.extend(place.geometry.location);
     }
 
@@ -76,6 +78,63 @@ function initialize() {
     var bounds = map.getBounds();
     searchBox.setBounds(bounds);
   });
+
+
+//NOT SURE ABOUT THIS
+
+
+
+
+function openWindow() {
+  var infoWindow = new google.maps.infoWindow();
+  infowindow.open(map, marker);
+  var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+  autocomplete.bindTo('bounds', map);
+
+  var marker = new google.maps.Marker({
+    map: map
+  });
+    var place = autocomplete.getPlace();
+    // console.log("infowindow",infowindow);
+    // console.log("placesMarker",this);
+    marker.setPosition(place.geometry.location);
+    infoWindow.setContent("<div style='color:black; width: 75px;'>" + place.name + "</div><button id='removeMarker'>Remove</button>");
+    // infoWindow.setContent('<div><strong>' + place.name + '</strong><br>');
+    
+    $(this).css("background-color", "#a9fcf5");
+  }
+
+
+// NOT SURE ABOUT THIS
+  var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+  autocomplete.bindTo('bounds', map);
+  var infoWindow = new google.maps.infoWindow();
+  var marker = new google.maps.Marker({
+    map: map
+  });
+// NOT SURE ABOUT THIS
+// NOT SURE ABOUT THIS
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    infoWindow.close();
+    var place = autocomplete.getPlace();
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    }
+    marker.setPosition(place.geometry.location);
+    infoWindow.setContent('<div><strong>' + place.name + '</strong><br>');
+    infoWindow.open(map, marker);
+    google.maps.event.addListener(marker, 'click', function(e){
+     infoWindow.open(map, marker);
+    });
+
+  });
+  // NOT SURE ABOUT THIS
+
+
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
