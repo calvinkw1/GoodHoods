@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
-  get 'users/signup'
+  root 'users#login'
 
-  get 'users/login'
+  
+    get 'login', to: "users#login", as: 'login'
 
-  get 'users/create'
+    get 'signup', to: "users#signup", as: 'signup'
+
+    post 'login', to: "users#attempt_login"
+
+    post 'signup', to: "users#create"
+
+    get 'home', to: "users#home", as: 'home'
+
+    delete 'logout', to: "users#logout", as: "logout"
+
+
+
 
   get 'main/map'
 
