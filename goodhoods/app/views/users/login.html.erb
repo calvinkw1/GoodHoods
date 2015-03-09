@@ -1,4 +1,24 @@
-<h1>Literally the best website ever.</h1>
+<%= javascript_include_tag "bgcycle", "data-turbolinks-track" => true %>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("body").backgroundCycle({
+                    imageUrls: [
+                        'assets/bg1.jpg',
+                        'assets/bg2.jpg',
+                        'assets/bg3.jpg',
+                        'assets/bg4.jpg',
+                        'assets/bg5.jpg'
+                    ],
+                    fadeSpeed: 1000,
+                    duration: 3000,
+                    backgroundSize: SCALING_MODE_COVER
+                });
+            });
+        </script>
+
+
+<%= image_tag("header.png", size: "650x75") %>
 
 <%= form_tag(login_path) do %>
 
@@ -14,3 +34,5 @@
 <% end %>
 
 <%= link_to "Don't have an account? Sign up here", signup_path%>
+
+
