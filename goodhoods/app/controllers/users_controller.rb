@@ -14,7 +14,7 @@ class UsersController < ApplicationController
        if @found_user
          authorized_user = @found_user.authenticate(params[:password])
          session[:user_id] = @found_user.id
-     redirect_to home_path
+     redirect_to map_path
        end
      end
 end

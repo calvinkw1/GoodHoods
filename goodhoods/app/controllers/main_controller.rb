@@ -2,6 +2,7 @@ class MainController < ApplicationController
   require 'json'
 
   def map
+    @found_user = User.find session[:user_id]
   end
 
   def search
