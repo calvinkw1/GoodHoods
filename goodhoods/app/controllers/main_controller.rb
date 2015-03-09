@@ -8,12 +8,14 @@ class MainController < ApplicationController
   def search
     city = params[:city]
     state = params[:state]
+    neighborhood = params[:neighborhood]
     request = Typhoeus::Request.new(
       # ZWIS ID  X1-ZWz1e2kpo0z8cr_60bkd
       "http://www.zillow.com/webservice/GetDemographics.htm?zws-id=X1-ZWz1e2kpo0z8cr_60bkd&",
       method: :get,
       params: {
         city: city,
+        neighborhood: neighborhood,
         state: state
       }
     )

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
     delete 'logout', to: "users#logout", as: "logout"
 
-    get '/main/map'
+    # get '/main/map'
 
 
 

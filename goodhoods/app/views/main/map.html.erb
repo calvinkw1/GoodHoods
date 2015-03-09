@@ -19,6 +19,8 @@
   <%= text_field_tag(:city) %>
   <%= label_tag(:state, "State: ") %>
   <%= text_field_tag(:state) %>
+  <%= label_tag(:neighborhood, "Neighborhood: ") %>
+  <%= text_field_tag(:neighborhood) %>
   <%= submit_tag("Search") %>
 <% end %>
 
@@ -28,6 +30,8 @@
 
 
 <div id="city-summary"></div>
+
+<div id="people"></div>
 
 <div id="charts"></div>
 
