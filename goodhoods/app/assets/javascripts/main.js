@@ -23,23 +23,31 @@ google.maps.event.addDomListener(window, 'load', initialize);
   // this function is tied in with the search action in the main controller to pull zillow api data
   $("#search-input").submit(function(e) {
     e.preventDefault();
+    $("#city-summary").empty();
     $("#charts").empty();
     var city = $("#city").val();
     var state = $("#state").val();
+    var neighborhood = $("#neighborhood").val();
     var url = "/search";
-    $.getJSON(url, {city:city, state:state}, function(data) {
+    $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
+      console.log(data);
       // console.log(data.demographics.response.pages.page);
-      charts = data.demographics.response.charts.chart;
-      livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
-      for (i = 0; i < charts.length; i++) {
-        $("#charts").append("<h5>" + charts[i].name + "</h5>");
-        $("#charts").append("<div><img src=" + charts[i].url + "></div>");
-      }
+      var livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
+      var charts = data.demographics.response.charts.chart;
+      var people = data.demographics.response.pages.page[2].tables.table[0].data.attribute;
       $("#city-summary").append("<h5>Summary</h5>");
       for (i = 0; i < livesHere.length; i++) {
         $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
       }
-      console.log(data.demographics.response.pages.page[2]);
+      for (i = 0; i < charts.length; i++) {
+        $("#charts").append("<h5>" + charts[i].name + "</h5>");
+        $("#charts").append("<div><img src=" + charts[i].url + "></div>");
+      }
+      $("#people").append(data.demographics.response.pages.page[2].tables.table[0].name);
+      console.log(people[0]);
+      $("#people").append("<li>" + people[0].name + "</li>");
+      $("#people").append("<p>$" + people[0].values.city.value + "</p>");
+        // $("#people").append("<li>" + people[i].values.city.value + "</li>");
     });
   });
 
