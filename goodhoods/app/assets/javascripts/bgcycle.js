@@ -1,4 +1,4 @@
-var currentImageIndex = -1;
+var currentImageIndex = 0;
 var imageIds = new Array();
 var fadeSpeed;
 
