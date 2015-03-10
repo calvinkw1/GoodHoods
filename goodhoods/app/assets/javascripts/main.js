@@ -1,12 +1,10 @@
-
 var map, Lat, Lng, myLatLng, loc = Lat + Lng;
 
 function initialize() {
-
   var markers = [];
   var rendererOptions = {
     draggable: true
-   };
+  };
   var mapOptions = {
     zoom: 12,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
@@ -17,21 +15,35 @@ function initialize() {
     streetViewControl: true,
     overviewMapControl: true
   }; 
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);   
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  $.getJSON('/californiaZillow.json', function(hoods) {
+    console.log(hoods);
+    console.log(hoods.features[0].properties.CITY);
+    map.data.addGeoJson(hoods);
+  });
+  var featureStyle = {
+    fillColor: 'green',
+    strokeColor: '#E9DBE8',
+    strokeWeight: 2
+  };
+  map.data.setStyle(featureStyle); 
+  map.data.addListener('mouseover', function(event) {
+   map.data.overrideStyle(event.feature, {fillColor: 'red'});
+ });
+  map.data.addListener('mouseout', function(event) {
+   map.data.overrideStyle(event.feature, {fillColor: 'green'});
+ });
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
-
 $(document).ready(function(){
-    
-
-
   // this function is tied in with the search action in the main controller to pull zillow api data
   $("#search-input").submit(function(e) {
     e.preventDefault();
-        var city = $("#city").val();
+    var city = $("#city").val();
     var state = $("#state").val();
     var location = city + "+" + state;
     var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc"); // this encodes the URL to account for spaces
@@ -41,23 +53,22 @@ $(document).ready(function(){
       console.log(data);
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
       var Lng = data.results[0].geometry.location.lng; // json result stored in variable
-         // LatLng = (Lat , Lng);
          console.log(Lat);
          console.log(Lng);
-       map.panTo(new google.maps.LatLng(Lat,Lng));
-    $("#city-summary").empty();
-    $("#people").empty();
-    $("#characteristics").empty();
-    $("#ages").empty();
-    $("#kids").empty();
-    $("#relationships").empty();
-    $("#charts").empty();
-    var city = $("#city").val();
-    var state = $("#state").val();
-    var neighborhood = $("#neighborhood").val();
-    var url = "/search";
-    $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
-      console.log(data);
+         map.panTo(new google.maps.LatLng(Lat,Lng));
+         $("#city-summary").empty();
+         $("#people").empty();
+         $("#characteristics").empty();
+         $("#ages").empty();
+         $("#kids").empty();
+         $("#relationships").empty();
+         $("#charts").empty();
+         var city = $("#city").val();
+         var state = $("#state").val();
+         var neighborhood = $("#neighborhood").val();
+         var url = "/search";
+         $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
+          console.log(data);
       // console.log(data.demographics.response.pages.page);
       var livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
       $("#city-summary").append("<h5>Summary</h5>");
@@ -106,12 +117,11 @@ $(document).ready(function(){
           $("#characteristics").append("</tr>");
         }
       }
-console.log(data.demographics.response);
+      console.log(data.demographics.response);
 
     });
   });
 });
-        
 
 });
 
