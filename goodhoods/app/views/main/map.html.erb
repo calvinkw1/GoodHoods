@@ -2,13 +2,6 @@
 
 <h1>THE MAP</h1>
 
-
-<div id="map-canvas"></div>
-
-
-
-
-
 <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
   <%= label_tag(:city, "City: ") %>
   <%= text_field_tag(:city) %>
@@ -18,9 +11,6 @@
   <%= text_field_tag(:neighborhood) %>
   <%= submit_tag("Search") %>
 <% end %>
-
-
-
 
 <div id="map-canvas"></div>
 

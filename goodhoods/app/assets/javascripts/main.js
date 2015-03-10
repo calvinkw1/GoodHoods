@@ -24,21 +24,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-  $(document).ready(function(){
+$(document).ready(function(){
     
-// function searchBox() {  
-   console.log($("#search-input").toArray());
-  $("#search-input").on("submit", function(e) {
 
-    e.preventDefault(); 
-    var city = $("#city").val();
+
+  // this function is tied in with the search action in the main controller to pull zillow api data
+  $("#search-input").submit(function(e) {
+    e.preventDefault();
+        var city = $("#city").val();
     var state = $("#state").val();
     var location = city + "+" + state;
-   
-    
-    
     var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc"); // this encodes the URL to account for spaces
-   console.log(url);
+    console.log(url);
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
       console.log(data);
@@ -48,13 +45,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
          console.log(Lat);
          console.log(Lng);
        map.panTo(new google.maps.LatLng(Lat,Lng));
-              
-    }); 
-
-
-  // this function is tied in with the search action in the main controller to pull zillow api data
-  $("#search-input").submit(function(e) {
-    e.preventDefault();
     $("#city-summary").empty();
     $("#charts").empty();
     var city = $("#city").val();
