@@ -25,6 +25,7 @@ end
   def home
     user_id = session[:user_id]
     @found_user = User.find(user_id)
+    redirect_to map_path
   end
 
   def logout
