@@ -1,4 +1,4 @@
-var map, Lat, Lng, myLatLng, loc = Lat + Lng;
+var map, Lat, Lng, myLatLng;
 
 function initialize() {
 
@@ -19,7 +19,7 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   $.getJSON('/CaliZillowSimp.json', function(hoods) {
-  console.log(hoods.features[0].properties.CITY);
+  // console.log(hoods.features[0].properties.CITY);
   // console.log(hoods.features[0]);
   var labels = hoods;
   console.log(hoods);
@@ -44,15 +44,18 @@ function initialize() {
    map.data.setStyle(featureStyle); 
    map.data.addListener('mouseover', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'red'});
+   document.getElementById('info-box').textContent =
+        event.feature.getProperty('NAME');
    });
    map.data.addListener('mouseout', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
    });
+   map.data.addListener('click', function(event) {
+   map.setZoom(14);
+   });
 }  //END OF INTIALIZE FUNCTION
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
 
 
 $(document).ready(function(){
