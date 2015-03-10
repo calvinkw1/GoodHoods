@@ -5,6 +5,10 @@ class MainController < ApplicationController
     @found_user = User.find session[:user_id]
   end
 
+  def about
+    @found_user = User.find session[:user_id]
+  end
+
   def search
     city = params[:city]
     state = params[:state]
