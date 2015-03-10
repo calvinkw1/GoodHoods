@@ -23,11 +23,18 @@ function initialize() {
   // console.log(hoods.features[0]);
   var labels = hoods;
 console.log(hoods);
-  for (i = 0; i < labels.features.length; i++) {
-   console.log($("#search_input").toArray());
-    $("#labels").append("<li>" + labels.features[i].properties.CITY + ",  " + labels.features[i].properties.NAME + "</li>");
-  }
+  // console.log($("#search_input").toArray());
+    $("#search_input").on("submit", function(x) {
+       $("#labels").empty();
 
+      for (i = 0; i < labels.features.length; i++) {
+        var city = $("#city").val();
+      if (city == labels.features[i].properties.CITY) {
+       
+        $("#labels").append("<li><a>" + labels.features[i].properties.NAME + "</a></li>");
+      }
+      }
+    });
   // map.data.addGeoJson(hoods);
  }); 
 
