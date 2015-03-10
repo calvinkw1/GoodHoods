@@ -1,80 +1,39 @@
 Rails.application.routes.draw do
   root 'users#login'
 
+  get 'login', to: "users#login", as: 'login'
 
-  
-    get 'login', to: "users#login", as: 'login'
+  get 'signup', to: "users#signup", as: 'signup'
 
-    get 'signup', to: "users#signup", as: 'signup'
+  post 'login', to: "users#attempt_login"
 
-    post 'login', to: "users#attempt_login"
+  get 'about', to: "main#about", as: 'about'
 
-    post 'signup', to: "users#create"
+  post 'signup', to: "users#create"
 
-    get 'home', to: "users#home", as: 'home'
+  get 'home', to: "users#home", as: 'home'
 
-    delete 'logout', to: "users#logout", as: "logout"
+  delete 'logout', to: "users#logout", as: "logout"
 
-    get '/main/map'
-
-
+  get '/main/map'
 
   get '/main', to: 'main#map', as: 'map'
 
   get '/search', to: 'main#search', as: 'search'
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
+  #### RAKE ROUTES ####
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  #   Prefix Verb   URI Pattern         Controller#Action
+  #     root GET    /                   users#login
+  #    login GET    /login(.:format)    users#login
+  #   signup GET    /signup(.:format)   users#signup
+  #          POST   /login(.:format)    users#attempt_login
+  #    about GET    /about(.:format)    main#about
+  #          POST   /signup(.:format)   users#create
+  #     home GET    /home(.:format)     users#home
+  #   logout DELETE /logout(.:format)   users#logout
+  # main_map GET    /main/map(.:format) main#map
+  #      map GET    /main(.:format)     main#map
+  #   search GET    /search(.:format)   main#search
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end
