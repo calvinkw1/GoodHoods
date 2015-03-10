@@ -8,13 +8,25 @@
   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc"></script> -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<!-- &sensor=true -->
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
 <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 30px; padding: 0;}
+  html, body, #map-canvas { height: 100%; margin-top: 30px; padding: 0;}
+
+  .my_notice {
+    border-radius: 0px;
+    border: 0px;
+    background-color: rgba(255, 102, 102, 1);
+    color: white;
+  }
+  .my_alert {
+    background-color: rgba(255, 102, 102, 1);
+    color: #white;
+    border: 0px;
+  }
+
 </style>
 
 </head>
@@ -23,9 +35,9 @@
 
 <% flash.each do |key, value| %>
   <% if key == "notice" %>
-    <%= content_tag :div, value, class: "text-center alert alert-warning" %>
+    <%= content_tag :div, value, class: "text-center alert alert-warning my_notice" %>
   <% elsif key == "alert" %>
-    <%= content_tag :div, value, class: "text-center alert alert-danger" %>
+    <%= content_tag :div, value, class: "text-center alert alert-danger my_alert" %>
   <% else %>
     <%= content_tag :div, value, class: "text-center alert alert-success" %>
   <% end %>

@@ -1,20 +1,24 @@
 <style>
-body {
-  color: #ffffff;
-  }
+  body {
+    color: #ffffff;
+    }
 
-input {
-  color: #fff;
-  border-radius: 5px;
-  border: 0;
-  height: 35px; 
-  background-color: rgba(255, 102, 102, 0.9);
-  margin: 2px;
-  width: 140px;
-  padding: 5px;
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-  box-sizing: border-box;         /* Opera/IE 8+ */
+  input {
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    height: 35px; 
+    background-color: rgba(255, 102, 102, 0.9);
+    margin: 2px;
+    width: 140px;
+    padding: 5px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    }
+
+  input::-webkit-input-placeholder {
+     color: white;
   }
 
   .override {
@@ -28,6 +32,8 @@ input {
   
   a:hover {
     color: rgba(255, 102, 102, 0.9);
+    background-color: rgba(255, 102, 102, 0.2);
+    padding: 3px;
     text-decoration: none;
   }
 </style>
@@ -38,7 +44,7 @@ input {
             $(document).ready(function() {
                 $("body").backgroundCycle({
                     imageUrls: [
-                        'assets/bg5.jpg',
+                        'assets/bg5_low.jpg',
                         'assets/bg2.jpg',
                         'assets/bg3.jpg',
                         'assets/bg4.jpg',
@@ -88,12 +94,10 @@ input {
 <div class="row">
   <div class="col-md-12">
     <%= form_tag(login_path) do %>
-    <%= label_tag(:username)%>
-    <%= text_field_tag(:username, params[:username], autofocus: true)%>
-    <%= label_tag(:password)%>
-    <%= password_field_tag(:password) %>
-    <%= submit_tag("Log In") %>
-<% end %>
+    <%= text_field_tag(:username, params[:username], placeholder: "Username", autofocus: true)%>
+    <%= password_field_tag(:password, placeholder: "*") %>
+    <%= submit_tag("Go") %>
+    <% end %>
   </div>
 </div>
 
@@ -107,7 +111,7 @@ input {
 
 <div class="row">
   <div class="col-md-12">
-    <%= link_to "Don't have an account? Sign up here", signup_path %>
+    <%= link_to "Don't have an account? Sign up here.", signup_path %>
   </div>
 </div>
 
