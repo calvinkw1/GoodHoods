@@ -18,7 +18,7 @@ function initialize() {
   }; 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  $.getJSON('/sanFran.json', function(hoods) {
+  $.getJSON('/californiaZillow.json', function(hoods) {
   console.log(hoods);
   map.data.addGeoJson(hoods);
 
