@@ -1,6 +1,82 @@
-<h1>Welcome <%= @found_user.username %>!</h1> <%= link_to "Logout", logout_path, method: :delete %>
+<style>
+  body { padding-top: 60px; 
+  }
+  
+  #left {
+    display: inline-block;
+    text-align: left;
+  }
 
-<h1>THE MAP</h1>
+  .mynav {
+  background-color: rgba(255, 102, 102, 1);
+  color: #888;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  width: 100%; 
+  }
+
+  .mynav ul {
+    text-align: right;
+    margin: 0px;
+    padding: 11px;
+  }
+
+  .mynav ul li {
+      padding-left: 30px;
+      color: white;
+      display: inline-block;
+      list-style-type: none;
+      
+      -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s; 
+  }
+
+  .mynav ul li a {
+      color: white;
+      text-decoration: underline;
+  }
+
+  .mynav ul li a:hover {
+      color: rgba(255, 102, 102, 1);
+      background-color: rgba(255, 255, 255, 1);
+      text-decoration: none;
+  }
+
+  .floatleft {
+    float: left;
+    text-align: left;
+  }
+
+  .floatright {
+    float: right;
+    padding-top: 5px;
+  }
+
+  a {
+    color: rgba(255, 102, 102, 0.9);
+  }
+  
+  a:hover {
+    color: rgba(255, 102, 102, 0.9);
+    background: rgba(255, 102, 102, 0.2);
+    text-decoration: none;
+  }
+</style>
+
+<nav class="navbar navbar-default navbar-fixed-top mynav">
+  <div class="container">
+    <ul>
+    <div class="floatleft"><li><img src="assets/header_icon.png"></li></div>
+    <div class="floatright"><li>Logged in as <%= link_to @found_user.username %></li>
+    <li>Favorites</li>
+    <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
+    </ul>
+  </div>
+</nav>
 
 <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
   <%= label_tag(:city, "City: ") %>
