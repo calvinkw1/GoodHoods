@@ -48,7 +48,7 @@
 
   .floatleft {
     float: left;
-    margin-left: -40px;
+    margin-left: -30px;
   }
 
   .floatright {
@@ -71,14 +71,13 @@
     background: transparent;
     text-decoration: none;
   }
-
 </style>
 
 <nav class="navbar navbar-default navbar-fixed-top mynav">
   <div class="container">
     <ul>
     <div class="floatleft"><li id="nohover"><a href="/"><img src="assets/header_icon.png"></a></li></div>
-    <div class="floatright"><li>Logged in as <%= link_to @found_user.username %></li>
+    <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
     <li>Favorites</li>
     <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
     </ul>
@@ -115,28 +114,26 @@
       </ol>
       <p class="text-center lead">
         Good Hoods was built at <a href="http://generalassemb.ly">General Assembly</a> in San Francisco by:
-      </p>
-      <ol style="visibility:hidden;">
-      </ol>
+      </p><br />
     </div>
   </div>
 
   <div class="row">
     <div class="col-lg-2"></div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/brent1x"><img src="assets/brent.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/brent1x"><img src="assets/brent.png" height="150px" width="150px"></a></p><br />
       <p><a href="http://github.com/brent1x">@brent1x</a></p>
     </div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/calvinkw1"><img src="assets/calvin.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/calvinkw1"><img src="assets/calvin.png" height="150px" width="150px"></a></p><br />
       <p><a href="http://github.com/calvinkw1">@calvinkw1</a></p>
     </div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/doylemcpoyle"><img src="assets/pat.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/doylemcpoyle"><img src="assets/pat.png" height="150px" width="150px"></a></p><br />
       <p><a href="http://github.com/doylemcpoyle">@doylemcpoyle</a></p>
       </div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/MichaelPoP"><img src="assets/mike.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/MichaelPoP"><img src="assets/mike.png" height="150px" width="150px"></a></p><br />
       <p><a href="http://github.com/MichaelPoP">@michaelpop</a></p>
     </div>
     <div class="col-lg-2"></div>
