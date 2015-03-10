@@ -23,11 +23,11 @@ function initialize() {
   map.data.addGeoJson(hoods);
 
   });
-  var featureStyle = {
-    fillColor: 'green',
-    strokeColor: '#E9DBE8',
-    strokeWeight: 2
-  };
+    var featureStyle = {
+      fillColor: 'green',
+      strokeColor: '#E9DBE8',
+      strokeWeight: 2
+    };
    map.data.setStyle(featureStyle); 
    map.data.addListener('mouseover', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'red'});
