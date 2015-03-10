@@ -1,69 +1,69 @@
-<style type="text/css">  
-  body {
-    color: #000;
-  }
-  input {
-    color: #fff;
-    border-radius: 5px;
-    border: 0;
-    height: 35px; 
-    background-color: rgba(255, 102, 102, 0.9);
-    margin: 2px;
-    width: 140px;
-    padding: 5px;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
-    }
-  .override {
-    color: white;
-    width: 70px;
-  }
+<style>
   a {
     color: rgba(255, 102, 102, 0.9);
   }
+  
   a:hover {
     color: rgba(255, 102, 102, 0.9);
+    background: rgba(255, 102, 102, 0.2);
     text-decoration: none;
   }
-</style>  
+</style>
 
 <div class="container-fluid">
 
-<div class="row">
-  <div class="col-md-12">
-    Logged in as Calvin | Favorites | Sign Out
+  <div class="row">
+    <div class="col-lg-12">
+      <p class="text-right">
+        Logged in as <%= link_to @found_user.username %> | Favorites | Sign Out
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12">
-    <ol style="visibility:hidden;">
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-      <li>&nbsp;</li>
-    </ol>
+  <div class="row">
+    <div class="col-md-12">
+      <ol style="visibility:hidden;">
+        <li>&nbsp;</li>
+        <li>&nbsp;</li>
+      </ol>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12">
-    test
-  </div>
-</div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <p class="text-left lead">
+        We built Good Hoods to let you and other prospective home buyers  quickly and easily research neighborhoods where you might one day live. 
 
-<div class="row">
-  <div class="col-md-12">
-    <ol style="visibility:hidden;">
-      <li>&nbsp;</li>
-    </ol>
+        We consolidate data from Google Maps, Zillow and The Weather Underground to give you pertinent information about specific neighborhoods you’re interested in, and to save you time to do other things – like secure a home loan! 
+      </p>
+      <p>&nbsp;</p>
+      <p class="text-left lead">
+        Good Hoods was built at <a href="http://generalassemb.ly">General Assembly</a> in San Francisco by:
+      </p>
+    </div>
+    <div class="col-md-2"></div>
+  </div>  
+
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/brent1x"><img src="assets/brent.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/brent1x">@brent1x</a></p>
+    </div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/calvinkw1"><img src="assets/calvin.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/calvinkw1">@calvinkw1</a></p>
+    </div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/doylemcpoyle"><img src="assets/pat.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/doylemcpoyle">@doylemcpoyle</a></p>
+      </div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/MichaelPoP"><img src="assets/mike.png" height="150px" width="150px"></a></p>
+      <p><a href="http://github.com/MichaelPoP">@michaelpop</a></p>
+    </div>
+    <div class="col-lg-2"></div>
   </div>
-</div>
 
 </div>
