@@ -33,21 +33,54 @@ google.maps.event.addDomListener(window, 'load', initialize);
       console.log(data);
       // console.log(data.demographics.response.pages.page);
       var livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
-      var charts = data.demographics.response.charts.chart;
-      var people = data.demographics.response.pages.page[2].tables.table[0].data.attribute;
       $("#city-summary").append("<h5>Summary</h5>");
       for (i = 0; i < livesHere.length; i++) {
         $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
       }
+      var charts = data.demographics.response.charts.chart;
       for (i = 0; i < charts.length; i++) {
         $("#charts").append("<h5>" + charts[i].name + "</h5>");
         $("#charts").append("<div><img src=" + charts[i].url + "></div>");
       }
+      var people = data.demographics.response.pages.page[2].tables.table[0].data.attribute;
       $("#people").append(data.demographics.response.pages.page[2].tables.table[0].name);
-      console.log(people[0]);
-      $("#people").append("<li>" + people[0].name + "</li>");
-      $("#people").append("<p>$" + people[0].values.city.value + "</p>");
-        // $("#people").append("<li>" + people[i].values.city.value + "</li>");
+      for (i = 0; i < people.length; i++) {
+        // People data
+        $("#people").append("<li>" + people[i].name + "</li>");
+        $("#people").append("<p>" + people[i].values.neighborhood.value + "</p>");
+      }
+      var ages = data.demographics.response.pages.page[2].tables.table[1];
+      $("#ages").append("<li>" + ages.name + "</li>");
+      for (i = 0; i < ages.data.attribute.length; i++) {
+        $("#ages").append("<li>" + ages.data.attribute[i].name + "</li>");
+        $("#ages").append("<p>" + ages.data.attribute[i].value + "</p>");
+      }
+      var kids = data.demographics.response.pages.page[2].tables.table[3];
+      $("#kids").append("<li>" + kids.name + "</li>");
+      for (i = 0; i < kids.data.attribute.length; i++) {
+        $("#kids").append("<p>" + kids.data.attribute[i].name + "</p>");
+        $("#kids").append("<p>" + kids.data.attribute[i].value + "</p>");
+      }
+      var relationships = data.demographics.response.pages.page[2].tables.table[4];
+      $("#relationships").append("<li>" + relationships.name);
+      for (i = 0; i < relationships.data.attribute.length; i++) {
+        $("#relationships").append("<p>" + relationships.data.attribute[i].name + "</p>");
+        $("#relationships").append("<p>" + Math.round(100 * relationships.data.attribute[i].value) + "%</p>");
+      }
+      var characteristics = data.demographics.response.pages.page[2].uniqueness.category;
+      $("#characteristics").append("<h5>Neighborhood Characteristics</h5>");
+      for (i = 0; i < characteristics.length; i++) {
+        $("#characteristics").append("<tr>");
+        $("#characteristics").append("<th>" + characteristics[i].type + "</th>");
+        $("#characteristics").append("</tr>");
+        for (n = 0; n < characteristics[i].characteristic.length; n++) {
+          $("#characteristics").append("<tr>");
+          $("#characteristics").append("<td>" + characteristics[i].characteristic[n] + "</td>");
+          $("#characteristics").append("</tr>");
+        }
+      }
+console.log(data.demographics.response);
+
     });
   });
 
