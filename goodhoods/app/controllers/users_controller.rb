@@ -17,7 +17,7 @@ class UsersController < ApplicationController
      redirect_to map_path
    else 
     #flash message
-    flash[:notice] = "Wrong usernanme or password. Please try again."
+    flash.now[:notice] = "Wrong usernanme or password. Please try again."
     render :login
        end
      end
