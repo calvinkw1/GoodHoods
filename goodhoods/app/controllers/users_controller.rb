@@ -15,6 +15,8 @@ class UsersController < ApplicationController
          authorized_user = @found_user.authenticate(params[:password])
          session[:user_id] = @found_user.id
      redirect_to map_path
+   else 
+    render :login
        end
      end
 end
