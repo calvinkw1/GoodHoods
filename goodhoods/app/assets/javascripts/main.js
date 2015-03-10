@@ -46,6 +46,11 @@ $(document).ready(function(){
          console.log(Lng);
        map.panTo(new google.maps.LatLng(Lat,Lng));
     $("#city-summary").empty();
+    $("#people").empty();
+    $("#characteristics").empty();
+    $("#ages").empty();
+    $("#kids").empty();
+    $("#relationships").empty();
     $("#charts").empty();
     var city = $("#city").val();
     var state = $("#state").val();
