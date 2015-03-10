@@ -1,14 +1,118 @@
-<h1>Signup</h1>
+<style>
+  body {
+    color: #ffffff;
+    }
 
-<%= simple_form_for(@user, url: signup_path) do |f|%>
-  <p>
+  input {
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    height: 35px; 
+    background-color: rgba(255, 102, 102, 0.9);
+    margin: 2px;
+    width: 140px;
+    padding: 5px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    }
+
+  input::-webkit-input-placeholder {
+     color: white;
+  }
+
+  .override {
+    color: white;
+    width: 70px;
+  }
+  
+  a {
+    color: rgba(255, 102, 102, 0.9);
+  }
+  
+  a:hover {
+    color: rgba(255, 102, 102, 0.9);
+    background-color: rgba(255, 102, 102, 0.2);
+    padding: 3px;
+    text-decoration: none;
+  }
+</style>
+
+<%= javascript_include_tag "bgcycle", "data-turbolinks-track" => true %>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("body").backgroundCycle({
+                    imageUrls: [
+                        'assets/bg5_low.jpg',
+                        'assets/bg2.jpg',
+                        'assets/bg3.jpg',
+                        'assets/bg4.jpg',
+                        'assets/bg1.jpg'
+                    ],
+                    fadeSpeed: 1000,
+                    duration: 5000,
+                    backgroundSize: SCALING_MODE_COVER
+                });
+            });
+        </script>
+
+<div class="container-fluid">
+
+<div class="row">
+  <div class="col-md-12">
+    <ol style="visibility:hidden;">
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= image_tag("header.png", size: "650x75") %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <ol style="visibility:hidden;">
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= simple_form_for(@user, url: signup_path) do |f|%>
     <%= f.input(:username, autofocus: true) %>
-  </p>
-  <p>
     <%= f.input(:password, required: true) %>
-  </p>
-  <p>
     <%= f.button(:submit, "Signup", class: "btn btn-primary") %>
-  </p>
-    <%= link_to "Have an account already? Log in here", login_path %>
-<% end %>
+  <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <ol style="visibility:hidden;">
+      <li>&nbsp;</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to "Already have an account? Log in here.", signup_path %>
+  </div>
+</div>
+
+</div>
