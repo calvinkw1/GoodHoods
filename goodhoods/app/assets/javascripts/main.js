@@ -1,3 +1,4 @@
+
 var map, Lat, Lng, myLatLng, loc = Lat + Lng;
 
 function initialize() {
@@ -26,8 +27,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
   $(document).ready(function(){
     
 // function searchBox() {  
-   console.log($("#search_input").toArray());
-  $("#search_input").on("submit", function(e) {
+   console.log($("#search-input").toArray());
+  $("#search-input").on("submit", function(e) {
 
     e.preventDefault(); 
     var city = $("#city").val();
@@ -49,139 +50,75 @@ google.maps.event.addDomListener(window, 'load', initialize);
        map.panTo(new google.maps.LatLng(Lat,Lng));
               
     }); 
+
+
+  // this function is tied in with the search action in the main controller to pull zillow api data
+  $("#search-input").submit(function(e) {
+    e.preventDefault();
+    $("#city-summary").empty();
+    $("#charts").empty();
+    var city = $("#city").val();
+    var state = $("#state").val();
+    var neighborhood = $("#neighborhood").val();
+    var url = "/search";
+    $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
+      console.log(data);
+      // console.log(data.demographics.response.pages.page);
+      var livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
+      $("#city-summary").append("<h5>Summary</h5>");
+      for (i = 0; i < livesHere.length; i++) {
+        $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
+      }
+      var charts = data.demographics.response.charts.chart;
+      for (i = 0; i < charts.length; i++) {
+        $("#charts").append("<h5>" + charts[i].name + "</h5>");
+        $("#charts").append("<div><img src=" + charts[i].url + "></div>");
+      }
+      var people = data.demographics.response.pages.page[2].tables.table[0].data.attribute;
+      $("#people").append(data.demographics.response.pages.page[2].tables.table[0].name);
+      for (i = 0; i < people.length; i++) {
+        // People data
+        $("#people").append("<li>" + people[i].name + "</li>");
+        $("#people").append("<p>" + people[i].values.neighborhood.value + "</p>");
+      }
+      var ages = data.demographics.response.pages.page[2].tables.table[1];
+      $("#ages").append("<li>" + ages.name + "</li>");
+      for (i = 0; i < ages.data.attribute.length; i++) {
+        $("#ages").append("<li>" + ages.data.attribute[i].name + "</li>");
+        $("#ages").append("<p>" + ages.data.attribute[i].value + "</p>");
+      }
+      var kids = data.demographics.response.pages.page[2].tables.table[3];
+      $("#kids").append("<li>" + kids.name + "</li>");
+      for (i = 0; i < kids.data.attribute.length; i++) {
+        $("#kids").append("<p>" + kids.data.attribute[i].name + "</p>");
+        $("#kids").append("<p>" + kids.data.attribute[i].value + "</p>");
+      }
+      var relationships = data.demographics.response.pages.page[2].tables.table[4];
+      $("#relationships").append("<li>" + relationships.name);
+      for (i = 0; i < relationships.data.attribute.length; i++) {
+        $("#relationships").append("<p>" + relationships.data.attribute[i].name + "</p>");
+        $("#relationships").append("<p>" + Math.round(100 * relationships.data.attribute[i].value) + "%</p>");
+      }
+      var characteristics = data.demographics.response.pages.page[2].uniqueness.category;
+      $("#characteristics").append("<h5>Neighborhood Characteristics</h5>");
+      for (i = 0; i < characteristics.length; i++) {
+        $("#characteristics").append("<tr>");
+        $("#characteristics").append("<th>" + characteristics[i].type + "</th>");
+        $("#characteristics").append("</tr>");
+        for (n = 0; n < characteristics[i].characteristic.length; n++) {
+          $("#characteristics").append("<tr>");
+          $("#characteristics").append("<td>" + characteristics[i].characteristic[n] + "</td>");
+          $("#characteristics").append("</tr>");
+        }
+      }
+console.log(data.demographics.response);
+
+    });
   });
 });
-        //   var mapOptions = {
-        //   center: new google.maps.LatLng (Lat, Lng),
-        //   zoom: 13,
-        //   mapTypeId: google.maps.MapTypeId.ROADMAP
-        // }
-        // var myLatlng = new google.maps.LatLng(Lat, Lng);
-        //  // var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        //  console.log(map);
-   
-      
-    
-      // var myLatlng = new google.maps.LatLng(Lat, Lng);
-      // // map.setCenter(new google.maps.LatLng(Lat , Lng));
-      // var mapOptions = {
-      // zoom: 15,
-      // center: new google.maps.LatLng(33.33 , -33.33),
-      // };
-      // var marker = new google.maps.Marker({
-      //   draggable: true,
-      //   animation: google.maps.Animation.DROP,
-      //   position: myLatlng
-    
-      // });
-      //  marker.setMap(map);
+        
 
-
-
- // map.setCenter(new google.maps.LatLng(Lat,Lng));
-      // map.setZoom(15);
-      // map.addMarker({
-      //   lat: LatLng.Lat(),
-      //   lng: LatLng.Lng()
-      // });
-      // console.log(Lat);
-      // // myLatlng = new google.maps.LatLng(lat, lng);
-      // // };
-      // new google.maps.Map(Lat, Lng);
-      //     moveToLocation();
-      // addMarker(); // calling function to drop marker on map
-
-
-
-
-
-// }
-// searchBox();
-
-
-// function moveToLocation() {
-//   // var myLatlng = new google.maps.LatLng(lat, lng);
-// console.log(Lat);
-//    map.setCenter(new google.maps.LatLng(lat, lng));
-//    map.setZoom(15);
-
-//   new google.maps.LatLng(Lat, Lng);
-//   var mapOptions = {
-//     zoom: 15,
-//     center: myLatlng
-//   };
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var input = (document.getElementById('search-input'));
-//   input = new google.maps.LatLng(Lat, Lng);
-//   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-
-
-
-
-
-  //COMMENTED OUT IN ORDER TO REPURPOSE FROM ZILLOW API CALL TO MAP SEARCHING
-  // $("form").submit(function(e) {
-  //   e.preventDefault();
-  //   $("#charts").empty();
-  //   var city = $("#city").val();
-  //   var state = $("#state").val();
-  //   var url = "/search";
-  //   $.getJSON(url, {city:city, state:state}, function(data) {
-  //     charts = data.demographics.response.charts.chart;
-  //     for (i = 0; i < charts.length; i++) {
-  //       $("#charts").append("<h5>" + charts[i].name + "</h5>");
-  //       $("#charts").append("<div><img src=" + charts[i].url + "></div>");
-  //     }
-  //     console.log(charts);
-  //   });
-  // });
-
-
-
+});
 
 
 

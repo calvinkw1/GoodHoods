@@ -9,15 +9,15 @@ class UsersController < ApplicationController
   end
 
   def attempt_login
-  if params[:username].present? && params[:password].present?
-       @found_user = User.where(username: params[:username]).first
-       if @found_user
-         authorized_user = @found_user.authenticate(params[:password])
-         session[:user_id] = @found_user.id
-     redirect_to home_path
-       end
-     end
-end
+    if params[:username].present? && params[:password].present?
+      @found_user = User.where(username: params[:username]).first
+        if @found_user
+          authorized_user = @found_user.authenticate(params[:password])
+          session[:user_id] = @found_user.id
+          redirect_to map_path
+        end
+    end
+  end
 
 
   def home
