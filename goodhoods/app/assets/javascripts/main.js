@@ -1,4 +1,4 @@
-var map, Lat, Lng, myLatLng;
+var map, Lat, Lng, myLatLng, latitude, longitude;
 
 function initialize() {
 
@@ -20,16 +20,18 @@ function initialize() {
 
   $.getJSON('/CaliZillowSimp.json', function(hoods) {
   // console.log(hoods.features[0].properties.CITY);
-  // console.log(hoods.features[0]);
+  console.log(hoods.features[0].geometry.coordinates[0][0][0]);
   var labels = hoods;
-  console.log(hoods);
+// console.log(hoods);
   // console.log($("#search_input").toArray());
     $("#search_input").on("submit", function(x) {
        $("#labels").empty();
       for (i = 0; i < labels.features.length; i++) {
+        // latitude = hoods.features[i].geometry.coordinates[0][0][0];
+        // longitude = hoods.features[i].geometry.coordinates[0][0][1];
           var city = $("#city").val();
         if (city == labels.features[i].properties.CITY) {
-          $("#labels").append("<li><a>" + labels.features[i].properties.NAME + "</a></li>");
+          $("#labels").append("<li><a id='neighborhood' href='javascript:void(0)'>" + labels.features[i].properties.NAME + "</a></li>");
         }
       }
     });
@@ -57,11 +59,10 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
 $(document).ready(function(){
   
   function searchBox() {  
-    console.log($("#search_input").toArray());
+    // console.log($("#search_input").toArray());
     $("#search_input").on("submit", function(e) {
 
       e.preventDefault(); 
@@ -76,8 +77,8 @@ $(document).ready(function(){
           console.log(data);
           var Lat = data.results[0].geometry.location.lat; // json result stored in variable
           var Lng = data.results[0].geometry.location.lng; // json result stored in variable
-            console.log(Lat);
-            console.log(Lng);
+            // console.log(Lat);
+            // console.log(Lng);
            map.panTo(new google.maps.LatLng(Lat,Lng));
            map.setZoom(12);
                   
@@ -85,7 +86,25 @@ $(document).ready(function(){
     });
   }
   searchBox();
-});
+
+  $("body").on("click", "#neighborhood", function(x){
+    x.preventDefault();
+    console.log($(this).text());
+    var clickLocation = ($(this).text());
+    var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation + "+CA" +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
+      console.log(result);
+    $.getJSON(result, function(clickData) {
+       console.log(clickData);
+       console.log("CLICKED!");
+          var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
+          var longitude = clickData.results[0].geometry.location.lng;
+
+            map.setCenter(new google.maps.LatLng(latitude,longitude));
+            map.setZoom(14);
+    });
+  });
+}); //END OF DOCREADY FUNCTION
+  
  
 
 
