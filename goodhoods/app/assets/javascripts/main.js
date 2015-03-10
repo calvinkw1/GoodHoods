@@ -16,8 +16,27 @@ function initialize() {
     streetViewControl: true,
     overviewMapControl: true
   }; 
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);   
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  $.getJSON('/sanFran.json', function(hoods) {
+  console.log(hoods);
+  map.data.addGeoJson(hoods);
+
+  });
+  var featureStyle = {
+    fillColor: 'green',
+    strokeColor: '#E9DBE8',
+    strokeWeight: 2
+  };
+   map.data.setStyle(featureStyle); 
+   map.data.addListener('mouseover', function(event) {
+   map.data.overrideStyle(event.feature, {fillColor: 'red'});
+   });
+   map.data.addListener('mouseout', function(event) {
+   map.data.overrideStyle(event.feature, {fillColor: 'green'});
+});
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 
