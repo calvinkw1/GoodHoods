@@ -72,7 +72,7 @@
     <div class="floatleft"><li><img src="assets/header_icon.png"></li></div>
     <div class="floatright"><li>Logged in as <%= link_to @found_user.username %></li>
     <li>Favorites</li>
-    <li>Sign Out</li></div>
+    <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
     </ul>
   </div>
 </nav>

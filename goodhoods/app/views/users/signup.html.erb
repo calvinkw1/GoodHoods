@@ -21,9 +21,13 @@
      color: white;
   }
 
-  .override {
+  .my-button {
+    margin-top: -2px;
+    border-radius: 5px;
+  }
+
+  .my-button:hover {
     color: white;
-    width: 70px;
   }
   
   a {
@@ -36,6 +40,17 @@
     padding: 3px;
     text-decoration: none;
   }
+
+  .simple_form div.input {
+  display: inline-block;
+  margin-left: 0px;
+  }
+
+  .simple_form div.button {
+  display: inline-block;
+  margin-left: 0px;
+  }
+
 </style>
 
 <%= javascript_include_tag "bgcycle", "data-turbolinks-track" => true %>
@@ -94,9 +109,9 @@
 <div class="row">
   <div class="col-md-12">
     <%= simple_form_for(@user, url: signup_path) do |f|%>
-    <%= f.input(:username, autofocus: true) %>
-    <%= f.input(:password, required: true) %>
-    <%= f.button(:submit, "Signup", class: "btn btn-primary") %>
+    <%= f.input(:username, autofocus: true, placeholder: 'Username', label: false) %>
+    <%= f.input(:password, placeholder: 'Password', label: false) %>
+    <%= f.button(:submit, "Sign Up", class: "my-button") %>
   <% end %>
   </div>
 </div>
@@ -111,7 +126,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= link_to "Already have an account? Log in here.", signup_path %>
+    <%= link_to "Already have an account? Log in here.", login_path %>
   </div>
 </div>
 
