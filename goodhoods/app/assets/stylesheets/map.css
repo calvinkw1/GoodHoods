@@ -1,5 +1,16 @@
-  body { padding-top: 60px; 
+  body { padding-top: 60px; }
+
+  #map-canvas {
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box;
+    height: 500px;
+    width: 500px;
+    margin-top: 30px;
+    padding: 0px;
   }
+
+  #map-canvas img { width: auto; display:inline; max-width: none; }
   
   #left {
     display: inline-block;

@@ -1,4 +1,3 @@
-
 var map, Lat, Lng, myLatLng, loc = Lat + Lng;
 
 function initialize() {
