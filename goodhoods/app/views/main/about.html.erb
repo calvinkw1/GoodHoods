@@ -1,4 +1,60 @@
 <style>
+  body { padding-top: 60px; 
+  }
+  
+  #left {
+    display: inline-block;
+    text-align: left;
+  }
+
+  .mynav {
+  background-color: rgba(255, 102, 102, 1);
+  color: #888;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  width: 100%; 
+  }
+
+  .mynav ul {
+    text-align: right;
+    margin: 0px;
+    padding: 11px;
+  }
+
+  .mynav ul li {
+      padding-left: 30px;
+      color: white;
+      display: inline-block;
+      list-style-type: none;
+      
+      -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s; 
+  }
+
+  .mynav ul li a {
+      color: white;
+      text-decoration: underline;
+  }
+
+  .mynav ul li a:hover {
+      color: rgba(255, 102, 102, 1);
+      background-color: rgba(255, 255, 255, 1);
+      text-decoration: none;
+  }
+
+  .floatleft {
+    float: left;
+  }
+
+  .floatright {
+    float: right;
+    padding-top: 5px;
+  }
+
   a {
     color: rgba(255, 102, 102, 0.9);
   }
@@ -10,19 +66,23 @@
   }
 </style>
 
-<div class="container-fluid">
-
-  <div class="row">
-    <div class="col-lg-12">
-      <p class="text-right">
-        Logged in as <%= link_to @found_user.username %> | Favorites | Sign Out
-      </p>
-    </div>
+<nav class="navbar navbar-default navbar-fixed-top mynav">
+  <div class="container">
+    <ul>
+    <div class="floatleft"><li><img src="assets/header_icon.png"></li></div>
+    <div class="floatright"><li>Logged in as <%= link_to @found_user.username %></li>
+    <li>Favorites</li>
+    <li>Sign Out</li></div>
+    </ul>
   </div>
+</nav>
+
+<div class="container-fluid">
 
   <div class="row">
     <div class="col-md-12">
       <ol style="visibility:hidden;">
+        <li>&nbsp;</li>
         <li>&nbsp;</li>
         <li>&nbsp;</li>
       </ol>
@@ -38,7 +98,7 @@
         We consolidate data from Google Maps, Zillow and The Weather Underground to give you pertinent information about specific neighborhoods you’re interested in, and to save you time to do other things – like secure a home loan! 
       </p>
       <p>&nbsp;</p>
-      <p class="text-left lead">
+      <p class="text-center lead">
         Good Hoods was built at <a href="http://generalassemb.ly">General Assembly</a> in San Francisco by:
       </p>
     </div>
@@ -65,5 +125,7 @@
     </div>
     <div class="col-lg-2"></div>
   </div>
+
+</div>
 
 </div>
