@@ -48,6 +48,7 @@
 
   .floatleft {
     float: left;
+    margin-left: -40px;
   }
 
   .floatright {
@@ -64,12 +65,19 @@
     background: rgba(255, 102, 102, 0.2);
     text-decoration: none;
   }
+
+  #nohover a:hover {
+    color: transparent;
+    background: transparent;
+    text-decoration: none;
+  }
+
 </style>
 
 <nav class="navbar navbar-default navbar-fixed-top mynav">
   <div class="container">
     <ul>
-    <div class="floatleft"><li><img src="assets/header_icon.png"></li></div>
+    <div class="floatleft"><li id="nohover"><a href="/"><img src="assets/header_icon.png"></a></li></div>
     <div class="floatright"><li>Logged in as <%= link_to @found_user.username %></li>
     <li>Favorites</li>
     <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
@@ -83,8 +91,6 @@
     <div class="col-md-12">
       <ol style="visibility:hidden;">
         <li>&nbsp;</li>
-        <li>&nbsp;</li>
-        <li>&nbsp;</li>
       </ol>
     </div>
   </div>
@@ -97,13 +103,23 @@
 
         We consolidate data from Google Maps, Zillow and The Weather Underground to give you pertinent information about specific neighborhoods you’re interested in, and to save you time to do other things – like secure a home loan! 
       </p>
-      <p>&nbsp;</p>
-      <p class="text-center lead">
-        Good Hoods was built at <a href="http://generalassemb.ly">General Assembly</a> in San Francisco by:
-      </p>
     </div>
     <div class="col-md-2"></div>
   </div>  
+
+  <div class="row">
+    <div class="col-md-12">
+      <ol style="visibility:hidden;">
+        <li>&nbsp;</li>
+        <li>&nbsp;</li>
+      </ol>
+      <p class="text-center lead">
+        Good Hoods was built at <a href="http://generalassemb.ly">General Assembly</a> in San Francisco by:
+      </p>
+      <ol style="visibility:hidden;">
+      </ol>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-lg-2"></div>

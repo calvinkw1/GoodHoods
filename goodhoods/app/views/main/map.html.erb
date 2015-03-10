@@ -48,7 +48,7 @@
 
   .floatleft {
     float: left;
-    text-align: left;
+    margin-left: -40px;
   }
 
   .floatright {
@@ -65,12 +65,18 @@
     background: rgba(255, 102, 102, 0.2);
     text-decoration: none;
   }
+
+  #nohover a:hover {
+    color: transparent;
+    background: transparent;
+    text-decoration: none;
+  }
 </style>
 
 <nav class="navbar navbar-default navbar-fixed-top mynav">
   <div class="container">
     <ul>
-    <div class="floatleft"><li><img src="assets/header_icon.png"></li></div>
+    <div class="floatleft"><li id="nohover"><a href="/"><img src="assets/header_icon.png"></a></li></div>
     <div class="floatright"><li>Logged in as <%= link_to @found_user.username %></li>
     <li>Favorites</li>
     <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
