@@ -16,6 +16,8 @@ class UsersController < ApplicationController
          session[:user_id] = @found_user.id
      redirect_to map_path
    else 
+    #flash message
+    flash[:notice] = "Wrong usernanme or password. Please try again."
     render :login
        end
      end
@@ -45,7 +47,7 @@ end
 private 
 def prevent_login_signup
   if session[:user_id]
-    redirect_to home_path
+    redirect_to map_path
   end
 end
 end
