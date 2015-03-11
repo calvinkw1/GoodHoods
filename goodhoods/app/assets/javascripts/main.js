@@ -1,4 +1,4 @@
-var map, Lat, Lng, myLatLng, latitude, longitude;
+var map, Lat, Lng, myLatLng, latitude, longitude, city;
 
 function initialize() {
   var markers = [];
@@ -25,12 +25,12 @@ function initialize() {
   var labels = hoods;
 // console.log(hoods);
   // console.log($("#search_input").toArray());
-    $("#search_input").on("submit", function(x) {
+    $("#search-input").on("submit", function(x) {
        $("#labels").empty();
       for (i = 0; i < labels.features.length; i++) {
         // latitude = hoods.features[i].geometry.coordinates[0][0][0];
         // longitude = hoods.features[i].geometry.coordinates[0][0][1];
-          var city = $("#city").val();
+          city = $("#city").val();
         if (city == labels.features[i].properties.CITY) {
           $("#labels").append("<li><a id='neighborhood' href='javascript:void(0)'>" + labels.features[i].properties.NAME + "</a></li>");
         }
@@ -66,13 +66,16 @@ $(document).ready(function() {
 function searchBox() {
   $("#search-input").submit(function(e) {
     e.preventDefault();
-    var city = $("#city").val();
+    city = $("#city").val();
+        console.log(city);
+
     var state = $("#state").val();
     var neighborhood = $("#neighborhood").val();
     var location = city + "+" + state;
     var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc"); // this encodes the URL to account for spaces
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
+      console.log(data);
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
       var Lng = data.results[0].geometry.location.lng; // json result stored in variable
          map.panTo(new google.maps.LatLng(Lat,Lng));
@@ -84,7 +87,7 @@ function searchBox() {
          $("#kids").empty();
          $("#relationships").empty();
          $("#charts").empty();
-         var city = $("#city").val();
+         city = $("#city").val();
          var state = $("#state").val();
          var neighborhood = $("#neighborhood").val();
          var url = "/search";
@@ -171,19 +174,19 @@ function searchBox() {
 });
 }
 
-});
 
 searchBox();
 
   $("body").on("click", "#neighborhood", function(x){
     x.preventDefault();
     console.log($(this).text());
-    var clickLocation = ($(this).text());
-    var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation + "+CA" +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
+    var clickLocation = ($(this).text()) + "+" + city;
+    var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
       console.log(result);
     $.getJSON(result, function(clickData) {
        console.log(clickData);
        console.log("CLICKED!");
+       console.log(clickData.results[0].geometry.location.lat);
           var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           var longitude = clickData.results[0].geometry.location.lng;
 
@@ -191,4 +194,4 @@ searchBox();
             map.setZoom(14);
     });
   });
-
+});
