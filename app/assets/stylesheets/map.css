@@ -1,150 +1,147 @@
-  body { 
-    padding-top: 60px;
-    margin-top: 20px;
-   }
- 
-  #map-canvas {
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
-    height: 500px;
-    width: 500px;
-    margin-top: 20px;
-    padding: 0px;
-  }
+body { 
+  padding-top: 60px;
+  margin-top: 20px;
+ }
 
-  #map-canvas img { width: auto; display:inline; max-width: none; }
-  
-  #left {
+#map-canvas {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 550px;
+  width: 550px;
+  margin-top: 20px;
+  /*padding: 10%;*/
+}
+
+#map-canvas img { width: auto; display:inline; max-width: none; }
+
+#left {
+  display: inline-block;
+  text-align: left;
+}
+
+.mynav {
+background-color: rgba(255, 102, 102, 1);
+color: #888;
+display: block;
+margin: 0;
+overflow: hidden;
+width: 100%; 
+}
+
+.mynav ul {
+  text-align: right;
+  margin: 0px;
+  padding: 11px;
+}
+
+.mynav ul li {
+    padding-left: 30px;
+    color: white;
     display: inline-block;
-    text-align: left;
-  }
+    list-style-type: none;
 
-  .mynav {
-  background-color: rgba(255, 102, 102, 1);
-  color: #888;
-  display: block;
-  margin: 0;
-  overflow: hidden;
-  width: 100%; 
-  }
+    
+    -webkit-transition: all 0.2s;
+      -moz-transition: all 0.2s;
+      -ms-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      transition: all 0.2s; 
+}
 
-  .mynav ul {
-    text-align: right;
-    margin: 0px;
-    padding: 11px;
-  }
+.mynav ul li a {
+    color: white;
+    text-decoration: underline;
+}
 
-  .mynav ul li {
-      padding-left: 30px;
-      color: white;
-      display: inline-block;
-      list-style-type: none;
-
-      
-      -webkit-transition: all 0.2s;
-        -moz-transition: all 0.2s;
-        -ms-transition: all 0.2s;
-        -o-transition: all 0.2s;
-        transition: all 0.2s; 
-  }
-
-  .mynav ul li a {
-      color: white;
-      text-decoration: underline;
-  }
-
-  .mynav ul li a:hover {
-      color: rgba(255, 102, 102, 1);
-      background-color: rgba(255, 255, 255, 1);
-      text-decoration: none;
-  }
-
-  .floatleft {
-    float: left;
-    margin-left: -30px;
-  }
-
-  .floatright {
-    float: right;
-    padding-top: 5px;
-  }
-
-  .spacer {
-    margin-top: 0px;
-  }
-
-  a {
-    color: rgba(255, 102, 102, 0.9);
-  }
-  
-  a:hover {
-    color: rgba(255, 102, 102, 0.9);
-    background: rgba(255, 102, 102, 0.2);
+.mynav ul li a:hover {
+    color: rgba(255, 102, 102, 1);
+    background-color: rgba(255, 255, 255, 1);
     text-decoration: none;
-  }
+}
 
-  #nohover a:hover {
-    color: transparent;
-    background: transparent;
-    text-decoration: none;
-  }
+.floatleft {
+  float: left;
+  margin-left: -30px;
+}
 
-  span.glyphicon-link {
-    font-size: 1.2em;
-  }
+.floatright {
+  float: right;
+  padding-top: 5px;
+}
+
+.spacer {
+  margin-top: 0px;
+}
+
+a {
+  color: rgba(255, 102, 102, 0.9);
+}
+
+a:hover {
+  color: rgba(255, 102, 102, 0.9);
+  background: rgba(255, 102, 102, 0.2);
+  text-decoration: none;
+}
+
+#nohover a:hover {
+  color: transparent;
+  background: transparent;
+  text-decoration: none;
+}
 
 #info-table {
   border: 1px solid black;
+  height: 550px;
+  width: 550px;
   margin-top: 20px;
-  width: 500px;
-  height: 500px;
+  
 }
 
 #info1 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info2 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info3 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info4 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info5 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info6 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info7 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info8 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }

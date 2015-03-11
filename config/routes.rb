@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get '/main/map'
 
+  post 'main', to: "comments#create", as: "comment"
+
   get '/main', to: 'main#map', as: 'map'
 
   get '/search', to: 'main#search', as: 'search'
