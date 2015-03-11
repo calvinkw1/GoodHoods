@@ -1,7 +1,12 @@
 class CommentsController < ApplicationController
   before_action :confirm_logged_in
   def create
-    find_commentable.comments.build(comment_params).save
+    find_commentable.comments.build(comment_params.merge user_id: session[:user_id]).save
+    if @comment.save
+      flash[:success] = "Congrats! You Added A Comment Bro."    
+    else
+      flash[:alert] = "No Comment for You"      
+    end
     redirect_to :back, flash: {success: "Thanks for the comment"}
   end
 
@@ -12,6 +17,8 @@ class CommentsController < ApplicationController
   end
 
   def delete
+    comment = Comment.find(params[:id]).destroy
+    redirect_to :back
   end
   private 
     def comment_params
