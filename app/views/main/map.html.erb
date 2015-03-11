@@ -14,7 +14,7 @@
     </div>
   </nav>
 
-  <div class="row addyForm">
+  <div class="row">
     <div class="col-lg-12">
       <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
         <%= label_tag(:city, "City: ") %>
@@ -32,8 +32,13 @@
     <div class="col-lg-6">
 
       <p><div id="map-canvas"></div></p>
-      <p>&nbsp;</p>  
-      <p><div id="info-box">?</div></p>
+
+
+
+        <!-- Split button -->
+
+
+
       <p class="text-left">
           
           <div class="text-left" id="city-summary"></div>
@@ -47,20 +52,37 @@
 
       </p>
       <p class="text-left">
-        ------------------- Comments can go here ------------------------------
+        --- Comments Here ---
       </p>
     </div>
+
+
+<!-- RIGHT HALF OF SCREEN -->
+
     <div class="col-lg-6">
 
-  <br />
-  
+<!-- DROPDOWN BUTTON -->
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger">Neighborhood List</button>
+      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu" id="hoods">
+      </ul>
+    </div>
+
+<!-- INFO BOX -->
+
+    <div id="info-box">?</div>
+ 
+
   <p class="text-center"></p>
 
-      <p class="text-left" id="hoods"></p>
 
 
-    </div>
-  
+    </div>  
   </div>
 
 
