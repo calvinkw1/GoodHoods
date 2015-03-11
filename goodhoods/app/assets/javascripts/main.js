@@ -1,11 +1,10 @@
 var map, Lat, Lng, myLatLng, loc = Lat + Lng;
 
 function initialize() {
-
   var markers = [];
   var rendererOptions = {
     draggable: true
-   };
+  };
   var mapOptions = {
     zoom: 12,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
@@ -16,31 +15,44 @@ function initialize() {
     streetViewControl: true,
     overviewMapControl: true
   }; 
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);   
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  $.getJSON('/californiaZillow.json', function(hoods) {
+    console.log(hoods);
+    console.log(hoods.features[0].properties.CITY);
+    map.data.addGeoJson(hoods);
+  });
+  var featureStyle = {
+    fillColor: 'green',
+    strokeColor: '#E9DBE8',
+    strokeWeight: 2
+  };
+  map.data.setStyle(featureStyle); 
+  map.data.addListener('mouseover', function(event) {
+   map.data.overrideStyle(event.feature, {fillColor: 'red'});
+ });
+  map.data.addListener('mouseout', function(event) {
+   map.data.overrideStyle(event.feature, {fillColor: 'green'});
+ });
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
-
 $(document).ready(function(){
-    
-
-
   // this function is tied in with the search action in the main controller to pull zillow api data
   $("#search-input").submit(function(e) {
     e.preventDefault();
-    var city = $("#city").val().toLowerCase();
-    var state = $("#state").val().toLowerCase();
-    var neighborhood = $("#neighborhood").val().toLowerCase();
+    var city = $("#city").val();
+    var state = $("#state").val();
+    var neighborhood = $("#neighborhood").val();
     var location = city + "+" + state;
     var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc"); // this encodes the URL to account for spaces
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
       var Lng = data.results[0].geometry.location.lng; // json result stored in variable
-         // LatLng = (Lat , Lng);
-       map.panTo(new google.maps.LatLng(Lat,Lng));
+      map.panTo(new google.maps.LatLng(Lat,Lng));
     $("#city-summary").empty();
     $("#people").empty();
     $("#characteristics").empty();
@@ -129,21 +141,5 @@ $(document).ready(function(){
     });
   });
 });
-        
 
 });
-
-
-
-// icon: "cloudy"
-// image: 
-//   Objectlink: "http://www.wunderground.com"
-//   title: "Weather Underground"
-//   url: "http://icons.wxug.com/graphics/wu2/logo_130x80.png"
-// history_url: "http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=KCASANFR49"
-// relative_humidity: "78%"
-// weather: "Overcast"
-// wind_dir: "NNE"
-// wind_gust_kph: "7.9"
-// wind_gust_mph: "4.9"
-
