@@ -6,7 +6,7 @@ function initialize() {
     draggable: true
   };
   var mapOptions = {
-    zoom: 12,
+    zoom: 7,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
     panControl: true,
     zoomControl: true,
@@ -76,6 +76,7 @@ function searchBox() {
 
         map.panTo(new google.maps.LatLng(Lat,Lng));
         map.setZoom(12);
+
       $("#hoods").empty();
       hoodBounds();
       $("#city-summary").empty();
@@ -185,9 +186,10 @@ searchBox();
     $.getJSON(result, function(clickData) {
           var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           var longitude = clickData.results[0].geometry.location.lng;
-
+            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
             map.setCenter(new google.maps.LatLng(latitude,longitude));
-            map.setZoom(14);
+            map.setZoom(15);
+
     });
   });
 });
