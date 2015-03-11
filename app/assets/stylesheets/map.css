@@ -7,10 +7,10 @@
     -webkit-box-sizing: content-box;
        -moz-box-sizing: content-box;
             box-sizing: content-box;
-    height: 500px;
-    width: 500px;
+    height: 550px;
+    width: 550px;
     margin-top: 20px;
-    padding: 0px;
+    /*padding: 10%;*/
   }
 
   #map-canvas img { width: auto; display:inline; max-width: none; }
@@ -90,57 +90,60 @@
     text-decoration: none;
   }
 
+
+
 #info-table {
   border: 1px solid black;
+  height: 550px;
+  width: 550px;
   margin-top: 20px;
-  width: 500px;
-  height: 500px;
+  
 }
 
 #info1 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info2 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info3 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info4 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info5 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info6 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info7 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
 
 #info8 {
   border-bottom: 1px solid black;
-  width: 500px;
-  height: 62.5px;
+  width: 550px;
+  height: 68.75px;
 }
