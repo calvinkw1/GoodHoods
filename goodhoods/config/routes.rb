@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   get '/search', to: 'main#search', as: 'search'
 
+  post '/save', to: 'main#save_hood', as: 'save'
+
   #### RAKE ROUTES ####
 
   #   Prefix Verb   URI Pattern         Controller#Action

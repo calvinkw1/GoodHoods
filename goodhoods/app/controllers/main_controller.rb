@@ -42,4 +42,12 @@ class MainController < ApplicationController
     end
   end
 
+  def save_hood
+    name = params[:name]
+    city = params[:city]
+    state = params[:state]
+    Hood.create(name:name, city:city, state:state)
+    redirect_to map_path
+  end
+
 end
