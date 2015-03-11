@@ -58,11 +58,11 @@
             $(document).ready(function() {
                 $("body").backgroundCycle({
                     imageUrls: [
-                        'assets/bg5_low.jpg',
-                        'assets/bg2.jpg',
-                        'assets/bg3.jpg',
-                        'assets/bg4.jpg',
-                        'assets/bg1.jpg'
+                        "<%= asset_path('bg5_low.jpg') %>", 
+                        "<%= asset_path('bg2.jpg') %>",
+                        "<%= asset_path('bg3.jpg') %>",
+                        "<%= asset_path('bg4.jpg') %>",
+                        "<%= asset_path('bg1.jpg') %>"
                     ],
                     fadeSpeed: 1000,
                     duration: 5000,
