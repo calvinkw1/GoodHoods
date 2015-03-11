@@ -1,7 +1,6 @@
+
 <%= stylesheet_link_tag 'map', media: 'all', 'data-turbolinks-track' => true %>
 
-<div class="container-fluid">
-  
   <nav class="navbar navbar-default navbar-fixed-top mynav">
     <div class="container">
       <ul>
@@ -14,6 +13,7 @@
     </div>
   </nav>
 
+<div class="container-fluid">
   <div class="row">
     <div class="col-lg-12">
       <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
@@ -28,63 +28,82 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-5">
 
 
-      <p><div id="map-canvas"></div></p>
-      <p>&nbsp;</p>  
-      <p><div id="info-box">Current Neighborhood</div></p>
-      <p>
-        <div class="btn-group">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Switch Neighborhoods</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu" id="hoods">
-            <li role="presentation" class="dropdown-header">Search for a Hood first :)</li>
-          </ul>
-        </div>
-      </p>
+      <div id="map-canvas"></div>
+      <br>
+      <div id="info-box">Current Neighborhood</div>
+      
+     
+      
 
-
+    
       <p class="text-left"></p>
       
       </div>
-        <div class="col-lg-6">
-      
+    <div class="col-lg-2 center-block">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Switch Neighborhoods</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu" id="hoods">
+          <li role="presentation" class="dropdown-header">Search for a Hood first :)</li>
+        </ul>
+      </div>
+    </div>
 
-        <p>
-          <div id="info-table">
-            <div id="info1"></div>
-            <div id="info2"></div>
-            <div id="info3"></div>
-            <div id="info4"></div>
-            <div id="info5"></div>
-            <div id="info6"></div>
-            <div id="info7"></div>
-            <div id="info8"></div>
-          </div>
-        </p>
+    <div class="col-lg-5">
+      <div class="row">
+       <div class="col-xs-12" id="info-table">
+        <div class="row">
+         <div class="col-xs-12" id="info1"></div>
+         <div class="col-xs-12" id="info2"></div>
+         <div class="col-xs-12" id="info3"></div>
+         <div class="col-xs-12" id="info4"></div>
+         <div class="col-xs-12" id="info5"></div>
+         <div class="col-xs-12" id="info6"></div>
+         <div class="col-xs-12" id="info7"></div>
+         <div class="col-xs-12" id="info8"></div>
+       </div>
+       </div>
+     </div>        
+   </div>
+
 
       <p class="text-left">
+
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+
           
+          <div class="text-left" id="hold"></div>
+          
+          ----- City Summary DONE
           <div class="text-left" id="city-summary"></div>
+          ----- People DONE
           <div class="text-left" id="people"></div>
+          ----- Characteristics DONE
           <div class="text-left" id="characteristics"></div>
+          ----- Ages DONE
           <div class="text-left" id="ages"></div>
+          ----- Kids DONE 
           <div class="text-left" id="kids"></div>
+          ----- Relationships DONE
           <div class="text-left" id="relationships"></div>
+          ----- Charts DONE
           <div class="text-left" id="charts"></div>
+          
+          ----- Weather
           <div class="text-left" id="weather"></div>
 
       </p>
+
       <p class="text-left">
         --- Comments Here ---
       </p>
-    </div>
-
-    <div class="col-lg-6">
 
     <p class="text-center"></p>
 

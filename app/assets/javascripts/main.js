@@ -5,6 +5,7 @@ function initialize() {
   var rendererOptions = {
     draggable: true
   };
+
   var mapOptions = {
     zoom: 7,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
@@ -25,6 +26,7 @@ function initialize() {
     strokeWeight: 1,
     fillOpacity: 0.3
   };
+
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'red'});
@@ -155,61 +157,74 @@ $(document).ready(function() {
 
   function zillowAPIData() {
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
-    $("#city-summary").append("<h5>Summary</h5>");
+    $("#city-summary").append("<h5>Resident Psychographics</h5>");
     for (i = 0; i < livesHere.length; i++) {
-      $("#city-summary").append("<p>" + livesHere[i].title + "</p>");    
+      $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");    
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
     }
-    var charts = zillow.demographics.response.charts.chart;
-    for (i = 0; i < charts.length; i++) {
-      $("#charts").append("<h5>" + charts[i].name + "</h5>");
-      $("#charts").append("<div><img src=" + charts[i].url + "></div>");
-    }
+    
     var people = zillow.demographics.response.pages.page[2].tables.table[0].data.attribute;
-    $("#people").append(zillow.demographics.response.pages.page[2].tables.table[0].name);
-    for (i = 0; i < people.length; i++) {
-      // People data
-      $("#people").append("<li>" + people[i].name + "</li>");
-      $("#people").append("<p>" + people[i].values.neighborhood.value + "</p>");
-    }
-    var ages = zillow.demographics.response.pages.page[2].tables.table[1];
-    $("#ages").append("<li>" + ages.name + "</li>");
-    for (i = 0; i < ages.data.attribute.length; i++) {
-      $("#ages").append("<li>" + ages.data.attribute[i].name + "</li>");
-      $("#ages").append("<p>" + ages.data.attribute[i].value + "</p>");
-    }
+    console.log(people);
+    $("#people").append("<h5>Resident Demographics</h5>");
+      $("#people").append("<p><i>" + people[0].name + "</i><p>");
+      $("#people").append("<p>$" + Math.round(people[0].values.neighborhood.value) + "</p>");
+      $("#people").append("<p><i>" + people[1].name + "</i><p>");
+      $("#people").append("<p>" + (people[1].values.neighborhood.value * 100).toFixed(2) + "%</p>");
+      $("#people").append("<p><i>" + people[2].name + "</i><p>");
+      $("#people").append("<p>" + (people[2].values.neighborhood.value * 100).toFixed(2) + "%</p>");
+      $("#people").append("<p><i>" + people[3].name + "</i><p>");
+      $("#people").append("<p>" + (people[3].values.neighborhood.value) + "</p>");
+      $("#people").append("<p><i>" + people[4].name + "</i><p>");
+      $("#people").append("<p>" + (people[4].values.neighborhood.value * 100).toFixed(2) + "%</p>");
+      $("#people").append("<p><i>" + people[5].name + "</i><p>");
+      $("#people").append("<p>" + ((people[5].values.neighborhood.value * 100) / 100).toFixed(2) + "</p>");
+      $("#people").append("<p><i>" + people[6].name + "</i><p>");
+      $("#people").append("<p>" + Math.round(people[6].values.neighborhood.value) + "</p>");
+
     var kids = zillow.demographics.response.pages.page[2].tables.table[3];
-    $("#kids").append("<li>" + kids.name + "</li>");
-    for (i = 0; i < kids.data.attribute.length; i++) {
-      $("#kids").append("<p>" + kids.data.attribute[i].name + "</p>");
-      $("#kids").append("<p>" + kids.data.attribute[i].value + "</p>");
-    }
-    var relationships = zillow.demographics.response.pages.page[2].tables.table[4];
-    $("#relationships").append("<li>" + relationships.name);
-    for (i = 0; i < relationships.data.attribute.length; i++) {
-      $("#relationships").append("<p>" + relationships.data.attribute[i].name + "</p>");
-      $("#relationships").append("<p>" + Math.round(100 * relationships.data.attribute[i].value) + "%</p>");
-    }
+    $("#kids").append("<h5>Households with Children</h5>");
+      $("#kids").append("<p><i>Percentage WITH children</i></p>");
+      $("#kids").append("<p>" + (kids.data.attribute[1].value * 100).toFixed(2) + "%</p>");
+      $("#kids").append("<p><i>Percentage WITHOUT children</i></p>");
+      $("#kids").append("<p>" + (kids.data.attribute[0].value * 100).toFixed(2) + "%</p>");
+    
+
     var characteristics = zillow.demographics.response.pages.page[2].uniqueness.category;
-    $("#characteristics").append("<h5>Neighborhood Characteristics</h5>");
-    for (i = 0; i < characteristics.length; i++) {
-      $("#characteristics").append("<tr>");
-      $("#characteristics").append("<th>" + characteristics[i].type + "</th>");
-      $("#characteristics").append("</tr>");
-      for (n = 0; n < characteristics[i].characteristic.length; n++) {
-        $("#characteristics").append("<tr>");
-        $("#characteristics").append("<th>" + characteristics[i].type + "</th>");
-        $("#characteristics").append("</tr>");
-        for (n = 0; n < characteristics[i].characteristic.length; n++) {
-          $("#characteristics").append("<tr>");
-          $("#characteristics").append("<td>" + characteristics[i].characteristic[n] + "</td>");
-          $("#characteristics").append("</tr>");
-        }
-      }
+    $("#characteristics").append("<p><i>" + characteristics[1].type + "</i></p>");
+    for (n = 0; n < characteristics[1].characteristic.length; n++) {
+          $("#characteristics").append("<p>" + characteristics[1].characteristic[n] + "</p>");
     }
-  }
+    $("#characteristics").append("<p><i>" + characteristics[2].type + "</i></p>");
+    for (n = 0; n < characteristics[2].characteristic.length; n++) {
+          $("#characteristics").append("<p>" + characteristics[2].characteristic[n] + "</p>");
+    }
 
+    var ages = zillow.demographics.response.pages.page[2].tables.table[1];
+    $("#ages").append("<h5>Age demographics by decade");
+    for (i = 0; i < ages.data.attribute.length; i++) {
+      $("#ages").append("<p><i>" + ages.data.attribute[i].name + "</i></p>");
+      $("#ages").append("<p>" + (100 * ages.data.attribute[i].value).toFixed(2) + "%</p>");
+    }
 
+    var relationships = zillow.demographics.response.pages.page[2].tables.table[4];
+    $("#relationships").append("<h5>Relationship Status</h5>");
+    for (i = 0; i < relationships.data.attribute.length; i++) {
+      $("#relationships").append("<p><i>" + relationships.data.attribute[i].name + "</i></p>");
+      $("#relationships").append("<p>" + (100 * relationships.data.attribute[i].value).toFixed(2) + "%</p>");
+    }
 
+    var charts = zillow.demographics.response.charts.chart;
+    $("#charts").append("<h5>Home Value Information</h5>");
+      $("#charts").append("<p><i>" + charts[1].name + "</i></p>");
+      $("#charts").append("<p><img src=" + charts[1].url + "></div>");
+      $("#charts").append("<p><i>" + charts[3].name + "</i></p>");
+      $("#charts").append("<p><img src=" + charts[3].url + "></p>");
+      $("#charts").append("<p><i>" + charts[5].name + "</i></p>");
+      $("#charts").append("<p><img src=" + charts[5].url + "></p>");
+      $("#charts").append("<p><i>" + charts[6].name + "</i></p>");
+      $("#charts").append("<p><img src=" + charts[6].url + "></p>");  
+      $("#charts").append("<p><i>" + charts[7].name + "</i></p>");
+      $("#charts").append("<p><img src=" + charts[7].url + "></p>");
+    }
 
 });
