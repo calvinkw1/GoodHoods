@@ -77,7 +77,7 @@
 <nav class="navbar navbar-default navbar-fixed-top mynav">
   <div class="container">
     <ul>
-    <div class="floatleft"><li id="nohover"><a href="/"><img src="assets/header_icon.png"></a></li></div>
+    <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div>
     <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
     <li>Favorites</li>
     <li><%= link_to "About", about_path %></li>
@@ -123,19 +123,19 @@
   <div class="row">
     <div class="col-lg-2"></div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/brent1x"><img src="assets/brent.png" height="150px" width="150px"></a></p><br />
+      <p><a href="http://github.com/brent1x"><%= image_tag("brent.png", size: "150x150") %></a></p><br />
       <p><a href="http://github.com/brent1x">@brent1x</a></p>
     </div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/calvinkw1"><img src="assets/calvin.png" height="150px" width="150px"></a></p><br />
+      <p><a href="http://github.com/calvinkw1"><%= image_tag("calvin.png", size: "150x150") %></a></p><br />
       <p><a href="http://github.com/calvinkw1">@calvinkw1</a></p>
     </div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/doylemcpoyle"><img src="assets/pat.png" height="150px" width="150px"></a></p><br />
+      <p><a href="http://github.com/doylemcpoyle"><%= image_tag("pat.png", size: "150x150") %></a></p><br />
       <p><a href="http://github.com/doylemcpoyle">@doylemcpoyle</a></p>
       </div>
     <div class="col-lg-2 lead">
-      <p><a href="http://github.com/MichaelPoP"><img src="assets/mike.png" height="150px" width="150px"></a></p><br />
+      <p><a href="http://github.com/MichaelPoP"><%= image_tag("mike.png", size: "150x150") %></a></p><br />
       <p><a href="http://github.com/MichaelPoP">@michaelpop</a></p>
     </div>
     <div class="col-lg-2"></div>
