@@ -14,17 +14,10 @@
     </div>
   </nav>
 
-<a><div id="info-box">?</div></a><div class="addyForm">
-      <form id= "search-input" action="javascript:void(0);">
-      <span>Enter Start Address:</span>
-        <label for="addyBox"></label>
-        <input type="text" id="city" placeholder="Ex: San Francisco">
-        <input type="text" id="state" placeholder="Ex: CA">
-        <input type="submit" id="submitBtn" value="Get Hood">
-      </form>
-</div>
 
-  <div class="row">
+<div id="info-box">?</div>
+
+  <div class="row addyForm">
     <div class="col-lg-12">
       <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
         <%= label_tag(:city, "City: ") %>
