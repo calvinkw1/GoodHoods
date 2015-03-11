@@ -2,7 +2,7 @@
     padding-top: 60px;
     margin-top: 20px;
    }
-
+ 
   #map-canvas {
     -webkit-box-sizing: content-box;
        -moz-box-sizing: content-box;
@@ -89,3 +89,68 @@
     background: transparent;
     text-decoration: none;
   }
+
+#info-box {
+  background-color: white;
+  border: 1px solid black;
+  bottom: 30px;
+  width: 200px;
+  height: 30px;
+  padding: 3px;
+  position: relative;
+}
+
+#info-table {
+  border: 1px solid black;
+  margin-top: 20px;
+  width: 500px;
+  height: 500px;
+}
+
+#info1 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info2 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info3 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info4 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info5 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info6 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info7 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}
+
+#info8 {
+  border-bottom: 1px solid black;
+  width: 500px;
+  height: 62.5px;
+}

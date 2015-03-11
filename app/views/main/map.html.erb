@@ -5,7 +5,7 @@
   <nav class="navbar navbar-default navbar-fixed-top mynav">
     <div class="container">
       <ul>
-      <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div>
+      <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div> 
       <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
       <li>Favorites</li>
       <li><%= link_to "About", about_path %></li>
@@ -33,6 +33,25 @@
 
 
       <p><div id="map-canvas"></div></p>
+      <p>&nbsp;</p>  
+      <p><div id="info-box">?</div></p>
+      <p class="text-left"></p>
+      
+      </div>
+        <div class="col-lg-6">
+      <p><div id="info-table">
+        <div id="info1"></div>
+        <div id="info2"></div>
+        <div id="info3"></div>
+        <div id="info4"></div>
+        <div id="info5"></div>
+        <div id="info6"></div>
+        <div id="info7"></div>
+        <div id="info8"></div>
+      </div></p>
+      
+          <p>
+=======
 
 
         <!-- Split button -->
