@@ -48,7 +48,6 @@ $(document).ready(function() {
     city = $("#city").val();
     state = $("#state").val();
     neighborhood = $("#neighborhood").val();
-    var location = city + "+" + state;
     
     mapCall();
     clearData();
@@ -86,10 +85,10 @@ $(document).ready(function() {
   }
 
   function mapCall() {
+    var location = city + "+" + state;
     var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
-      console.log(data);
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
       var Lng = data.results[0].geometry.location.lng; // json result stored in variable
       map.panTo(new google.maps.LatLng(Lat,Lng));
