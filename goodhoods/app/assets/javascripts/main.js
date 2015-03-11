@@ -1,4 +1,4 @@
-var map, Lat, Lng, myLatLng, loc = Lat + Lng;
+var map, Lat, Lng, myLatLng, latitude, longitude;
 
 function initialize() {
   var markers = [];
@@ -18,11 +18,27 @@ function initialize() {
 
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  $.getJSON('/californiaZillow.json', function(hoods) {
-    console.log(hoods);
-    console.log(hoods.features[0].properties.CITY);
-    map.data.addGeoJson(hoods);
-  });
+
+  $.getJSON('/CaliZillowSimp.json', function(hoods) {
+  // console.log(hoods.features[0].properties.CITY);
+  console.log(hoods.features[0].geometry.coordinates[0][0][0]);
+  var labels = hoods;
+// console.log(hoods);
+  // console.log($("#search_input").toArray());
+    $("#search_input").on("submit", function(x) {
+       $("#labels").empty();
+      for (i = 0; i < labels.features.length; i++) {
+        // latitude = hoods.features[i].geometry.coordinates[0][0][0];
+        // longitude = hoods.features[i].geometry.coordinates[0][0][1];
+          var city = $("#city").val();
+        if (city == labels.features[i].properties.CITY) {
+          $("#labels").append("<li><a id='neighborhood' href='javascript:void(0)'>" + labels.features[i].properties.NAME + "</a></li>");
+        }
+      }
+    });
+  map.data.addGeoJson(hoods);
+ }); 
+
   var featureStyle = {
     fillColor: 'green',
     strokeColor: '#E9DBE8',
@@ -31,16 +47,23 @@ function initialize() {
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'red'});
- });
-  map.data.addListener('mouseout', function(event) {
+   document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
+   });
+   map.data.addListener('mouseout', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
- });
-}
+   });
+   map.data.addListener('click', function(event) {
+   map.setZoom(14);
+   });
+}  //END OF INTIALIZE FUNCTION
 
 google.maps.event.addDomListener(window, 'load', initialize);
+$(document).ready(function() {
+  
 
-$(document).ready(function(){
+
   // this function is tied in with the search action in the main controller to pull zillow api data
+function searchBox() {
   $("#search-input").submit(function(e) {
     e.preventDefault();
     var city = $("#city").val();
@@ -52,18 +75,23 @@ $(document).ready(function(){
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
       var Lng = data.results[0].geometry.location.lng; // json result stored in variable
-      map.panTo(new google.maps.LatLng(Lat,Lng));
-    $("#city-summary").empty();
-    $("#people").empty();
-    $("#characteristics").empty();
-    $("#ages").empty();
-    $("#kids").empty();
-    $("#relationships").empty();
-    $("#charts").empty();
-
-    var url = "/search.json";
-    $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
-      var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
+         map.panTo(new google.maps.LatLng(Lat,Lng));
+         map.setZoom(12);
+         $("#city-summary").empty();
+         $("#people").empty();
+         $("#characteristics").empty();
+         $("#ages").empty();
+         $("#kids").empty();
+         $("#relationships").empty();
+         $("#charts").empty();
+         var city = $("#city").val();
+         var state = $("#state").val();
+         var neighborhood = $("#neighborhood").val();
+         var url = "/search";
+         $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
+          console.log(data);
+      // console.log(data.demographics.response.pages.page);
+      var livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
       $("#city-summary").append("<h5>Summary</h5>");
       for (i = 0; i < livesHere.length; i++) {
         $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
@@ -141,5 +169,26 @@ $(document).ready(function(){
     });
   });
 });
+}
 
 });
+
+searchBox();
+
+  $("body").on("click", "#neighborhood", function(x){
+    x.preventDefault();
+    console.log($(this).text());
+    var clickLocation = ($(this).text());
+    var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation + "+CA" +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
+      console.log(result);
+    $.getJSON(result, function(clickData) {
+       console.log(clickData);
+       console.log("CLICKED!");
+          var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
+          var longitude = clickData.results[0].geometry.location.lng;
+
+            map.setCenter(new google.maps.LatLng(latitude,longitude));
+            map.setZoom(14);
+    });
+  });
+
