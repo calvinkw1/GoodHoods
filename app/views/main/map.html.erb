@@ -14,11 +14,6 @@
     </div>
   </nav>
 
-
-
-
-<div id="info-box">?</div>
-
   <div class="row addyForm">
     <div class="col-lg-12">
       <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
@@ -35,11 +30,21 @@
 
   <div class="row">
     <div class="col-lg-6">
-      <div id="map-canvas"></div>
-      <p>&nbsp;</p>
+
+      <p><div id="map-canvas"></div></p>
+      <p>&nbsp;</p>  
+      <p><div id="info-box">?</div></p>
       <p class="text-left">
-        ------------------- Neighborhood list can go here ----------------------
-      <ol id="hoods"></ol>
+          
+          <div class="text-left" id="city-summary"></div>
+          <div class="text-left" id="people"></div>
+          <div class="text-left" id="characteristics"></div>
+          <div class="text-left" id="ages"></div>
+          <div class="text-left" id="kids"></div>
+          <div class="text-left" id="relationships"></div>
+          <div class="text-left" id="charts"></div>
+          <div class="text-left" id="weather"></div>
+
       </p>
       <p class="text-left">
         ------------------- Comments can go here ------------------------------
@@ -49,16 +54,10 @@
 
   <br />
   
-  <p class="text-center"><h5>---------------------- name of Neighborhood can go here ----------------------</h5></p>
+  <p class="text-center"></p>
 
-  <div class="text-left" id="city-summary"></div>
-  <div class="text-left" id="people"></div>
-  <div class="text-left" id="characteristics"></div>
-  <div class="text-left" id="ages"></div>
-  <div class="text-left" id="kids"></div>
-  <div class="text-left" id="relationships"></div>
-  <div class="text-left" id="charts"></div>
-  <div class="text-left" id="weather"></div>
+      <p class="text-left" id="hoods"></p>
+
 
     </div>
   

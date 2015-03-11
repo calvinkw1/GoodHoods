@@ -48,7 +48,7 @@ $(document).ready(function() {
     city = $("#city").val();
       for (i = 0; i < hoods.features.length; i++) {
         if (city == hoods.features[i].properties.CITY) {
-          $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
+          $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
           $.post('/save',  {
             name: hoods.features[i].properties.NAME,
             city: hoods.features[i].properties.CITY,
@@ -95,9 +95,11 @@ function searchBox() {
       var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
       $("#city-summary").append("<h5>Summary</h5>");
       for (i = 0; i < livesHere.length; i++) {
+        $("#city-summary").append("<p>" + livesHere[i].title + "</p>");    
         $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
       }
       var charts = data.zillowData.demographics.response.charts.chart;
+            console.log(charts);
       for (i = 0; i < charts.length; i++) {
         $("#charts").append("<h5>" + charts[i].name + "</h5>");
         $("#charts").append("<div><img src=" + charts[i].url + "></div>");

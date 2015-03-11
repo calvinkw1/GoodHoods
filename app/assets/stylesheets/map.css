@@ -1,4 +1,7 @@
-  body { padding-top: 60px; }
+  body { 
+    padding-top: 60px;
+    margin-top: 20px;
+   }
 
   #map-canvas {
     -webkit-box-sizing: content-box;
@@ -6,7 +9,7 @@
             box-sizing: content-box;
     height: 500px;
     width: 500px;
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 0px;
   }
 
