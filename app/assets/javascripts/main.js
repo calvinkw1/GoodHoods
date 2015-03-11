@@ -6,7 +6,7 @@ function initialize() {
     draggable: true
   };
   var mapOptions = {
-    zoom: 12,
+    zoom: 7,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
     panControl: true,
     zoomControl: true,
@@ -19,9 +19,11 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var featureStyle = {
+    clickable: true,
     fillColor: 'green',
     strokeColor: '#E9DBE8',
-    strokeWeight: 2
+    strokeWeight: 1,
+    fillOpacity: 0.3
   };
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
@@ -32,7 +34,8 @@ function initialize() {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
    });
    map.data.addListener('click', function(event) {
-   map.setZoom(14);
+   event.feature.setProperty({fillColor: 'gold'});
+   // map.setZoom(14);
    });
 }  //END OF INTIALIZE FUNCTION
 
@@ -70,8 +73,10 @@ function searchBox() {
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
       var Lng = data.results[0].geometry.location.lng; // json result stored in variable
+
         map.panTo(new google.maps.LatLng(Lat,Lng));
         map.setZoom(12);
+
       $("#hoods").empty();
       hoodBounds();
       $("#city-summary").empty();
@@ -86,6 +91,7 @@ function searchBox() {
       var neighborhood = $("#neighborhood").val();
       var url = "/search.json";
       $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
+
       var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
       $("#city-summary").append("<h5>Summary</h5>");
       for (i = 0; i < livesHere.length; i++) {
@@ -170,14 +176,20 @@ searchBox();
 
   $("body").on("click", "#neighborhood", function(x){
     x.preventDefault();
+
+     // console.log($(this).text());
+     // console.log(clickLocation);
+
     var clickLocation = ($(this).text().split(' ').join('+')) + "+" + city.split(' ').join('+');
+
     var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
     $.getJSON(result, function(clickData) {
           var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           var longitude = clickData.results[0].geometry.location.lng;
-
+            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
             map.setCenter(new google.maps.LatLng(latitude,longitude));
-            map.setZoom(14);
+            map.setZoom(15);
+
     });
   });
 });
