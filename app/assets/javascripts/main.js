@@ -93,13 +93,14 @@ function searchBox() {
       $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
 
       var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
-      $("#city-summary").append("<h5>Summary</h5>");
+      $("#city-summary").append("<h5>Neighborhood Demographics</h5>");
+
       for (i = 0; i < livesHere.length; i++) {
-        $("#city-summary").append("<p>" + livesHere[i].title + "</p>");    
+        $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");    
         $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
       }
       var charts = data.zillowData.demographics.response.charts.chart;
-            console.log(charts);
+
       for (i = 0; i < charts.length; i++) {
         $("#charts").append("<h5>" + charts[i].name + "</h5>");
         $("#charts").append("<div><img src=" + charts[i].url + "></div>");
@@ -107,7 +108,7 @@ function searchBox() {
       var people = data.zillowData.demographics.response.pages.page[2].tables.table[0].data.attribute;
       $("#people").append(data.zillowData.demographics.response.pages.page[2].tables.table[0].name);
       for (i = 0; i < people.length; i++) {
-        // People data
+console.log(people);
         $("#people").append("<li>" + people[i].name + "</li>");
         $("#people").append("<p>" + people[i].values.neighborhood.value + "</p>");
       }
