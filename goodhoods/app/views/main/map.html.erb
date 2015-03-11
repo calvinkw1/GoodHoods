@@ -12,12 +12,26 @@
   <%= submit_tag("Search") %>
 <% end %>
 
-<div id="map-canvas"></div>
+<a><div id="info-box">?</div></a><div class="addyForm">
+      <form id= "search_input" action="javascript:void(0);">
+      <span>Enter Start Address:</span>
+        <label for="addyBox"></label>
+        <input type="text" id="city" placeholder="Ex: San Francisco">
+        <input type="text" id="state" placeholder="Ex: CA">
+        <input type="submit" id="submitBtn" value="Get Hood">
+      </form>
+</div>
 
+
+<div id="map-canvas"></div>
 
 <div id="city-summary"></div>
 
 <div id="people"></div>
+
+<ol id="labels">
+
+</ol>
 
 <div id="characteristics"></div>
 
