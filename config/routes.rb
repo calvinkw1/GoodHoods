@@ -18,13 +18,18 @@ Rails.application.routes.draw do
 
   get '/main/map'
 
-  post 'main', to: "comments#create", as: "comment"
+  # post 'main', to: "comments#create", as: "comment"
 
   get '/main', to: 'main#map', as: 'map'
 
   get '/search', to: 'main#search', as: 'search'
 
   post '/save', to: 'main#save_hood', as: 'save'
+
+  resources :hoods do
+    post '/main/:id', to: "comments#create", as: "comment"
+  end
+  get '/comments', to: 'comments#show_on_click', as: "show"
 
   #### RAKE ROUTES ####
 

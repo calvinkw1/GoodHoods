@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :confirm_logged_in
+  require 'json'
+  # before_action :confirm_logged_in
   def create
     find_commentable.comments.build(comment_params.merge user_id: session[:user_id]).save
     if @comment.save
@@ -11,6 +12,19 @@ class CommentsController < ApplicationController
   end
 
   def show_on_click
+    content = params[:content]
+    id = params[:id]
+    
+
+    hood = Hood.find_by_id(params[:id])
+    @comments = JSON.parse(data)
+    respond_to do |something|
+      something.html
+      something.json { render json: {
+         :comments => @comments
+        }
+      }
+    end
   end
 
   def edit 

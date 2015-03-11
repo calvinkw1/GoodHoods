@@ -48,7 +48,7 @@ $(document).ready(function() {
     city = $("#city").val();
       for (i = 0; i < hoods.features.length; i++) {
         if (city == hoods.features[i].properties.CITY) {
-          $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
+          $("#hoods").append("<li><a class='comment_link' id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
           $.post('/save',  {
             name: hoods.features[i].properties.NAME,
             city: hoods.features[i].properties.CITY,
@@ -179,7 +179,7 @@ searchBox();
 
      // console.log($(this).text());
      // console.log(clickLocation);
-
+    var clickValue = ($(this).text());
     var clickLocation = ($(this).text().split(' ').join('+')) + "+" + city.split(' ').join('+');
 
     var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
@@ -191,5 +191,39 @@ searchBox();
             map.setZoom(15);
 
     });
+    var localUrl = "/hoods/id/comments.json";
+
+    $.getJSON(localUrl, {content:content, id:id}, function(data) {
+      // var content = 
+      console.log(data);
+    });
   });
-});
+
+});//END OF DOCREADY??
+
+ $("form").on("submit", function (event) {
+    event.preventDefault();
+    var searchTerm = event.target.search_term.value;
+    $.getJSON("/movies/index.json", {search_term: searchTerm}, function (data) {
+      var list = $("ul").empty();
+      data.forEach(function (movie) {
+        var item = $("<li>").text(movie.Title);
+        list.append(item);
+      });
+    });
+  });
+
+
+
+// $("#comment_form").hide();
+// $("body").on("click", "#neighborhood", function(y){
+  // y.preventDefault();
+//     $("#comment_form").show(); // problem here...
+// });
+
+
+
+
+
+
+
