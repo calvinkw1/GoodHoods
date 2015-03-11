@@ -1,4 +1,4 @@
-var map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, wuCity, wuNeighborhood, wuStationID;
+var map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, weather, wuCity, wuNeighborhood, wuStationID;
 
 function initialize() {
   var markers = [];
@@ -51,6 +51,7 @@ $(document).ready(function() {
     
     mapCall();
     clearData();
+    startAPICalls();
     hoodBounds();
     weatherCall();
   });
@@ -110,8 +111,11 @@ $(document).ready(function() {
   function startAPICalls() {
     var url = "/search.json";
     $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
-      var weather = data.weatherData.location.nearby_weather_stations.pws.station;
+      console.log(data);
+      zillow = data.zillowData;
+      weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
+      weatherCall();
       findWUStation();      
     });
   }
@@ -145,44 +149,44 @@ $(document).ready(function() {
   }
 
   function zillowAPIData() {
-    var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
+    var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<h5>Summary</h5>");
     for (i = 0; i < livesHere.length; i++) {
       $("#city-summary").append("<p>" + livesHere[i].title + "</p>");    
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
     }
-    var charts = data.zillowData.demographics.response.charts.chart;
+    var charts = zillow.demographics.response.charts.chart;
           console.log(charts);
     for (i = 0; i < charts.length; i++) {
       $("#charts").append("<h5>" + charts[i].name + "</h5>");
       $("#charts").append("<div><img src=" + charts[i].url + "></div>");
     }
-    var people = data.zillowData.demographics.response.pages.page[2].tables.table[0].data.attribute;
-    $("#people").append(data.zillowData.demographics.response.pages.page[2].tables.table[0].name);
+    var people = zillow.demographics.response.pages.page[2].tables.table[0].data.attribute;
+    $("#people").append(zillow.demographics.response.pages.page[2].tables.table[0].name);
     for (i = 0; i < people.length; i++) {
       // People data
       $("#people").append("<li>" + people[i].name + "</li>");
       $("#people").append("<p>" + people[i].values.neighborhood.value + "</p>");
     }
-    var ages = data.zillowData.demographics.response.pages.page[2].tables.table[1];
+    var ages = zillow.demographics.response.pages.page[2].tables.table[1];
     $("#ages").append("<li>" + ages.name + "</li>");
     for (i = 0; i < ages.data.attribute.length; i++) {
       $("#ages").append("<li>" + ages.data.attribute[i].name + "</li>");
       $("#ages").append("<p>" + ages.data.attribute[i].value + "</p>");
     }
-    var kids = data.zillowData.demographics.response.pages.page[2].tables.table[3];
+    var kids = zillow.demographics.response.pages.page[2].tables.table[3];
     $("#kids").append("<li>" + kids.name + "</li>");
     for (i = 0; i < kids.data.attribute.length; i++) {
       $("#kids").append("<p>" + kids.data.attribute[i].name + "</p>");
       $("#kids").append("<p>" + kids.data.attribute[i].value + "</p>");
     }
-    var relationships = data.zillowData.demographics.response.pages.page[2].tables.table[4];
+    var relationships = zillow.demographics.response.pages.page[2].tables.table[4];
     $("#relationships").append("<li>" + relationships.name);
     for (i = 0; i < relationships.data.attribute.length; i++) {
       $("#relationships").append("<p>" + relationships.data.attribute[i].name + "</p>");
       $("#relationships").append("<p>" + Math.round(100 * relationships.data.attribute[i].value) + "%</p>");
     }
-    var characteristics = data.zillowData.demographics.response.pages.page[2].uniqueness.category;
+    var characteristics = zillow.demographics.response.pages.page[2].uniqueness.category;
     $("#characteristics").append("<h5>Neighborhood Characteristics</h5>");
     for (i = 0; i < characteristics.length; i++) {
       $("#characteristics").append("<tr>");
