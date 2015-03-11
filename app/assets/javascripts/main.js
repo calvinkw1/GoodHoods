@@ -53,7 +53,6 @@ $(document).ready(function() {
     clearData();
     startAPICalls();
     hoodBounds();
-    weatherCall();
   });
 
   $("#hoods").click(function(e) {
@@ -111,12 +110,12 @@ $(document).ready(function() {
   function startAPICalls() {
     var url = "/search.json";
     $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
-      console.log(data);
       zillow = data.zillowData;
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
+      findWUStation();
       weatherCall();
-      findWUStation();      
+            
     });
   }
 
@@ -124,14 +123,17 @@ $(document).ready(function() {
     for (i = 0; i < weather.length; i++) {
       wuCity = weather[i].city.toLowerCase();
       wuNeighborhood = weather[i].neighborhood.toLowerCase();
-      if (wuNeighborhood.indexOf(neighborhood) !== -1) {
+      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
         wuStationID = weather[i].id;
+              console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+
         break;
       }
     }
   }
 
   function weatherCall() {
+    console.log(wuStationID);
     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
     $.getJSON(wuURL, function(data) {
       weather = data.current_observation;
@@ -156,7 +158,6 @@ $(document).ready(function() {
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
     }
     var charts = zillow.demographics.response.charts.chart;
-          console.log(charts);
     for (i = 0; i < charts.length; i++) {
       $("#charts").append("<h5>" + charts[i].name + "</h5>");
       $("#charts").append("<div><img src=" + charts[i].url + "></div>");
