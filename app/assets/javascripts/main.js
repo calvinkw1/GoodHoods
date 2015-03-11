@@ -152,7 +152,7 @@ function searchBox() {
         }
       }
       findWUStation();
-      var wuURL = "http://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
         $.getJSON(wuURL, function(data) {
           weather = data.current_observation;
           $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");

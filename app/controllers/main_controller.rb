@@ -16,7 +16,7 @@ class MainController < ApplicationController
     neighborhood = params[:neighborhood]
     requestZillow = Typhoeus::Request.new(
       # ZWIS ID  X1-ZWz1e2kpo0z8cr_60bkd
-      "http://www.zillow.com/webservice/GetDemographics.htm?zws-id=X1-ZWz1e2kpo0z8cr_60bkd&",
+      "https://www.zillow.com/webservice/GetDemographics.htm?zws-id=X1-ZWz1e2kpo0z8cr_60bkd&",
       method: :get,
       params: {
         city: city,
@@ -27,7 +27,7 @@ class MainController < ApplicationController
     requestZillow.run
     @zillowData = JSON.parse(Hash.from_xml(requestZillow.response.body).to_json)
     requestWeather = Typhoeus::Request.new(
-      "http://api.wunderground.com/api/acf7fb055f9d4a5d/geolookup/q/#{state}/#{wu_city}.json",
+      "https://api.wunderground.com/api/acf7fb055f9d4a5d/geolookup/q/#{state}/#{wu_city}.json",
       method: :get
     )
     requestWeather.run
