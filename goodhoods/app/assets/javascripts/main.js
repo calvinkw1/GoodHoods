@@ -86,7 +86,9 @@ function searchBox() {
          var state = $("#state").val();
          var neighborhood = $("#neighborhood").val();
          var url = "/search.json";
+         console.log($(this).text());
          $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
+          
           console.log(data);
       // console.log(data.demographics.response.pages.page);
       var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
@@ -175,8 +177,9 @@ searchBox();
   $("body").on("click", "#neighborhood", function(x){
     x.preventDefault();
     console.log($(this).text());
+    // console.log($(this).text());
     var clickLocation = ($(this).text().split(' ').join('+')) + "+" + city.split(' ').join('+');
-    console.log(clickLocation);
+    // console.log(clickLocation);
     var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
       console.log(result);
     $.getJSON(result, function(clickData) {
