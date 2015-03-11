@@ -155,6 +155,7 @@ $(document).ready(function() {
   }
 
   function zillowAPIData() {
+    console.log(zillow);
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<h5>Summary</h5>");
     for (i = 0; i < livesHere.length; i++) {
