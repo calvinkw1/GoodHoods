@@ -40,9 +40,11 @@ function initialize() {
  }); 
 
   var featureStyle = {
+    clickable: true,
     fillColor: 'green',
     strokeColor: '#E9DBE8',
-    strokeWeight: 2
+    strokeWeight: 1,
+    fillOpacity: 0.3
   };
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
@@ -53,7 +55,8 @@ function initialize() {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
    });
    map.data.addListener('click', function(event) {
-   map.setZoom(14);
+   event.feature.setProperty({fillColor: 'gold'});
+   // map.setZoom(14);
    });
 }  //END OF INTIALIZE FUNCTION
 
