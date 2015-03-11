@@ -86,7 +86,7 @@ function searchBox() {
          $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
           console.log(data);
       // console.log(data.demographics.response.pages.page);
-      var livesHere = data.demographics.response.pages.page[2].segmentation.liveshere;
+      var livesHere = data.zillowData.demographics.response.pages.page[2].segmentation.liveshere;
       $("#city-summary").append("<h5>Summary</h5>");
       for (i = 0; i < livesHere.length; i++) {
         $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
