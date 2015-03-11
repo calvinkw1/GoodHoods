@@ -14,17 +14,11 @@ class CommentsController < ApplicationController
   def show_on_click
     content = params[:content]
     id = params[:id]
-    
 
     hood = Hood.find_by_id(params[:id])
-    @comments = JSON.parse(data)
-    respond_to do |something|
-      something.html
-      something.json { render json: {
-         :comments => @comments
-        }
-      }
-    end
+    @comments = hood.comments
+
+
   end
 
   def edit 

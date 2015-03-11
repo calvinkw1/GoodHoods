@@ -49,20 +49,5 @@ class MainController < ApplicationController
     Hood.create(name:name, city:city, state:state)
     redirect_to map_path
   end
-  def show_on_click
-    content = params[:content]
-    id = params[:id]
-    
-
-    hood = Hood.find_by_id(params[:id])
-    @comments = JSON.parse(data)
-    respond_to do |something|
-      something.html
-      something.json { render json: {
-         :comments => @comments
-        }
-      }
-    end
-  end
 
 end
