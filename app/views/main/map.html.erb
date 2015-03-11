@@ -5,7 +5,7 @@
   <nav class="navbar navbar-default navbar-fixed-top mynav">
     <div class="container">
       <ul>
-      <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div>
+      <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div> 
       <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
       <li>Favorites</li>
       <li><%= link_to "About", about_path %></li>
@@ -14,7 +14,7 @@
     </div>
   </nav>
 
-  <div class="row addyForm">
+  <div class="row">
     <div class="col-lg-12">
       <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
         <%= label_tag(:city, "City: ") %>
@@ -31,9 +31,33 @@
   <div class="row">
     <div class="col-lg-6">
 
+
       <p><div id="map-canvas"></div></p>
       <p>&nbsp;</p>  
       <p><div id="info-box">?</div></p>
+      <p class="text-left"></p>
+      
+      </div>
+        <div class="col-lg-6">
+      <p><div id="info-table">
+        <div id="info1"></div>
+        <div id="info2"></div>
+        <div id="info3"></div>
+        <div id="info4"></div>
+        <div id="info5"></div>
+        <div id="info6"></div>
+        <div id="info7"></div>
+        <div id="info8"></div>
+      </div></p>
+      
+          <p>
+=======
+
+
+        <!-- Split button -->
+
+
+
       <p class="text-left">
           
           <div class="text-left" id="city-summary"></div>
@@ -47,20 +71,44 @@
 
       </p>
       <p class="text-left">
-        ------------------- Comments can go here ------------------------------
+        --- Comments Here ---
       </p>
     </div>
+
+
+<!-- RIGHT HALF OF SCREEN -->
+
     <div class="col-lg-6">
 
-  <br />
-  
+<!-- DROPDOWN BUTTON -->
+
+      <div class="spacer">&nbsp;</div>
+
+
+
+    <span id="info-box">Current Neighborhood</span><br />
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Neighborhood</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu" id="hoods">
+      <li role="presentation" class="dropdown-header">First select a neighborhood :)</li>
+      </ul>
+    </div>
+
+<!-- INFO BOX -->
+
+    <!-- <div id="info-box">Neighborhood Rollover</div> -->
+ 
+
   <p class="text-center"></p>
 
-      <p class="text-left" id="hoods"></p>
 
 
-    </div>
-  
+    </div>  
   </div>
 
 

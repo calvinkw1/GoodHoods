@@ -72,7 +72,7 @@ $(document).ready(function() {
   $.getJSON('/CaliZillowSimp.json', function(hoods) {
       for (i = 0; i < hoods.features.length; i++) {
         if (city == hoods.features[i].properties.CITY) {
-          $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
+          $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
           $.post('/save',  {
             name: hoods.features[i].properties.NAME,
             city: hoods.features[i].properties.CITY,
