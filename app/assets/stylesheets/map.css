@@ -90,6 +90,10 @@
     text-decoration: none;
   }
 
+  span.glyphicon-link {
+    font-size: 1.2em;
+  }
+
 #info-table {
   border: 1px solid black;
   margin-top: 20px;
