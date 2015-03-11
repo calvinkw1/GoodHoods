@@ -47,25 +47,29 @@ $(document).ready(function() {
     e.preventDefault();
     city = $("#city").val();
     state = $("#state").val();
-    neighborhood = $("#neighborhood").val();
+    // neighborhood = $("#neighborhood").val();
     
     mapCall();
     clearData();
-    startAPICalls();
     hoodBounds();
   });
 
-  $("#hoods").click(function(e) {
+  $("#hoods").on("click", "#neighborhood", function(e) {
     e.preventDefault();
-    var clickLocation = ($(this).text().split(' ').join('+')) + "+" + city.split(' ').join('+');
+    neighborhood = $(this).text();
+    console.log(neighborhood);
+    var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
     var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
     $.getJSON(result, function(clickData) {
           var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           var longitude = clickData.results[0].geometry.location.lng;
-            map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+          console.log(latitude + " " + longitude);
+            map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
             map.setCenter(new google.maps.LatLng(latitude,longitude));
             map.setZoom(15);
     });
+    startAPICalls();
+
   });
   
   function hoodBounds() {
@@ -151,6 +155,7 @@ $(document).ready(function() {
   }
 
   function zillowAPIData() {
+    console.log(zillow);
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<h5>Summary</h5>");
     for (i = 0; i < livesHere.length; i++) {
