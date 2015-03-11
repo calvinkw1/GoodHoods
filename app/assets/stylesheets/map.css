@@ -85,13 +85,3 @@
     background: transparent;
     text-decoration: none;
   }
-
-#info-box {
-  background-color: white;
-  border: 1px dotted black;
-  bottom: 30px;
-  width: 200px;
-  height: 30px;
-  padding: 3px;
-
-}
