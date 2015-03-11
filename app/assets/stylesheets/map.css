@@ -70,6 +70,10 @@
     padding-top: 5px;
   }
 
+  .spacer {
+    margin-top: 0px;
+  }
+
   a {
     color: rgba(255, 102, 102, 0.9);
   }
