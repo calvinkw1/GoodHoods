@@ -44,11 +44,11 @@
             $(document).ready(function() {
                 $("body").backgroundCycle({
                     imageUrls: [
-                        'assets/bg5_low.jpg',
-                        'assets/bg2.jpg',
-                        'assets/bg3.jpg',
-                        'assets/bg4.jpg',
-                        'assets/bg1.jpg'
+                        "<%= asset_path('assets/bg5_low.jpg') %>", 
+                        "<%= asset_path('assets/bg2.jpg') %>",
+                        "<%= asset_path('assets/bg3.jpg') %>",
+                        "<%= asset_path('assets/bg4.jpg') %>",
+                        "<%= asset_path('assets/bg1.jpg') %>"
                     ],
                     fadeSpeed: 1000,
                     duration: 5000,
@@ -77,7 +77,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= image_tag("header_02.png", size: "650x75") %>
+    <%= image_tag("header.png", size: "650x75") %>
   </div>
 </div>
 
