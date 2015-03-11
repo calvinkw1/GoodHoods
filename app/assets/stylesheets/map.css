@@ -70,6 +70,10 @@
     padding-top: 5px;
   }
 
+  .spacer {
+    margin-top: 0px;
+  }
+
   a {
     color: rgba(255, 102, 102, 0.9);
   }
@@ -106,7 +110,7 @@
 #info1 {
   border-bottom: 1px solid black;
   width: 500px;
-  height: 62.5 px;
+  height: 62.5px;
 }
 
 #info2 {
