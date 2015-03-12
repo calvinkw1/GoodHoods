@@ -139,6 +139,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function() {
 
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus();
+  });
+
   function clearData() {
     // $("#hoodnameandfave").empty();
   }
