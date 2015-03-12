@@ -1,4 +1,4 @@
-var result, map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, weather, wuCity, wuNeighborhood, wuStationID, placesArray = [], placesMarker;
+var result, map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, weather, wuCity, wuNeighborhood, wuStationID, placesArray = [], placesMarker, mapClickHood;
 
 function initialize() {
   var markers = [];
@@ -58,10 +58,11 @@ var styledMap = new google.maps.StyledMapType(styleArray,
   map.data.addListener('mouseout', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
   });
-   map.data.addListener('click', function(event) {
+  map.data.addListener('click', function(event) {
         // startAPICalls();
         // initPlaces();
-        map.setZoom(13);
+        // map.setZoom(13);
+        mapClickHood = event.feature.k.NAME;  
   });
   map.data.addListener('dblclick', function(event) {
    // event.feature.setProperty({fillColor: 'gold'});
@@ -109,9 +110,33 @@ $(document).ready(function() {
     state = $("#state").val();
     mapCall();
     clearData();
-    hoodBounds();
+    hoodBounds('/CaliZillowSimp.json');
+    hoodBounds('/ZillowArizona.json');
+    hoodBounds('/ZillowColorado2.json');
   });
-
+  $("#map-canvas").on("click", function(e) {
+    e.preventDefault();
+    neighborhood = mapClickHood;
+    console.log(mapClickHood);
+    var clickLocation = mapClickHood.split(' ').join('+') + "+" + city.split(' ').join('+');
+    console.log(clickLocation);
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
+    $.getJSON(result, function(clickData) {
+          latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
+          longitude = clickData.results[0].geometry.location.lng;
+          console.log(latitude + " " + longitude);
+          // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+          map.setCenter(new google.maps.LatLng(latitude,longitude));
+          // map.setZoom(13);
+          console.log(latitude);      
+        }).done(
+        function() {
+          console.log("DONE FUNCTION HIT!!!");
+          console.log(latitude);
+          startAPICalls();
+          initPlaces();
+        }); //end done function
+  }); //end click listener
   $("#hoods").on("click", "#neighborhood", function(e) {
     e.preventDefault();
     $(".info-div").addClass("overflow");
@@ -134,9 +159,9 @@ $(document).ready(function() {
           initPlaces();
           checkFav();
         }); //end done function
-      }); //end click listener
-function hoodBounds() {
-  $.getJSON('/CaliZillowSimp.json', function(hoods) {
+  }); //end click listener
+function hoodBounds(url) {
+  $.getJSON(url, function(hoods) {
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
         $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
@@ -149,32 +174,7 @@ function hoodBounds() {
     }
     map.data.addGeoJson(hoods);
   });
-  $.getJSON('/ZillowColorado2.json', function(hoodsCO) {
-    for (i = 0; i < hoodsCO.features.length; i++) {
-      if (city == hoodsCO.features[i].properties.CITY) {
-        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsCO.features[i].properties.NAME + "</a><br />");
-        $.post('/save',  {
-          name: hoodsCO.features[i].properties.NAME,
-          city: hoodsCO.features[i].properties.CITY,
-          state: hoodsCO.features[i].properties.STATE
-        });
-      }
-    }
-    map.data.addGeoJson(hoodsCO);
-  }); 
-  $.getJSON('/ZillowArizona.json', function(hoodsAZ) {
-    for (i = 0; i < hoodsAZ.features.length; i++) {
-      if (city == hoodsAZ.features[i].properties.CITY) {
-        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsAZ.features[i].properties.NAME + "</a><br />");
-        $.post('/save',  {
-          name: hoodsAZ.features[i].properties.NAME,
-          city: hoodsAZ.features[i].properties.CITY,
-          state: hoodsAZ.features[i].properties.STATE
-        });
-      }
-    }
-    map.data.addGeoJson(hoodsAZ);
-  });
+  
 }
 
 function mapCall() {
