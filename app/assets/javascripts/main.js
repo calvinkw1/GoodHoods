@@ -47,6 +47,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 $(document).ready(function() {
 
   function clearData() {
+    // $("#hoodnameandfave").empty();
     $("#hoods").empty();
     $("#city-summary").empty();
     $("#people").empty();
@@ -161,6 +162,11 @@ function mapCall() {
   // }
 
   function zillowAPIData() {
+
+    // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
+    // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
+    // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
+
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
     for (i = 0; i < livesHere.length; i++) {

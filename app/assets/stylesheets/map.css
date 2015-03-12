@@ -95,6 +95,14 @@ a:hover {
   text-decoration: none;
 }
 
+a:visited {
+  color: rgba(255, 102, 102, 0.9);
+}
+
+a:active {
+  color: rgba(255, 102, 102, 0.9);
+}
+
 #nohover a:hover {
   color: transparent;
   background: transparent;
