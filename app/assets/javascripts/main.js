@@ -24,7 +24,7 @@ function initialize() {
     fillColor: 'green',
     strokeColor: '#E9DBE8',
     strokeWeight: 1,
-    fillOpacity: 0.3
+    fillOpacity: 0.2
   };
 
   map.data.setStyle(featureStyle); 
@@ -37,9 +37,8 @@ function initialize() {
    });
    map.data.addListener('click', function(event) {
    event.feature.setProperty({fillColor: 'gold'});
-   // map.setZoom(14);
    });
-}  //END OF INTIALIZE FUNCTION
+}
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -123,37 +122,37 @@ $(document).ready(function() {
     });
   }
 
-  function findWUStation() {
-    for (i = 0; i < weather.length; i++) {
-      wuCity = weather[i].city.toLowerCase();
-      wuNeighborhood = weather[i].neighborhood.toLowerCase();
-      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-        wuStationID = weather[i].id;
-        break;
-      }
-    }
-  }
+  // function findWUStation() {
+  //   for (i = 0; i < weather.length; i++) {
+  //     wuCity = weather[i].city.toLowerCase();
+  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
+  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+  //       wuStationID = weather[i].id;
+  //       break;
+  //     }
+  //   }
+  // }
 
-  function weatherCall() {
-    if (!wuStationID) {
-      $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
-    } else {
-      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
-      $.getJSON(wuURL, function(data) {
-        weather = data.current_observation;
-        $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-        $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
-        $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-        $("#weather").append("<p>" + weather.icon + "</p>");
-        $("#weather").append("<p>" + weather.weather + "</p>");
-        $("#weather").append("<p>" + weather.wind_dir + "</p>");
-        $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
-        $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
-        $("#weather").append("<p>" + weather.wind_dir + "</p>");
-        $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
-      });
-    }
-  }
+  // function weatherCall() {
+  //   if (!wuStationID) {
+  //     $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
+  //   } else {
+  //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+  //     $.getJSON(wuURL, function(data) {
+  //       weather = data.current_observation;
+  //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
+  //       $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
+  //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
+  //       $("#weather").append("<p>" + weather.icon + "</p>");
+  //       $("#weather").append("<p>" + weather.weather + "</p>");
+  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
+  //       $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
+  //       $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
+  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
+  //       $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
+  //     });
+  //   }
+  // }
 
   function zillowAPIData() {
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;

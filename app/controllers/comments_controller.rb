@@ -3,11 +3,11 @@ class CommentsController < ApplicationController
   def create
     find_commentable.comments.build(comment_params.merge user_id: session[:user_id]).save
     if @comment.save
-      flash[:success] = "Congrats! You Added A Comment Bro."    
+      flash[:success] = "Congrats! You added a comment, bro."    
     else
-      flash[:alert] = "No Comment for You"      
+      flash[:alert] = "No comment for you."      
     end
-    redirect_to :back, flash: {success: "Thanks for the comment"}
+    redirect_to :back, flash: {success: "Thanks for the comment."}
   end
 
   def show_on_click

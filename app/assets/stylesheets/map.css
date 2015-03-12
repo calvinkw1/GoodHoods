@@ -7,8 +7,8 @@ body {
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
-  height: 550px;
-  width: 550px;
+  height: 600px;
+  width: 600px;
   margin-top: 20px;
   /*padding: 10%;*/
 }
@@ -41,7 +41,6 @@ width: 100%;
     display: inline-block;
     list-style-type: none;
 
-    
     -webkit-transition: all 0.2s;
       -moz-transition: all 0.2s;
       -ms-transition: all 0.2s;
