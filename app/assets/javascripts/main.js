@@ -14,15 +14,86 @@ function initialize() {
     mapTypeControl: true,
     scaleControl: true,
     streetViewControl: true,
-    overviewMapControl: true
+    overviewMapControl: true,
+    mapTypeControlOptions: {
+    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    }
   }; 
-
+  var styleArray = [
+  {
+    featureType: "all",
+    stylers: [
+      { saturation: -60 }
+    ]
+  },{
+    featureType: "road.arterial", //ROAD
+    elementType: "geometry",
+    stylers: [
+      { color: "#448872"},
+      { weight: 1 },
+      { saturation: 20 },
+      { visibility: "simplified" }
+    ]
+  },{
+    featureType: "poi.park", //PARK
+    // elementType: "labels",
+    stylers: [
+      { color: "#408000" },
+      { saturation: "-30"}
+    ]
+  },{
+    featureType: "administrative.neighborhood", //applies to all hoods
+    stylers: [
+      { color: "#7BD970" },
+      { gamma: 3.0}
+    ]
+  },{
+    featureType: "administrative.neighborhood", //applies to the label color of hoods
+    elementType: "labels", 
+    stylers: [
+      { color: "#FF6666" },
+      { gamma: 1.4},
+      { weight: 1},
+      { saturation: 20}
+    ]
+  },{
+    featureType: "poi.school", //SCHOOL
+    stylers: [
+      { color: "#EED24D"}
+    ]
+  },{
+    featureType: "poi.school",//SCHOOL LABEL
+    elementType: "labels", 
+    stylers: [
+      { color: "#232623" },
+      { weight: 1 }
+    ]
+  },{
+    featureType: "poi.medical",//MEDICAL 
+    stylers: [
+      { color: "#BF3E39" },
+      { gamma: 1.5 }
+    ]
+  },{
+    featureType: "poi.medical", //MEDICAL LABEL
+    elementType: "labels", 
+    stylers: [
+      { color: "#232623" },
+      { gamma: 1.3},
+      { weight: 1},
+      { saturation: 20}
+    ]
+  }
+];
+var styledMap = new google.maps.StyledMapType(styleArray,
+    {name: "Styled Map"});
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+  map.mapTypes.set('map_style', styledMap);
+  map.setMapTypeId('map_style');
   var featureStyle = {
     clickable: true,
     fillColor: 'green',
-    strokeColor: '#E9DBE8',
+    strokeColor: '#FF493F',
     strokeWeight: 1,
     fillOpacity: 0.2
   };
@@ -47,7 +118,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 $(document).ready(function() {
 
   function clearData() {
-    $("#hoods").empty();
+    // $("#hoodnameandfave").empty();
     $("#city-summary").empty();
     $("#people").empty();
     $("#characteristics").empty();
@@ -59,6 +130,7 @@ $(document).ready(function() {
 
   $("#search-input").submit(function(e) {
     e.preventDefault();
+    $("#hoods").empty();
     city = $("#city").val();
     state = $("#state").val();
     mapCall();
@@ -75,7 +147,7 @@ $(document).ready(function() {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
           console.log(latitude + " " + longitude);
-          map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+          // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
           map.setCenter(new google.maps.LatLng(latitude,longitude));
           map.setZoom(15);
           console.log(latitude);      
@@ -127,42 +199,48 @@ function mapCall() {
     });
   }
 
-  // function findWUStation() {
-  //   for (i = 0; i < weather.length; i++) {
-  //     wuCity = weather[i].city.toLowerCase();
-  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
-  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-  //       wuStationID = weather[i].id;
-  //       console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
-  //       break;
-  //     }
-  //   }
-  // }
+  function findWUStation() {
+    for (i = 0; i < weather.length; i++) {
+      wuCity = weather[i].city.toLowerCase();
+      wuNeighborhood = weather[i].neighborhood.toLowerCase();
+      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+        wuStationID = weather[i].id;
+        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+        break;
+      }
+    }
+  }
 
-  // function weatherCall() {
-  //   if (!wuStationID) {
-  //     $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
-  //   } else {
-  //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
-  //     $.getJSON(wuURL, function(data) {
-  //       weather = data.current_observation;
-  //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-  //       $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
-  //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-  //       $("#weather").append("<p>" + weather.icon + "</p>");
-  //       $("#weather").append("<p>" + weather.weather + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
-  //     });
-  //   }
-  // }
+  function weatherCall() {
+    if (!wuStationID) {
+      $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
+    } else {
+      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+      $.getJSON(wuURL, function(data) {
+        weather = data.current_observation;
+        $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
+        $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
+        $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
+        $("#weather").append("<p>" + weather.icon + "</p>");
+        $("#weather").append("<p>" + weather.weather + "</p>");
+        $("#weather").append("<p>" + weather.wind_dir + "</p>");
+        $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
+        $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
+        $("#weather").append("<p>" + weather.wind_dir + "</p>");
+        $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
+      });
+    }
+  }
 
   function zillowAPIData() {
+    clearData();
+
+    // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
+    // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
+    // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
+
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
-    $("#city-summary").append("<h5>Resident Psychographics</h5>");
+    $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
     for (i = 0; i < livesHere.length; i++) {
       $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");    
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
@@ -170,7 +248,7 @@ function mapCall() {
     
     var people = zillow.demographics.response.pages.page[2].tables.table[0].data.attribute;
     console.log(people);
-    $("#people").append("<h5>Resident Demographics</h5>");
+    $("#people").append("<p class='bolded'> Resident Demographics</p>");
       $("#people").append("<p><i>" + people[0].name + "</i><p>");
       $("#people").append("<p>$" + Math.round(people[0].values.neighborhood.value) + "</p>");
       $("#people").append("<p><i>" + people[1].name + "</i><p>");
@@ -187,7 +265,7 @@ function mapCall() {
       $("#people").append("<p>" + Math.round(people[6].values.neighborhood.value) + "</p>");
 
     var kids = zillow.demographics.response.pages.page[2].tables.table[3];
-    $("#kids").append("<h5>Households with Children</h5>");
+    $("#kids").append("<p class='bolded'> Households with Children</p>");
       $("#kids").append("<p><i>Percentage WITH children</i></p>");
       $("#kids").append("<p>" + (kids.data.attribute[1].value * 100).toFixed(2) + "%</p>");
       $("#kids").append("<p><i>Percentage WITHOUT children</i></p>");
@@ -195,6 +273,7 @@ function mapCall() {
     
 
     var characteristics = zillow.demographics.response.pages.page[2].uniqueness.category;
+    $("#characteristics").append("<p class='bolded'> Resident Characteristics</p>");
     $("#characteristics").append("<p><i>" + characteristics[1].type + "</i></p>");
     for (n = 0; n < characteristics[1].characteristic.length; n++) {
           $("#characteristics").append("<p>" + characteristics[1].characteristic[n] + "</p>");
@@ -205,21 +284,21 @@ function mapCall() {
     }
 
     var ages = zillow.demographics.response.pages.page[2].tables.table[1];
-    $("#ages").append("<h5>Age demographics by decade");
+    $("#ages").append("<p class='bolded'> Age demographics by decade</p>");
     for (i = 0; i < ages.data.attribute.length; i++) {
       $("#ages").append("<p><i>" + ages.data.attribute[i].name + "</i></p>");
       $("#ages").append("<p>" + (100 * ages.data.attribute[i].value).toFixed(2) + "%</p>");
     }
 
     var relationships = zillow.demographics.response.pages.page[2].tables.table[4];
-    $("#relationships").append("<h5>Relationship Status</h5>");
+    $("#relationships").append("<p class='bolded'> Relationship Status</p>");
     for (i = 0; i < relationships.data.attribute.length; i++) {
       $("#relationships").append("<p><i>" + relationships.data.attribute[i].name + "</i></p>");
       $("#relationships").append("<p>" + (100 * relationships.data.attribute[i].value).toFixed(2) + "%</p>");
     }
 
     var charts = zillow.demographics.response.charts.chart;
-    $("#charts").append("<h5>Home Value Information</h5>");
+    $("#charts").append("<p class='bolded'> Home Value Information</p>");
       $("#charts").append("<p><i>" + charts[1].name + "</i></p>");
       $("#charts").append("<p><img src=" + charts[1].url + "></div>");
       $("#charts").append("<p><i>" + charts[3].name + "</i></p>");
@@ -259,8 +338,8 @@ function markPlaces(result, status) {
       }
       placesArray = [];
       for (var i = 0; i < result.length; i++) {
-        var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
-        var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
+        // var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
+        // var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
         placesMarker = new google.maps.Marker({
           map: map,
           icon: gpmarker,
