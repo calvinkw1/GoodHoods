@@ -79,6 +79,7 @@ $(document).ready(function() {
     });
     startAPICalls();
 
+
   });
   
   function hoodBounds() {
@@ -224,5 +225,19 @@ $(document).ready(function() {
       $("#charts").append("<p><i>" + charts[7].name + "</i></p>");
       $("#charts").append("<p><img src=" + charts[7].url + "></p>");
     }
+
+    $("#fav").click(function() {
+      $.ajax({
+        url: '/favorites',
+        method: 'PATCH',
+        data: {
+          neighborhood: neighborhood,
+          city: city,
+          state: state
+        }
+      }
+    );
+    });
+  
 
 });
