@@ -45,6 +45,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function() {
 
+  function clearData() {
+    $("#hoods").empty();
+    $("#city-summary").empty();
+    $("#people").empty();
+    $("#characteristics").empty();
+    $("#ages").empty();
+    $("#kids").empty();
+    $("#relationships").empty();
+    $("#charts").empty();
+  }
+
   $("#search-input").submit(function(e) {
     e.preventDefault();
     city = $("#city").val();
@@ -100,17 +111,6 @@ $(document).ready(function() {
       map.panTo(new google.maps.LatLng(Lat,Lng));
       map.setZoom(12);
     });
-  }
-
-  function clearData() {
-    $("#hoods").empty();
-    $("#city-summary").empty();
-    $("#people").empty();
-    $("#characteristics").empty();
-    $("#ages").empty();
-    $("#kids").empty();
-    $("#relationships").empty();
-    $("#charts").empty();
   }
 
   function startAPICalls() {
