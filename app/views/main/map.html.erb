@@ -22,7 +22,7 @@
           <%= text_field_tag(:city) %>
           <%= label_tag(:state, "State: ") %>
           <%= text_field_tag(:state) %>
-          <%= submit_tag("Search") %>
+          <%= submit_tag("Search Hoods") %>
         <% end %>
       </div>
     </div>
@@ -36,28 +36,17 @@
   </div>
 
   <div class="row">
-    <!-- SEARCH BOX -->
-    <div class="col-xs-3">
-    <span id="info-box">Current Neighborhood</span> 
+    <div class="col-xs-2"></div>
+
+    <div class="col-xs-2 overflow">
         <ul id="hoods">
+
         </ul>
-
     </div>
       
-    <div class="log-xs-9">
-
-
-    </div>
-
-    <div class="col-xs-3">
-      <!-- INFO BOX -->
-      
-      <!-- FAVORITE NEIGHBORHOOD -->
-      <p class="text-left">
-      <a><span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span></a>
-      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-      <!-- NEIGHBORHOOD METADATA -->
-      <div class="text-left" id="city-summary"></div>
+    <div class="col-xs-6 overflow">
+      <!-- <p class="text-left"><a href="http://google.com"><span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span></a>Favorite [neighborhood]</p> -->
+      <p class="text-left" id="city-summary"></p>
       <div class="text-left" id="people"></div>
       <div class="text-left" id="characteristics"></div>
       <div class="text-left" id="ages"></div>
@@ -66,6 +55,8 @@
       <div class="text-left" id="charts"></div>
       <div class="text-left" id="weather"></div>
     </div>  
+
+    <div class="col-xs-2"></div>
   </div>
 
 </body>
