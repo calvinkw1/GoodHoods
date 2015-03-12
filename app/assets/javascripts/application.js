@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bgcycle
+//= require main
 //= require_tree .

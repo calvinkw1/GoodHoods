@@ -1,22 +1,29 @@
 <%= stylesheet_link_tag 'map', media: 'all', 'data-turbolinks-track' => true %>
 
-<nav class="navbar navbar-default navbar-fixed-top mynav">
-  <div class="container">
-    <ul>
-      <div class="floatleft">
-        <li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li>
-      </div> 
-      <div class="floatright">
-        <li>Logged in as <i><%= @found_user.username %></i></li>
-        <li>Favorites</li>
-        <li><%= link_to "About", about_path %></li>
-        <li><%= link_to "Sign Out", logout_path, method: :delete %></li>
-      </div>
-    </ul>
-  </div>
-</nav>
+  <nav class="navbar navbar-default navbar-fixed-top mynav">
+    <div class="container">
+      <ul>
+      <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div> 
+      <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
+      <li><%= link_to "Favorites", favorites_path %></li>
+      <li><%= link_to "About", about_path %></li>
+      <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
+      </ul>
+    </div>
+  </nav>
 
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
+        <%= label_tag(:city, "City: ") %>
+        <%= text_field_tag(:city) %>
+        <%= label_tag(:state, "State: ") %>
+        <%= text_field_tag(:state) %>
+        <%= submit_tag("Search") %>
+      <% end %>
+    </div>
+  </div>
 
   <div class="row">
 
@@ -46,11 +53,16 @@
 
     <div class="col-lg-5">
 
+
       <!-- INFO BOX -->
       <div id="info-box">Current Neighborhood</div> 
 
       <!-- FAVORITE NEIGHBORHOOD -->
       <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+
+      <p class="text-left">
+      <span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span>
+
       <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 
       <!-- NEIGHBORHOOD METADATA -->
@@ -65,4 +77,5 @@
     </div>  
   </div>
 
-</div>
+</body>
+</html>

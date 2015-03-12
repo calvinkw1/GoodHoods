@@ -50,4 +50,17 @@ class MainController < ApplicationController
     redirect_to map_path
   end
 
+  def favorites
+    @user = User.find session[:user_id]
+    @hoods = @user.hoods
+  end
+
+  def add_fav 
+    user = User.find session[:user_id]
+    hood = Hood.find_by name: params[:neighborhood], city: params[:city]
+    hood_id = hood.id
+    Search.create(user_id:user, hood_id:hood_id, is_fav:true)
+    render nothing: true
+  end
+
 end

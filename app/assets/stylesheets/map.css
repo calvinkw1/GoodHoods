@@ -33,6 +33,7 @@ width: 100%;
   text-align: right;
   margin: 0px;
   padding: 11px;
+  font-family: 'Oswald', sans-serif;
 }
 
 .mynav ul li {
@@ -40,7 +41,7 @@ width: 100%;
     color: white;
     display: inline-block;
     list-style-type: none;
-
+    font-family: 'Oswald', sans-serif;
     -webkit-transition: all 0.2s;
       -moz-transition: all 0.2s;
       -ms-transition: all 0.2s;
@@ -87,4 +88,8 @@ a:hover {
   color: transparent;
   background: transparent;
   text-decoration: none;
+}
+
+#info-box {
+  font-family: 'Oswald', sans-serif;
 }

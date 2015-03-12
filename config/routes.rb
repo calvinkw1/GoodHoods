@@ -26,19 +26,27 @@ Rails.application.routes.draw do
 
   post '/save', to: 'main#save_hood', as: 'save'
 
+  get '/favorites', to: 'main#favorites', as: 'favorites'
+
+  patch '/favorites', to: 'main#add_fav', as: "add_fav"
+
   #### RAKE ROUTES ####
 
-  #   Prefix Verb   URI Pattern         Controller#Action
-  #     root GET    /                   users#login
-  #    login GET    /login(.:format)    users#login
-  #   signup GET    /signup(.:format)   users#signup
-  #          POST   /login(.:format)    users#attempt_login
-  #    about GET    /about(.:format)    main#about
-  #          POST   /signup(.:format)   users#create
-  #     home GET    /home(.:format)     users#home
-  #   logout DELETE /logout(.:format)   users#logout
-  # main_map GET    /main/map(.:format) main#map
-  #      map GET    /main(.:format)     main#map
-  #   search GET    /search(.:format)   main#search
+#    Prefix Verb   URI Pattern          Controller#Action
+#      root GET    /                    users#login
+#     login GET    /login(.:format)     users#login
+#    signup GET    /signup(.:format)    users#signup
+#           POST   /login(.:format)     users#attempt_login
+#     about GET    /about(.:format)     main#about
+#           POST   /signup(.:format)    users#create
+#      home GET    /home(.:format)      users#home
+#    logout DELETE /logout(.:format)    users#logout
+#  main_map GET    /main/map(.:format)  main#map
+#   comment POST   /main(.:format)      comments#create
+#       map GET    /main(.:format)      main#map
+#    search GET    /search(.:format)    main#search
+#      save POST   /save(.:format)      main#save_hood
+# favorites GET    /favorites(.:format) main#favorites
+#   add_fav PATCH  /favorites(.:format) main#add_fav
 
 end
