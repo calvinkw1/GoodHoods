@@ -79,6 +79,7 @@ width: 100%;
   background-color: rgba(255, 102, 102, 1);
   color: white;
   font-weight: 700;
+  padding:2px;
 }
 
 .spacer {
