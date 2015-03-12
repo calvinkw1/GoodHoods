@@ -30,19 +30,17 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Neighborhoods</th>
+            <th>Favorite Neighborhoods</th>
             <th>City</th>
             <th>State</th>
-            <th>LINK?</th>
           </tr>
         </thead>
         <tbody>
-          <% @hoods.each do |hood| %>
-            <tr>
-              <td><%= hood.name %></td>
-              <td><%= hood.city %></td>
-              <td><%= hood.state %></td>
-              <td>?</td>
+          <% @fav_hoods.each do |fav| %>
+            <tr class="text-left">
+              <td><%= fav.name %></td>
+              <td><%= fav.city %></td>
+              <td><%= fav.state %></td>
             </tr>
           <% end %>
         </tbody>

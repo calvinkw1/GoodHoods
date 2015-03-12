@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   get '/favorites', to: 'main#favorites', as: 'favorites'
 
+  get '/checkfav', to: 'main#check_fav', as: 'check_fav'
+
   post '/favorites', to: 'main#add_fav', as: "add_fav"
 
   #### RAKE ROUTES ####

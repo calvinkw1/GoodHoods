@@ -59,8 +59,8 @@ var styledMap = new google.maps.StyledMapType(styleArray,
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
   });
    map.data.addListener('click', function(event) {
-        startAPICalls();
-        initPlaces();
+        // startAPICalls();
+        // initPlaces();
         map.setZoom(13);
   });
   map.data.addListener('dblclick', function(event) {
@@ -129,6 +129,7 @@ $(document).ready(function() {
           console.log(latitude);
           startAPICalls();
           initPlaces();
+          checkFav();
         }); //end done function
       }); //end click listener
 function hoodBounds() {
@@ -144,7 +145,33 @@ function hoodBounds() {
       }
     }
     map.data.addGeoJson(hoods);
+  });
+  $.getJSON('/ZillowColorado2.json', function(hoodsCO) {
+    for (i = 0; i < hoodsCO.features.length; i++) {
+      if (city == hoodsCO.features[i].properties.CITY) {
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsCO.features[i].properties.NAME + "</a><br />");
+        $.post('/save',  {
+          name: hoodsCO.features[i].properties.NAME,
+          city: hoodsCO.features[i].properties.CITY,
+          state: hoodsCO.features[i].properties.STATE
+        });
+      }
+    }
+    map.data.addGeoJson(hoodsCO);
   }); 
+  $.getJSON('/ZillowArizona.json', function(hoodsAZ) {
+    for (i = 0; i < hoodsAZ.features.length; i++) {
+      if (city == hoodsAZ.features[i].properties.CITY) {
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsAZ.features[i].properties.NAME + "</a><br />");
+        $.post('/save',  {
+          name: hoodsAZ.features[i].properties.NAME,
+          city: hoodsAZ.features[i].properties.CITY,
+          state: hoodsAZ.features[i].properties.STATE
+        });
+      }
+    }
+    map.data.addGeoJson(hoodsAZ);
+  });
 }
 
 function mapCall() {
@@ -340,6 +367,23 @@ function markPlaces(result, status) {
     $(this).css("background-color", "#94BF74");
   }
 
+  function checkFav() {
+    $("#fav").removeClass("favorited");
+    $.ajax({
+      url: '/checkfav',
+      method: 'GET',
+      data: {
+        neighborhood: neighborhood,
+        city: city
+      },
+      success: function(data) {
+        if (data.is_fav) {
+          console.log(data.is_fav);
+          $("#fav").addClass("favorited");
+        }
+      }
+    });
+  }
 
     $("#fav").click(function() {
       self = $(this);
@@ -354,11 +398,14 @@ function markPlaces(result, status) {
         success: function(data) {
           if (data.is_fav) {
             self.toggleClass("favorited");
+          } else {
+            self.toggleClass("favorited");
           }
         }
       }
     );
     });
+
     $("#comment").submit(function() {
       $.ajax({
         url: '/comment',
