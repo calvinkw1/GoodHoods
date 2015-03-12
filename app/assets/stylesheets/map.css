@@ -115,4 +115,7 @@ a:active {
   text-align: right;
 }
 
+.favorited {
+  background: black;
+}
 
