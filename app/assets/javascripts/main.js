@@ -49,8 +49,6 @@ $(document).ready(function() {
     e.preventDefault();
     city = $("#city").val();
     state = $("#state").val();
-    // neighborhood = $("#neighborhood").val();
-    
     mapCall();
     clearData();
     hoodBounds();
@@ -117,9 +115,9 @@ $(document).ready(function() {
       zillow = data.zillowData;
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
-      findWUStation();
-      weatherCall();
-            
+      // commented out on 3/11 in order to avoid API usage spikes
+      // findWUStation();
+      // weatherCall();
     });
   }
 

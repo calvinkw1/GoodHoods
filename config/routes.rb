@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   post '/save', to: 'main#save_hood', as: 'save'
 
+  get '/favorites', to: 'main#favorites', as: 'favorites'
+
   #### RAKE ROUTES ####
 
   #   Prefix Verb   URI Pattern         Controller#Action

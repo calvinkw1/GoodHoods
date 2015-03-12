@@ -1,0 +1,13 @@
+<h3><%= @user.username %></h3>
+
+<div>
+  <table>
+    <% @hoods.each do |hood| %>
+      <tr>
+        <td><%= hood.name %></td>
+        <td><%= hood.city %></td>
+        <td><%= hood.state %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
