@@ -425,11 +425,14 @@ function markPlaces(result, status) {
         success: function(data) {
           if (data.is_fav) {
             self.toggleClass("favorited");
+          } else {
+            self.toggleClass("favorited");
           }
         }
       }
     );
     });
+
     $("#comment").submit(function() {
       $.ajax({
         url: '/comment',
