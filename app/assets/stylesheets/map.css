@@ -1,23 +1,26 @@
 body { 
-  padding-top: 60px;
-  margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 50px;
+  padding-top: 25px;
  }
 
-#map-canvas {
-  -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
-  height: 600px;
-  width: 600px;
-  margin-top: 20px;
-  /*padding: 10%;*/
-}
 
-#map-canvas img { width: auto; display:inline; max-width: none; }
+#map-canvas {
+   display: block;
+   width: 70%;
+   height: 400px;
+   margin-left: 15%;
+   margin-top: 25px;
+}
 
 #left {
   display: inline-block;
   text-align: left;
+}
+
+ul{
+  text-align: right;
+  list-style-type: none;
 }
 
 .mynav {
@@ -33,7 +36,7 @@ width: 100%;
   text-align: right;
   margin: 0px;
   padding: 11px;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .mynav ul li {
@@ -41,7 +44,7 @@ width: 100%;
     color: white;
     display: inline-block;
     list-style-type: none;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
     -webkit-transition: all 0.2s;
       -moz-transition: all 0.2s;
       -ms-transition: all 0.2s;
@@ -91,5 +94,12 @@ a:hover {
 }
 
 #info-box {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  text-align: right;
+}
+
+#neighborhoodlist {
+    width: 150px;
+    height: 150px;
+    overflow: scroll;
 }
