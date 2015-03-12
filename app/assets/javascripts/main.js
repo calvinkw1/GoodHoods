@@ -140,14 +140,6 @@ $(document).ready(function() {
 
   function clearData() {
     // $("#hoodnameandfave").empty();
-    $("#hoods").empty();
-    $("#city-summary").empty();
-    $("#people").empty();
-    $("#characteristics").empty();
-    $("#ages").empty();
-    $("#kids").empty();
-    $("#relationships").empty();
-    $("#charts").empty();
   }
 
   $("#search-input").submit(function(e) {
@@ -184,7 +176,7 @@ function hoodBounds() {
   $.getJSON('/CaliZillowSimp.json', function(hoods) {
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
-        $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
         $.post('/save',  {
           name: hoods.features[i].properties.NAME,
           city: hoods.features[i].properties.CITY,
@@ -234,26 +226,32 @@ function mapCall() {
 
   // function weatherCall() {
   //   if (!wuStationID) {
-  //     $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
+  //     $("#weather").append("<p class='bolded'> Weather Info</p>");
+  //     $("#weather").append("<p>No weather stations for this neighborhood!</p>");
   //   } else {
   //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
   //     $.getJSON(wuURL, function(data) {
   //       weather = data.current_observation;
+  //       $("#weather").append("<p class='bolded'> Weather Info</p>");
   //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-  //       $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
   //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-  //       $("#weather").append("<p>" + weather.icon + "</p>");
   //       $("#weather").append("<p>" + weather.weather + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
+  //       $("#weather").append("<p>Wind direction: " + weather.wind_dir + "</p>");
+  //       $("#weather").append("<p>Wind speed: " + weather.wind_gust_mph + "</p>");
   //     });
   //   }
   // }
 
   function zillowAPIData() {
+
+    $("#city-summary").empty();
+    $("#people").empty();
+    $("#characteristics").empty();
+    $("#ages").empty();
+    $("#kids").empty();
+    $("#relationships").empty();
+    $("#charts").empty();
+    $("#weather").empty();
 
     // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
     // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
@@ -262,7 +260,7 @@ function mapCall() {
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
     for (i = 0; i < livesHere.length; i++) {
-      $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");    
+      $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
     }
     
