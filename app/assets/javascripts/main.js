@@ -1,4 +1,4 @@
-var map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, weather, wuCity, wuNeighborhood, wuStationID;
+var result, map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, weather, wuCity, wuNeighborhood, wuStationID, placesArray = [], placesMarker;
 
 function initialize() {
   var markers = [];
@@ -29,14 +29,14 @@ function initialize() {
   map.data.addListener('mouseover', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'red'});
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
-   });
-   map.data.addListener('mouseout', function(event) {
+ });
+  map.data.addListener('mouseout', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
-   });
-   map.data.addListener('click', function(event) {
+ });
+  map.data.addListener('click', function(event) {
    event.feature.setProperty({fillColor: 'gold'});
    // map.setZoom(14);
-   });
+ });
 }  //END OF INTIALIZE FUNCTION
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -59,38 +59,43 @@ $(document).ready(function() {
     neighborhood = $(this).text();
     console.log(neighborhood);
     var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
-    var result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
     $.getJSON(result, function(clickData) {
-          var latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
-          var longitude = clickData.results[0].geometry.location.lng;
+          latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
+          longitude = clickData.results[0].geometry.location.lng;
           console.log(latitude + " " + longitude);
-            map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-            map.setCenter(new google.maps.LatLng(latitude,longitude));
-            map.setZoom(15);
-    });
-    startAPICalls();
+          map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+          map.setCenter(new google.maps.LatLng(latitude,longitude));
+          map.setZoom(15);
+          console.log(latitude);      
+        }).done(
+        function() {
+          console.log("DONE FUNCTION HIT!!!");
+          console.log(latitude);
+          startAPICalls();
+          initPlaces();
+        }); //end done function
+      }); //end click listener
 
-  });
-  
-  function hoodBounds() {
+function hoodBounds() {
   $.getJSON('/CaliZillowSimp.json', function(hoods) {
-      for (i = 0; i < hoods.features.length; i++) {
-        if (city == hoods.features[i].properties.CITY) {
-          $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
-          $.post('/save',  {
-            name: hoods.features[i].properties.NAME,
-            city: hoods.features[i].properties.CITY,
-            state: hoods.features[i].properties.STATE
-          });
-        }
+    for (i = 0; i < hoods.features.length; i++) {
+      if (city == hoods.features[i].properties.CITY) {
+        $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
+        $.post('/save',  {
+          name: hoods.features[i].properties.NAME,
+          city: hoods.features[i].properties.CITY,
+          state: hoods.features[i].properties.STATE
+        });
       }
+    }
     map.data.addGeoJson(hoods);
-    }); 
-  }
+  }); 
+}
 
-  function mapCall() {
-    var location = city + "+" + state;
-    var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
+function mapCall() {
+  var location = city + "+" + state;
+  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc");
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
@@ -117,9 +122,9 @@ $(document).ready(function() {
       zillow = data.zillowData;
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
-      findWUStation();
-      weatherCall();
-            
+      // findWUStation();
+      // weatherCall();
+
     });
   }
 
@@ -129,7 +134,7 @@ $(document).ready(function() {
       wuNeighborhood = weather[i].neighborhood.toLowerCase();
       if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
         wuStationID = weather[i].id;
-              console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
 
         break;
       }
@@ -212,6 +217,90 @@ $(document).ready(function() {
   }
 
 
+
+
+
+
+// function addMarker() {
+//   var myLatlng = new google.maps.LatLng(startLat, startLng);
+//   var mapOptions = {
+//     zoom: 15,
+//     center: myLatlng
+//   };
+//   // var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+//   var marker = new google.maps.Marker({
+//     draggable: true,
+//     animation: google.maps.Animation.DROP,
+//     position: myLatlng,
+//     icon: "map_marker_start.png"
+//   });
+
+
+//   // To add the marker to the map, call setMap();
+//   marker.setMap(map);
+//   // Event listener for click on the marker to invoke bouncing animation on marker
+//   google.maps.event.addListener(marker, 'click', toggleBounce);
+//   // Event listener to load Places results
+//   google.maps.event.addListener(marker, "dblclick", initPlaces);
+
+//   google.maps.event.addListener(map, 'click', function(event) {
+//     clickAddMarker(event.latLng);
+//   });
+function initPlaces() {
+  console.log("check!");
+  console.log(result);
+  // console.log(results);
+  console.log(latitude);
+  console.log(longitude);
+  var loc = new google.maps.LatLng(latitude,longitude);
+  var request = {
+    location: loc,
+    radius: 1000,
+    types: ["bar", "restaurant"]
+  };
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, markPlaces);
+  markPlaces();
+}  
+
+function markPlaces(result, status) {
+    // $(".placesList").css("visibility", "visible");
+    // $(".listItems").empty();
+    console.log(result);
+    console.log(status);
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (var x = 0; x < placesArray.length; x++) {
+        placesArray[x].setMap(null);
+      }
+      placesArray = [];
+      for (var i = 0; i < result.length; i++) {
+        var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
+        var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
+        placesMarker = new google.maps.Marker({
+          map: map,
+          icon: gpmarker,
+          title: result[i].name,
+          position: position,
+          draggable: false,
+        });
+        var placeTitle = result[i].name;
+        var placeImage = result[i].icon;
+        var placeRating = result[i].rating;
+        var placeVicinity = result[i].vicinity;
+        placesArray.push(placesMarker);
+        infowindow = new google.maps.InfoWindow({
+          content: result[i].name
+        });
+        google.maps.event.addListener(placesMarker, 'click', openInfoWindow);
+        $(".listItems").append("<div class='item'><img class='placesMarker' src='" + placeImage + "'><h4>" + placeTitle + "</h4><p>Address: " + placeVicinity + "</p><p>Rating: " + placeRating + "</p></div>");
+      }
+    } else {
+      $(".listItems").append("<div class='item'>Nothing nearby! Try another location!</div>");
+    }
+    // $(".instructPanel > img").attr("src", "map_places_marker_bar.png");
+    // $(".instructPanel > div").text("Info about the places marked can be seen in the panel on the right!");
+  }
+  console.log(placesArray);
 
 
 });
