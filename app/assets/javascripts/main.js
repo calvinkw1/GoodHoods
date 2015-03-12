@@ -22,90 +22,19 @@ function initialize() {
   }; 
 
 
-  var styleArray = [
+  var styleArray = 
 
-    {
-        "featureType": "landscape",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "stylers": [
-            {
-                "hue": "#00aaff"
-            },
-            {
-                "saturation": -100
-            },
-            {
-                "gamma": 2.15
-            },
-            {
-                "lightness": 12
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "lightness": 24
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "lightness": 57
-            }
-        ]
-    }
+  [
+      {
+          "stylers": [
+              {
+                  "saturation": 100
+              },
+              {
+                  "gamma": 0.6
+              }
+          ]
+      }
   ];
 
 var styledMap = new google.maps.StyledMapType(styleArray,
@@ -130,8 +59,8 @@ var styledMap = new google.maps.StyledMapType(styleArray,
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
   });
    map.data.addListener('click', function(event) {
-        startAPICalls();
-        initPlaces();
+        // startAPICalls();
+        // initPlaces();
         map.setZoom(13);
   });
   map.data.addListener('dblclick', function(event) {
@@ -215,7 +144,33 @@ function hoodBounds() {
       }
     }
     map.data.addGeoJson(hoods);
+  });
+  $.getJSON('/ZillowColorado2.json', function(hoodsCO) {
+    for (i = 0; i < hoodsCO.features.length; i++) {
+      if (city == hoodsCO.features[i].properties.CITY) {
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsCO.features[i].properties.NAME + "</a><br />");
+        $.post('/save',  {
+          name: hoodsCO.features[i].properties.NAME,
+          city: hoodsCO.features[i].properties.CITY,
+          state: hoodsCO.features[i].properties.STATE
+        });
+      }
+    }
+    map.data.addGeoJson(hoodsCO);
   }); 
+  $.getJSON('/ZillowArizona.json', function(hoodsAZ) {
+    for (i = 0; i < hoodsAZ.features.length; i++) {
+      if (city == hoodsAZ.features[i].properties.CITY) {
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsAZ.features[i].properties.NAME + "</a><br />");
+        $.post('/save',  {
+          name: hoodsAZ.features[i].properties.NAME,
+          city: hoodsAZ.features[i].properties.CITY,
+          state: hoodsAZ.features[i].properties.STATE
+        });
+      }
+    }
+    map.data.addGeoJson(hoodsAZ);
+  });
 }
 
 function mapCall() {
@@ -425,11 +380,14 @@ function markPlaces(result, status) {
         success: function(data) {
           if (data.is_fav) {
             self.toggleClass("favorited");
+          } else {
+            self.toggleClass("favorited");
           }
         }
       }
     );
     });
+
     $("#comment").submit(function() {
       $.ajax({
         url: '/comment',

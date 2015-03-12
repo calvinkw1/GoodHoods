@@ -37,11 +37,11 @@
           </tr>
         </thead>
         <tbody>
-          <% @hoods.each do |hood| %>
+          <% @fav_hoods.each do |fav| %>
             <tr>
-              <td><%= hood.name %></td>
-              <td><%= hood.city %></td>
-              <td><%= hood.state %></td>
+              <td><%= fav.name %></td>
+              <td><%= fav.city %></td>
+              <td><%= fav.state %></td>
               <td>?</td>
             </tr>
           <% end %>
