@@ -1,13 +1,43 @@
-<h3><%= @user.username %></h3>
+<%= stylesheet_link_tag 'map', media: 'all', 'data-turbolinks-track' => true %>
 
-<div>
-  <table>
-    <% @hoods.each do |hood| %>
-      <tr>
-        <td><%= hood.name %></td>
-        <td><%= hood.city %></td>
-        <td><%= hood.state %></td>
-      </tr>
-    <% end %>
-  </table>
+  <nav class="navbar navbar-default navbar-fixed-top mynav">
+    <div class="container">
+      <ul>
+      <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div> 
+      <div class="floatright"><li>Logged in as <i><%= @user.username %></i></li>
+      <li><%= link_to "Favorites", favorites_path %></li>
+      <li><%= link_to "About", about_path %></li>
+      <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
+      </ul>
+    </div>
+  </nav>
+
+<div class="container-fluid">
+  <div class="row spacer"></div>
+  <div class="row">
+    <div class="col-xs-3"></div>
+    <div class="col-xs-6">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th><%= @user.username %>'s Favorite Neighborhoods</th>
+            <th>City</th>
+            <th>State</th>
+            <th>LINK?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hoods.each do |hood| %>
+            <tr>
+              <td><%= hood.name %></td>
+              <td><%= hood.city %></td>
+              <td><%= hood.state %></td>
+              <td>?</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-3"></div>
+  </div>
 </div>
