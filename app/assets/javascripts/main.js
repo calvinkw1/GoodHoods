@@ -102,6 +102,8 @@ $(document).ready(function() {
 
   $("#search-input").submit(function(e) {
     e.preventDefault();
+    $(".info-div").removeClass("overflow");
+    $(".hood-div").addClass("overflow");
     $("#hoods").empty();
     city = $("#city").val();
     state = $("#state").val();
@@ -112,6 +114,7 @@ $(document).ready(function() {
 
   $("#hoods").on("click", "#neighborhood", function(e) {
     e.preventDefault();
+    $(".info-div").addClass("overflow");
     neighborhood = $(this).text();
     var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
     result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
@@ -420,4 +423,7 @@ function markPlaces(result, status) {
     });
   
 
+
+
 });
+
