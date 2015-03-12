@@ -42,6 +42,14 @@ function initialize() {
       { saturation: "-30"}
     ]
   },{
+    featureType: "poi.park", //PARK
+    elementType: "labels",
+    stylers: [
+      { color: "#232623" },
+      { saturation: "-30"},
+      { weight: 1 }
+    ]
+  },{
     featureType: "administrative.neighborhood", //applies to all hoods
     stylers: [
       { color: "#7BD970" },
@@ -331,8 +339,8 @@ function markPlaces(result, status) {
       }
       placesArray = [];
       for (var i = 0; i < result.length; i++) {
-        // var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
-        // var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
+        var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
+        var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
         placesMarker = new google.maps.Marker({
           map: map,
           icon: gpmarker,
@@ -357,7 +365,13 @@ function markPlaces(result, status) {
     // $(".instructPanel > img").attr("src", "map_places_marker_bar.png");
     // $(".instructPanel > div").text("Info about the places marked can be seen in the panel on the right!");
   }
-  console.log(placesArray);
+  function openInfoWindow() {
+    infowindow.setContent('<div style="color:black; width: 75px;">' + this.title + '</div>');
+    // console.log("infowindow",infowindow);
+    // console.log("placesMarker",this);
+    infowindow.open(map, this);
+    $(this).css("background-color", "#a9fcf5");
+  }
 
 
     $("#fav").click(function() {
@@ -367,6 +381,18 @@ function markPlaces(result, status) {
         data: {
           neighborhood: neighborhood,
           city: city,
+          state: state
+        }
+      }
+    );
+    });
+    $("#comment").submit(function() {
+      $.ajax({
+        url: '/comment',
+        method: 'POST',
+        data: {
+          content: content,
+          user_id: user_id,
           state: state
         }
       }
