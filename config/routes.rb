@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   get '/favorites', to: 'main#favorites', as: 'favorites'
 
-  patch '/favorites', to: 'main#add_fav', as: "add_fav"
+  post '/favorites', to: 'main#add_fav', as: "add_fav"
 
   #### RAKE ROUTES ####
 

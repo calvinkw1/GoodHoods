@@ -119,8 +119,14 @@ a:active {
   padding-right: 3px;
 }
 
+.favorited {
+  background: black;
+}
+
 #hoods {
   text-align: right;
 }
 
-
+.modal-dialog{
+margin-top: 250px;
+} 

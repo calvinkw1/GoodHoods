@@ -79,7 +79,7 @@
     <ul>
     <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div>
     <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
-    <li>Favorites</li>
+    <li><%= link_to "Favorites", favorites_path %></li>
     <li><%= link_to "About", about_path %></li>
     <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
     </ul>
