@@ -52,7 +52,14 @@ class MainController < ApplicationController
 
   def favorites
     @user = User.find session[:user_id]
-    @hoods = @user.search
+    @fav_hoods = []
+    favorites = @user.searches
+    favorites.each do |favorite|
+      if favorite.is_fav
+        fav = Hood.find favorite.hood_id
+        @fav_hoods << fav
+      end
+    end
   end
 
   def add_fav 
