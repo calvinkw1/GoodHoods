@@ -15,6 +15,7 @@ function initialize() {
     scaleControl: true,
     streetViewControl: true,
     overviewMapControl: true,
+    disableDoubleClickZoom: true,
     mapTypeControlOptions: {
     mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
     }
@@ -116,22 +117,37 @@ var styledMap = new google.maps.StyledMapType(styleArray,
     clickable: true,
     fillColor: 'green',
     strokeColor: '#FF493F',
-    strokeWeight: 1,
+    strokeWeight: 0.3,
     fillOpacity: 0.2
   };
 
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
-   map.data.overrideStyle(event.feature, {fillColor: 'red'});
+   map.data.overrideStyle(event.feature, {fillColor: 'white'});
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
- });
+  });
   map.data.addListener('mouseout', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
- });
-  map.data.addListener('click', function(event) {
-   event.feature.setProperty({fillColor: 'gold'});
-   // map.setZoom(14);
- });
+  });
+   map.data.addListener('click', function(event) {
+        startAPICalls();
+        initPlaces();
+        map.setZoom(13);
+  });
+  map.data.addListener('dblclick', function(event) {
+   // event.feature.setProperty({fillColor: 'gold'});
+    placeMarker(event.latLng);
+  });
+  function placeMarker(location) {
+  var image = 'STAR.png';
+  var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      icon: image
+  });
+
+  map.setCenter(location);
+  }
 }  //END OF INTIALIZE FUNCTION
 
 
@@ -171,7 +187,7 @@ $(document).ready(function() {
           console.log(latitude + " " + longitude);
           // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
           map.setCenter(new google.maps.LatLng(latitude,longitude));
-          map.setZoom(15);
+          map.setZoom(13);
           console.log(latitude);      
         }).done(
         function() {
@@ -341,8 +357,8 @@ function initPlaces() {
   var loc = new google.maps.LatLng(latitude,longitude);
   var request = {
     location: loc,
-    radius: 1000,
-    types: ["bar", "restaurant"]
+    radius: 1700,
+    types: ["airport", "restaurant", "campground", "doctor", "hardware_store", "grocery_or_supermarket", "movie_theater", "place_of_worship", "shopping_mall", "stadium", "train_station", "zoo"]
   };
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, markPlaces);
@@ -387,11 +403,11 @@ function markPlaces(result, status) {
     // $(".instructPanel > div").text("Info about the places marked can be seen in the panel on the right!");
   }
   function openInfoWindow() {
-    infowindow.setContent('<div style="color:black; width: 75px;">' + this.title + '</div>');
+    infowindow.setContent('<div style="color:black; font-family:arial; width: 90px; font-variant: small-caps; font-weight: 800">' + this.title + '</div>');
     // console.log("infowindow",infowindow);
     // console.log("placesMarker",this);
     infowindow.open(map, this);
-    $(this).css("background-color", "#a9fcf5");
+    $(this).css("background-color", "#94BF74");
   }
 
 
