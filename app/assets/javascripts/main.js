@@ -132,7 +132,7 @@ $(document).ready(function() {
         }); //end done function
       }); //end click listener
 function hoodBounds() {
-  $.getJSON('/CaliZillowSimp.json', '/ZillowColorado2.json', function(hoods) {
+  $.getJSON('/CaliZillowSimp.json', function(hoods) {
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
         $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
