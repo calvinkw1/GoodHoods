@@ -91,4 +91,6 @@ a:hover {
   text-decoration: none;
 }
 
-/*font-family: 'Poiret One', cursive;*/
+#info-box {
+  font-family: 'Oswald', sans-serif;
+}
