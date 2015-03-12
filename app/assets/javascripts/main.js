@@ -7,22 +7,93 @@ function initialize() {
   };
 
   var mapOptions = {
-    zoom: 7,
+    zoom: 5,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
     panControl: true,
     zoomControl: true,
     mapTypeControl: true,
     scaleControl: true,
     streetViewControl: true,
-    overviewMapControl: true
+    overviewMapControl: true,
+    mapTypeControlOptions: {
+    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    }
   }; 
-
+  var styleArray = [
+  {
+    featureType: "all",
+    stylers: [
+      { saturation: -60 }
+    ]
+  },{
+    featureType: "road.arterial", //ROAD
+    elementType: "geometry",
+    stylers: [
+      { color: "#448872"},
+      { weight: 1 },
+      { saturation: 20 },
+      { visibility: "simplified" }
+    ]
+  },{
+    featureType: "poi.park", //PARK
+    // elementType: "labels",
+    stylers: [
+      { color: "#408000" },
+      { saturation: "-30"}
+    ]
+  },{
+    featureType: "administrative.neighborhood", //applies to all hoods
+    stylers: [
+      { color: "#7BD970" },
+      { gamma: 3.0}
+    ]
+  },{
+    featureType: "administrative.neighborhood", //applies to the label color of hoods
+    elementType: "labels", 
+    stylers: [
+      { color: "#FF6666" },
+      { gamma: 1.4},
+      { weight: 1},
+      { saturation: 20}
+    ]
+  },{
+    featureType: "poi.school", //SCHOOL
+    stylers: [
+      { color: "#EED24D"}
+    ]
+  },{
+    featureType: "poi.school",//SCHOOL LABEL
+    elementType: "labels", 
+    stylers: [
+      { color: "#232623" },
+      { weight: 1 }
+    ]
+  },{
+    featureType: "poi.medical",//MEDICAL 
+    stylers: [
+      { color: "#BF3E39" },
+      { gamma: 1.5 }
+    ]
+  },{
+    featureType: "poi.medical", //MEDICAL LABEL
+    elementType: "labels", 
+    stylers: [
+      { color: "#232623" },
+      { gamma: 1.3},
+      { weight: 1},
+      { saturation: 20}
+    ]
+  }
+];
+var styledMap = new google.maps.StyledMapType(styleArray,
+    {name: "Styled Map"});
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+  map.mapTypes.set('map_style', styledMap);
+  map.setMapTypeId('map_style');
   var featureStyle = {
     clickable: true,
     fillColor: 'green',
-    strokeColor: '#E9DBE8',
+    strokeColor: '#FF493F',
     strokeWeight: 1,
     fillOpacity: 0.2
   };
@@ -33,10 +104,12 @@ function initialize() {
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
  });
   map.data.addListener('mouseout', function(event) {
+    if ({fillColor: 'red'}) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
+ }
  });
   map.data.addListener('click', function(event) {
-   event.feature.setProperty({fillColor: 'gold'});
+   map.data.overrideStyle(event.feature, {fillColor: 'gold'});
    // map.setZoom(14);
  });
 }  //END OF INTIALIZE FUNCTION
@@ -75,7 +148,7 @@ $(document).ready(function() {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
           console.log(latitude + " " + longitude);
-          map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+          // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
           map.setCenter(new google.maps.LatLng(latitude,longitude));
           map.setZoom(15);
           console.log(latitude);      
@@ -260,8 +333,8 @@ function markPlaces(result, status) {
       }
       placesArray = [];
       for (var i = 0; i < result.length; i++) {
-        var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
-        var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
+        // var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
+        // var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
         placesMarker = new google.maps.Marker({
           map: map,
           icon: gpmarker,
