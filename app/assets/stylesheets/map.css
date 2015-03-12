@@ -130,3 +130,7 @@ a:active {
 .modal-dialog{
 margin-top: 250px;
 } 
+
+.fav {
+  display: none;
+}

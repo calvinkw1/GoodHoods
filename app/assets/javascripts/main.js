@@ -112,6 +112,7 @@ $(document).ready(function() {
 
   $("#hoods").on("click", "#neighborhood", function(e) {
     e.preventDefault();
+    $(".fav").show();
     neighborhood = $(this).text();
     var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
     result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyDE6F79FbnrSc9hZlurECTyBJoEyHCj-Nc&z=15");
