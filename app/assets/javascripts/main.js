@@ -22,6 +22,7 @@ function initialize() {
 
 
   var styleArray = [
+
     {
         "featureType": "landscape",
         "elementType": "labels",
@@ -144,6 +145,7 @@ $(document).ready(function() {
 
   $("#search-input").submit(function(e) {
     e.preventDefault();
+    $("#hoods").empty();
     city = $("#city").val();
     state = $("#state").val();
     mapCall();
@@ -212,17 +214,17 @@ function mapCall() {
     });
   }
 
-  // function findWUStation() {
-  //   for (i = 0; i < weather.length; i++) {
-  //     wuCity = weather[i].city.toLowerCase();
-  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
-  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-  //       wuStationID = weather[i].id;
-  //       console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
-  //       break;
-  //     }
-  //   }
-  // }
+  function findWUStation() {
+    for (i = 0; i < weather.length; i++) {
+      wuCity = weather[i].city.toLowerCase();
+      wuNeighborhood = weather[i].neighborhood.toLowerCase();
+      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+        wuStationID = weather[i].id;
+        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+        break;
+      }
+    }
+  }
 
   // function weatherCall() {
   //   if (!wuStationID) {
@@ -243,6 +245,7 @@ function mapCall() {
   // }
 
   function zillowAPIData() {
+    clearData();
 
     $("#city-summary").empty();
     $("#people").empty();
@@ -356,8 +359,8 @@ function markPlaces(result, status) {
       }
       placesArray = [];
       for (var i = 0; i < result.length; i++) {
-        // var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
-        // var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
+        var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
+        var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
         placesMarker = new google.maps.Marker({
           map: map,
           icon: gpmarker,
@@ -382,7 +385,13 @@ function markPlaces(result, status) {
     // $(".instructPanel > img").attr("src", "map_places_marker_bar.png");
     // $(".instructPanel > div").text("Info about the places marked can be seen in the panel on the right!");
   }
-  console.log(placesArray);
+  function openInfoWindow() {
+    infowindow.setContent('<div style="color:black; width: 75px;">' + this.title + '</div>');
+    // console.log("infowindow",infowindow);
+    // console.log("placesMarker",this);
+    infowindow.open(map, this);
+    $(this).css("background-color", "#a9fcf5");
+  }
 
 
     $("#fav").click(function() {
@@ -392,6 +401,18 @@ function markPlaces(result, status) {
         data: {
           neighborhood: neighborhood,
           city: city,
+          state: state
+        }
+      }
+    );
+    });
+    $("#comment").submit(function() {
+      $.ajax({
+        url: '/comment',
+        method: 'POST',
+        data: {
+          content: content,
+          user_id: user_id,
           state: state
         }
       }
