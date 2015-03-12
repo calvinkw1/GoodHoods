@@ -23,19 +23,170 @@ function initialize() {
 
 
   var styleArray = 
-
-  [
-      {
-          "stylers": [
-              {
-                  "saturation": 100
-              },
-              {
-                  "gamma": 0.6
-              }
-          ]
-      }
-  ];
+    [
+        {
+            "featureType": "administrative.locality",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#2c2e33"
+                },
+                {
+                    "saturation": 7
+                },
+                {
+                    "lightness": 19
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#ffffff"
+                },
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 100
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#ffffff"
+                },
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 100
+                },
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "hue": "#bbc0c4"
+                },
+                {
+                    "saturation": -93
+                },
+                {
+                    "lightness": 31
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "hue": "#bbc0c4"
+                },
+                {
+                    "saturation": -93
+                },
+                {
+                    "lightness": 31
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "hue": "#bbc0c4"
+                },
+                {
+                    "saturation": -93
+                },
+                {
+                    "lightness": -2
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "hue": "#e9ebed"
+                },
+                {
+                    "saturation": -90
+                },
+                {
+                    "lightness": -8
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#e9ebed"
+                },
+                {
+                    "saturation": 10
+                },
+                {
+                    "lightness": 69
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#e9ebed"
+                },
+                {
+                    "saturation": -78
+                },
+                {
+                    "lightness": 67
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        }
+    ];
 
 var styledMap = new google.maps.StyledMapType(styleArray,
     {name: "Styled Map"});
@@ -44,19 +195,19 @@ var styledMap = new google.maps.StyledMapType(styleArray,
   map.setMapTypeId('map_style');
   var featureStyle = {
     clickable: true,
-    fillColor: 'green',
-    strokeColor: '#FF493F',
-    strokeWeight: 0.3,
-    fillOpacity: 0.2
+   fillColor: '#33cc33',
+   strokeColor: '#336633',
+   strokeWeight: 0.3,
+   fillOpacity: 0.2
   };
 
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
-   map.data.overrideStyle(event.feature, {fillColor: 'white'});
+   map.data.overrideStyle(event.feature, {fillColor: '#ffffff'}); // update
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
   });
   map.data.addListener('mouseout', function(event) {
-   map.data.overrideStyle(event.feature, {fillColor: 'green'});
+   map.data.overrideStyle(event.feature, {fillColor: '#33cc33'});
   });
   map.data.addListener('click', function(event) {
         // startAPICalls();
@@ -196,8 +347,8 @@ function mapCall() {
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
       // commented out on 3/11 in order to avoid API usage spikes
-      // findWUStation();
-      // weatherCall();
+      findWUStation();
+      weatherCall();
     });
   }
 
@@ -213,23 +364,23 @@ function mapCall() {
     }
   }
 
-  // function weatherCall() {
-  //   if (!wuStationID) {
-  //     $("#weather").append("<p class='bolded'> Weather Info</p>");
-  //     $("#weather").append("<p>No weather stations for this neighborhood!</p>");
-  //   } else {
-  //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
-  //     $.getJSON(wuURL, function(data) {
-  //       weather = data.current_observation;
-  //       $("#weather").append("<p class='bolded'> Weather Info</p>");
-  //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-  //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-  //       $("#weather").append("<p>" + weather.weather + "</p>");
-  //       $("#weather").append("<p>Wind direction: " + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>Wind speed: " + weather.wind_gust_mph + "</p>");
-  //     });
-  //   }
-  // }
+  function weatherCall() {
+    if (!wuStationID) {
+      $("#weather").append("<p class='bolded'> Weather Info</p>");
+      $("#weather").append("<p>No weather stations for this neighborhood!</p>");
+    } else {
+      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+      $.getJSON(wuURL, function(data) {
+        weather = data.current_observation;
+        $("#weather").append("<p class='bolded'> Weather Info</p>");
+        $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
+        $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
+        $("#weather").append("<p>" + weather.weather + "</p>");
+        $("#weather").append("<p>Wind direction: " + weather.wind_dir + "</p>");
+        $("#weather").append("<p>Wind speed: " + weather.wind_gust_mph + "</p>");
+      });
+    }
+  }
 
   function zillowAPIData() {
     clearData();
