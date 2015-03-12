@@ -7,7 +7,7 @@ function initialize() {
   };
 
   var mapOptions = {
-    zoom: 5,
+    zoom: 7,
     center: new google.maps.LatLng(37.7749300 , -122.4194200),
     panControl: true,
     zoomControl: true,
@@ -104,12 +104,10 @@ var styledMap = new google.maps.StyledMapType(styleArray,
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
  });
   map.data.addListener('mouseout', function(event) {
-    if ({fillColor: 'red'}) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
- }
  });
   map.data.addListener('click', function(event) {
-   map.data.overrideStyle(event.feature, {fillColor: 'gold'});
+   event.feature.setProperty({fillColor: 'gold'});
    // map.setZoom(14);
  });
 }  //END OF INTIALIZE FUNCTION
