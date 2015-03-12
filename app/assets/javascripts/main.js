@@ -162,7 +162,7 @@ function mapCall() {
 
   function zillowAPIData() {
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
-    $("#city-summary").append("<h5>Resident Psychographics</h5>");
+    $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
     for (i = 0; i < livesHere.length; i++) {
       $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");    
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
@@ -170,7 +170,7 @@ function mapCall() {
     
     var people = zillow.demographics.response.pages.page[2].tables.table[0].data.attribute;
     console.log(people);
-    $("#people").append("<h5>Resident Demographics</h5>");
+    $("#people").append("<p class='bolded'> Resident Demographics</p>");
       $("#people").append("<p><i>" + people[0].name + "</i><p>");
       $("#people").append("<p>$" + Math.round(people[0].values.neighborhood.value) + "</p>");
       $("#people").append("<p><i>" + people[1].name + "</i><p>");
@@ -187,7 +187,7 @@ function mapCall() {
       $("#people").append("<p>" + Math.round(people[6].values.neighborhood.value) + "</p>");
 
     var kids = zillow.demographics.response.pages.page[2].tables.table[3];
-    $("#kids").append("<h5>Households with Children</h5>");
+    $("#kids").append("<p class='bolded'> Households with Children</p>");
       $("#kids").append("<p><i>Percentage WITH children</i></p>");
       $("#kids").append("<p>" + (kids.data.attribute[1].value * 100).toFixed(2) + "%</p>");
       $("#kids").append("<p><i>Percentage WITHOUT children</i></p>");
@@ -195,6 +195,7 @@ function mapCall() {
     
 
     var characteristics = zillow.demographics.response.pages.page[2].uniqueness.category;
+    $("#characteristics").append("<p class='bolded'> Resident Characteristics</p>");
     $("#characteristics").append("<p><i>" + characteristics[1].type + "</i></p>");
     for (n = 0; n < characteristics[1].characteristic.length; n++) {
           $("#characteristics").append("<p>" + characteristics[1].characteristic[n] + "</p>");
@@ -205,21 +206,21 @@ function mapCall() {
     }
 
     var ages = zillow.demographics.response.pages.page[2].tables.table[1];
-    $("#ages").append("<h5>Age demographics by decade");
+    $("#ages").append("<p class='bolded'> Age demographics by decade</p>");
     for (i = 0; i < ages.data.attribute.length; i++) {
       $("#ages").append("<p><i>" + ages.data.attribute[i].name + "</i></p>");
       $("#ages").append("<p>" + (100 * ages.data.attribute[i].value).toFixed(2) + "%</p>");
     }
 
     var relationships = zillow.demographics.response.pages.page[2].tables.table[4];
-    $("#relationships").append("<h5>Relationship Status</h5>");
+    $("#relationships").append("<p class='bolded'> Relationship Status</p>");
     for (i = 0; i < relationships.data.attribute.length; i++) {
       $("#relationships").append("<p><i>" + relationships.data.attribute[i].name + "</i></p>");
       $("#relationships").append("<p>" + (100 * relationships.data.attribute[i].value).toFixed(2) + "%</p>");
     }
 
     var charts = zillow.demographics.response.charts.chart;
-    $("#charts").append("<h5>Home Value Information</h5>");
+    $("#charts").append("<p class='bolded'> Home Value Information</p>");
       $("#charts").append("<p><i>" + charts[1].name + "</i></p>");
       $("#charts").append("<p><img src=" + charts[1].url + "></div>");
       $("#charts").append("<p><i>" + charts[3].name + "</i></p>");
