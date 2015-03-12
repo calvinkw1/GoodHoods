@@ -130,8 +130,8 @@ var styledMap = new google.maps.StyledMapType(styleArray,
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
   });
    map.data.addListener('click', function(event) {
-        startAPICalls();
-        initPlaces();
+        // startAPICalls();
+        // initPlaces();
         map.setZoom(13);
   });
   map.data.addListener('dblclick', function(event) {
@@ -195,7 +195,7 @@ $(document).ready(function() {
         }); //end done function
       }); //end click listener
 function hoodBounds() {
-  $.getJSON('/CaliZillowSimp.json', function(hoods) {
+  $.getJSON('/CaliZillowSimp.json', '/ZillowColorado2.json', function(hoods) {
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
         $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
@@ -207,7 +207,33 @@ function hoodBounds() {
       }
     }
     map.data.addGeoJson(hoods);
+  });
+  $.getJSON('/ZillowColorado2.json', function(hoodsCO) {
+    for (i = 0; i < hoodsCO.features.length; i++) {
+      if (city == hoodsCO.features[i].properties.CITY) {
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsCO.features[i].properties.NAME + "</a><br />");
+        $.post('/save',  {
+          name: hoodsCO.features[i].properties.NAME,
+          city: hoodsCO.features[i].properties.CITY,
+          state: hoodsCO.features[i].properties.STATE
+        });
+      }
+    }
+    map.data.addGeoJson(hoodsCO);
   }); 
+  $.getJSON('/ZillowArizona.json', function(hoodsAZ) {
+    for (i = 0; i < hoodsAZ.features.length; i++) {
+      if (city == hoodsAZ.features[i].properties.CITY) {
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoodsAZ.features[i].properties.NAME + "</a><br />");
+        $.post('/save',  {
+          name: hoodsAZ.features[i].properties.NAME,
+          city: hoodsAZ.features[i].properties.CITY,
+          state: hoodsAZ.features[i].properties.STATE
+        });
+      }
+    }
+    map.data.addGeoJson(hoodsAZ);
+  });
 }
 
 function mapCall() {
