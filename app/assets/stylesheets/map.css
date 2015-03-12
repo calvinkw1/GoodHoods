@@ -21,7 +21,7 @@ body {
 }
 
 ul {
-  text-align: right;
+  text-align: left;
   list-style-type: none;
 }
 
@@ -79,7 +79,7 @@ width: 100%;
   background-color: rgba(255, 102, 102, 1);
   color: white;
   font-weight: 700;
-  padding:2px;
+  padding-left: 3px;
 }
 
 .spacer {
@@ -112,7 +112,19 @@ a:active {
 
 #info-box {
   font-family: 'Roboto', sans-serif;
+  background-color: rgba(255, 102, 102, 1);
+  color: white;
+  font-weight: 700;
+  text-align: right;
+  padding-right: 3px;
+}
+
+#hoods {
   text-align: right;
 }
+
+.modal-dialog{
+margin-top: 250px;
+} 
 
 
