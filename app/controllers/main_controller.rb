@@ -50,4 +50,9 @@ class MainController < ApplicationController
     redirect_to map_path
   end
 
+  def favorites
+    @user = User.find session[:user_id]
+    @hoods = @user.hoods
+  end
+
 end
