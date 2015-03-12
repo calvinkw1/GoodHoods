@@ -86,5 +86,20 @@ class MainController < ApplicationController
     end
   end
 
+  def check_fav
+    user = User.find session[:user_id]
+    hood = Hood.find_by name: params[:neighborhood], city: params[:city]
+    @fav = Search.find_by user_id:user.id, hood_id:hood.id
+    if @fav != nil
+      if @fav.is_fav == true
+        respond_to do |format|
+          format.json { render json: @fav }
+        end
+      else
+        render nothing: true
+      end
+    end
+  end
+
 
 end
