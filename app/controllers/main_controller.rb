@@ -52,7 +52,7 @@ class MainController < ApplicationController
 
   def favorites
     @user = User.find session[:user_id]
-    @hoods = @user.hoods
+    @hoods = @user.search
   end
 
   def add_fav 
@@ -64,7 +64,7 @@ class MainController < ApplicationController
   end
 
   def remove_fav
-    
+
   end
 
 end

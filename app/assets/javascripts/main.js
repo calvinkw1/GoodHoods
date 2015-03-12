@@ -147,6 +147,7 @@ $(document).ready(function() {
     $("#kids").empty();
     $("#relationships").empty();
     $("#charts").empty();
+    $("#weather").emtpy();
   }
 
   $("#search-input").submit(function(e) {
@@ -391,7 +392,7 @@ function markPlaces(result, status) {
     $("#fav").click(function() {
       $.ajax({
         url: '/favorites',
-        method: 'PATCH',
+        method: 'POST',
         data: {
           neighborhood: neighborhood,
           city: city,
