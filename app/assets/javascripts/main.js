@@ -15,6 +15,7 @@ function initialize() {
     scaleControl: true,
     streetViewControl: true,
     overviewMapControl: true,
+    disableDoubleClickZoom: true,
     mapTypeControlOptions: {
     mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
     }
@@ -22,6 +23,7 @@ function initialize() {
 
 
   var styleArray = [
+
     {
         "featureType": "landscape",
         "elementType": "labels",
@@ -115,28 +117,47 @@ var styledMap = new google.maps.StyledMapType(styleArray,
     clickable: true,
     fillColor: 'green',
     strokeColor: '#FF493F',
-    strokeWeight: 1,
+    strokeWeight: 0.3,
     fillOpacity: 0.2
   };
 
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
-   map.data.overrideStyle(event.feature, {fillColor: 'red'});
+   map.data.overrideStyle(event.feature, {fillColor: 'white'});
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
- });
+  });
   map.data.addListener('mouseout', function(event) {
    map.data.overrideStyle(event.feature, {fillColor: 'green'});
- });
-  map.data.addListener('click', function(event) {
-   event.feature.setProperty({fillColor: 'gold'});
-   // map.setZoom(14);
- });
+  });
+   map.data.addListener('click', function(event) {
+        startAPICalls();
+        initPlaces();
+        map.setZoom(13);
+  });
+  map.data.addListener('dblclick', function(event) {
+   // event.feature.setProperty({fillColor: 'gold'});
+    placeMarker(event.latLng);
+  });
+  function placeMarker(location) {
+  var image = 'STAR.png';
+  var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      icon: image
+  });
+
+  map.setCenter(location);
+  }
 }  //END OF INTIALIZE FUNCTION
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function() {
+
+  $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus();
+  });
 
   function clearData() {
     // $("#hoodnameandfave").empty();
@@ -171,7 +192,7 @@ $(document).ready(function() {
           console.log(latitude + " " + longitude);
           // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
           map.setCenter(new google.maps.LatLng(latitude,longitude));
-          map.setZoom(15);
+          map.setZoom(13);
           console.log(latitude);      
         }).done(
         function() {
@@ -185,7 +206,7 @@ function hoodBounds() {
   $.getJSON('/CaliZillowSimp.json', function(hoods) {
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
-        $("#hoods").append("<li><a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a></li>");
+        $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
         $.post('/save',  {
           name: hoods.features[i].properties.NAME,
           city: hoods.features[i].properties.CITY,
@@ -233,30 +254,26 @@ function mapCall() {
     }
   }
 
-  function weatherCall() {
-    if (!wuStationID) {
-      $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
-    } else {
-      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
-      $.getJSON(wuURL, function(data) {
-        weather = data.current_observation;
-        $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-        $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
-        $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-        $("#weather").append("<p>" + weather.icon + "</p>");
-        $("#weather").append("<p>" + weather.weather + "</p>");
-        $("#weather").append("<p>" + weather.wind_dir + "</p>");
-        $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
-        $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
-        $("#weather").append("<p>" + weather.wind_dir + "</p>");
-        $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
-      });
-    }
-  }
+  // function weatherCall() {
+  //   if (!wuStationID) {
+  //     $("#weather").append("<p class='bolded'> Weather Info</p>");
+  //     $("#weather").append("<p>No weather stations for this neighborhood!</p>");
+  //   } else {
+  //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+  //     $.getJSON(wuURL, function(data) {
+  //       weather = data.current_observation;
+  //       $("#weather").append("<p class='bolded'> Weather Info</p>");
+  //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
+  //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
+  //       $("#weather").append("<p>" + weather.weather + "</p>");
+  //       $("#weather").append("<p>Wind direction: " + weather.wind_dir + "</p>");
+  //       $("#weather").append("<p>Wind speed: " + weather.wind_gust_mph + "</p>");
+  //     });
+  //   }
+  // }
 
   function zillowAPIData() {
     clearData();
-
     // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
     // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
     // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
@@ -264,7 +281,7 @@ function mapCall() {
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
     for (i = 0; i < livesHere.length; i++) {
-      $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");    
+      $("#city-summary").append("<p><i>" + livesHere[i].title + "</i></p>");
       $("#city-summary").append("<p>" + livesHere[i].description + "</p>");
     }
     
@@ -341,8 +358,8 @@ function initPlaces() {
   var loc = new google.maps.LatLng(latitude,longitude);
   var request = {
     location: loc,
-    radius: 1000,
-    types: ["bar", "restaurant"]
+    radius: 1700,
+    types: ["airport", "restaurant", "campground", "doctor", "hardware_store", "grocery_or_supermarket", "movie_theater", "place_of_worship", "shopping_mall", "stadium", "train_station", "zoo"]
   };
   var service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, markPlaces);
@@ -360,8 +377,8 @@ function markPlaces(result, status) {
       }
       placesArray = [];
       for (var i = 0; i < result.length; i++) {
-        // var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
-        // var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
+        var position = new google.maps.LatLng(result[i].geometry.location.k, result[i].geometry.location.D);
+        var gpmarker = new google.maps.MarkerImage(result[i].icon, null, null, null, new google.maps.Size(25, 25));
         placesMarker = new google.maps.Marker({
           map: map,
           icon: gpmarker,
@@ -386,7 +403,13 @@ function markPlaces(result, status) {
     // $(".instructPanel > img").attr("src", "map_places_marker_bar.png");
     // $(".instructPanel > div").text("Info about the places marked can be seen in the panel on the right!");
   }
-  console.log(placesArray);
+  function openInfoWindow() {
+    infowindow.setContent('<div style="color:black; font-family:arial; width: 90px; font-variant: small-caps; font-weight: 800">' + this.title + '</div>');
+    // console.log("infowindow",infowindow);
+    // console.log("placesMarker",this);
+    infowindow.open(map, this);
+    $(this).css("background-color", "#94BF74");
+  }
 
 
     $("#fav").click(function() {
@@ -403,6 +426,18 @@ function markPlaces(result, status) {
           if (data.is_fav) {
             self.toggleClass("favorited");
           }
+        }
+      }
+    );
+    });
+    $("#comment").submit(function() {
+      $.ajax({
+        url: '/comment',
+        method: 'POST',
+        data: {
+          content: content,
+          user_id: user_id,
+          state: state
         }
       }
     );
