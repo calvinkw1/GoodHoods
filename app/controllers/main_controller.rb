@@ -52,7 +52,14 @@ class MainController < ApplicationController
 
   def favorites
     @user = User.find session[:user_id]
-    @hoods = @user.search
+    @fav_hoods = []
+    favorites = @user.searches
+    favorites.each do |favorite|
+      if favorite.is_fav
+        fav = Hood.find favorite.hood_id
+        @fav_hoods << fav
+      end
+    end
   end
 
   def add_fav 
@@ -75,6 +82,21 @@ class MainController < ApplicationController
       @fav = Search.create(user_id:user.id, hood_id:hood.id, is_fav:true)
       respond_to do |format|
         format.json { render json: @fav }
+      end
+    end
+  end
+
+  def check_fav
+    user = User.find session[:user_id]
+    hood = Hood.find_by name: params[:neighborhood], city: params[:city]
+    @fav = Search.find_by user_id:user.id, hood_id:hood.id
+    if @fav != nil
+      if @fav.is_fav == true
+        respond_to do |format|
+          format.json { render json: @fav }
+        end
+      else
+        render nothing: true
       end
     end
   end

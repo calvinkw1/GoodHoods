@@ -110,6 +110,8 @@
     <%= simple_form_for(@user, url: signup_path) do |f|%>
     <%= f.input(:username, autofocus: true, placeholder: 'Username', label: false) %>
     <%= f.input(:password, placeholder: 'Password', label: false) %>
+    <%= f.input(:name, placeholder: 'Name', label: false) %>
+    <%= f.input(:email, placeholder: 'Email', label: false) %>
     <%= f.button(:submit, "Sign Up", class: "my-button") %>
   <% end %>
   </div>

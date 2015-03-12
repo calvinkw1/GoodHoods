@@ -154,6 +154,7 @@ $(document).ready(function() {
           console.log(latitude);
           startAPICalls();
           initPlaces();
+          checkFav();
         }); //end done function
   }); //end click listener
 function hoodBounds(url) {
@@ -366,6 +367,23 @@ function markPlaces(result, status) {
     $(this).css("background-color", "#94BF74");
   }
 
+  function checkFav() {
+    $("#fav").removeClass("favorited");
+    $.ajax({
+      url: '/checkfav',
+      method: 'GET',
+      data: {
+        neighborhood: neighborhood,
+        city: city
+      },
+      success: function(data) {
+        if (data.is_fav) {
+          console.log(data.is_fav);
+          $("#fav").addClass("favorited");
+        }
+      }
+    });
+  }
 
     $("#fav").click(function() {
       self = $(this);

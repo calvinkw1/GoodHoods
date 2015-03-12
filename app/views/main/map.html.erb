@@ -26,7 +26,7 @@
       <div class="modal-body text-left">
         <p>Good Hoods lets you search for information about neighborhoods you're interested in.</p>
         <p>Type in a City and State to pull up a listing of all the neighborhoods in that city.</p>
-        <p>From there, click on a neighborhood and we'll display information from that neighborhood that we've pulled from a variety of services – Google Places, Zillow and the Weather Underground.</p>
+        <p>Click on a neighborhood and we'll display information from that neighborhood that we've pulled from a variety of services, like Google Places, Zillow and The Weather Underground.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -45,7 +45,7 @@
           <%= text_field_tag(:city) %>
           <%= label_tag(:state, "State: ") %>
           <%= text_field_tag(:state) %>
-          <%= submit_tag("Search Hoods") %>
+          <%= submit_tag("Search Hoods", :class => "btn-search") %>
         <% end %>
       </div>
     </div>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="col-xs-3 overflow">
-      <p class="text-left"><a><span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span></a>Favorite</p>
+      <p class="text-left"><a><span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span></a>Favorite [@neighborhood name]</p>
       <div class="text-left" id="hoodnameandfave"></div>
       <!-- <p class="text-left"><a href="http://google.com"><span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span></a>Favorite [neighborhood]</p> -->
       <!-- <div class="text-left" id="hoodnameandfave"></div> -->
