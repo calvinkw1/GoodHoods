@@ -19,80 +19,94 @@ function initialize() {
     mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
     }
   }; 
+
+
   var styleArray = [
-  {
-    featureType: "all",
-    stylers: [
-      { saturation: -60 }
-    ]
-  },{
-    featureType: "road.arterial", //ROAD
-    elementType: "geometry",
-    stylers: [
-      { color: "#448872"},
-      { weight: 1 },
-      { saturation: 20 },
-      { visibility: "simplified" }
-    ]
-  },{
-    featureType: "poi.park", //PARK
-    // elementType: "labels",
-    stylers: [
-      { color: "#408000" },
-      { saturation: "-30"}
-    ]
-  },{
-    featureType: "poi.park", //PARK
-    elementType: "labels",
-    stylers: [
-      { color: "#232623" },
-      { saturation: "-30"},
-      { weight: 1 }
-    ]
-  },{
-    featureType: "administrative.neighborhood", //applies to all hoods
-    stylers: [
-      { color: "#7BD970" },
-      { gamma: 3.0}
-    ]
-  },{
-    featureType: "administrative.neighborhood", //applies to the label color of hoods
-    elementType: "labels", 
-    stylers: [
-      { color: "#FF6666" },
-      { gamma: 1.4},
-      { weight: 1},
-      { saturation: 20}
-    ]
-  },{
-    featureType: "poi.school", //SCHOOL
-    stylers: [
-      { color: "#EED24D"}
-    ]
-  },{
-    featureType: "poi.school",//SCHOOL LABEL
-    elementType: "labels", 
-    stylers: [
-      { color: "#232623" },
-      { weight: 1 }
-    ]
-  },{
-    featureType: "poi.medical",//MEDICAL 
-    stylers: [
-      { color: "#BF3E39" },
-      { gamma: 1.5 }
-    ]
-  },{
-    featureType: "poi.medical", //MEDICAL LABEL
-    elementType: "labels", 
-    stylers: [
-      { color: "#232623" },
-      { gamma: 1.3},
-      { weight: 1},
-      { saturation: 20}
-    ]
-  }
-];
+
+    {
+        "featureType": "landscape",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "stylers": [
+            {
+                "hue": "#00aaff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "gamma": 2.15
+            },
+            {
+                "lightness": 12
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "lightness": 24
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 57
+            }
+        ]
+    }
+  ];
+
 var styledMap = new google.maps.StyledMapType(styleArray,
     {name: "Styled Map"});
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -126,7 +140,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 $(document).ready(function() {
 
   function clearData() {
-    $("#hoods").empty();
+    // $("#hoodnameandfave").empty();
     $("#city-summary").empty();
     $("#people").empty();
     $("#characteristics").empty();
@@ -138,6 +152,7 @@ $(document).ready(function() {
 
   $("#search-input").submit(function(e) {
     e.preventDefault();
+    $("#hoods").empty();
     city = $("#city").val();
     state = $("#state").val();
     mapCall();
@@ -206,40 +221,46 @@ function mapCall() {
     });
   }
 
-  // function findWUStation() {
-  //   for (i = 0; i < weather.length; i++) {
-  //     wuCity = weather[i].city.toLowerCase();
-  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
-  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-  //       wuStationID = weather[i].id;
-  //       console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
-  //       break;
-  //     }
-  //   }
-  // }
+  function findWUStation() {
+    for (i = 0; i < weather.length; i++) {
+      wuCity = weather[i].city.toLowerCase();
+      wuNeighborhood = weather[i].neighborhood.toLowerCase();
+      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+        wuStationID = weather[i].id;
+        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+        break;
+      }
+    }
+  }
 
-  // function weatherCall() {
-  //   if (!wuStationID) {
-  //     $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
-  //   } else {
-  //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
-  //     $.getJSON(wuURL, function(data) {
-  //       weather = data.current_observation;
-  //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-  //       $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
-  //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-  //       $("#weather").append("<p>" + weather.icon + "</p>");
-  //       $("#weather").append("<p>" + weather.weather + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
-  //       $("#weather").append("<p>" + weather.wind_dir + "</p>");
-  //       $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
-  //     });
-  //   }
-  // }
+  function weatherCall() {
+    if (!wuStationID) {
+      $("#weather").append("<h4>No weather stations for this neighborhood!</h4>");
+    } else {
+      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+      $.getJSON(wuURL, function(data) {
+        weather = data.current_observation;
+        $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
+        $("#weather").append("<p>Current Temperature: " + weather.feelslike_string + "</p>");
+        $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
+        $("#weather").append("<p>" + weather.icon + "</p>");
+        $("#weather").append("<p>" + weather.weather + "</p>");
+        $("#weather").append("<p>" + weather.wind_dir + "</p>");
+        $("#weather").append("<p>" + weather.wind_gust_mph + "</p>");
+        $("#weather").append("<p>" + weather.wind_gust_kph + "</p>");
+        $("#weather").append("<p>" + weather.wind_dir + "</p>");
+        $("#weather").append("<p>Powered by<img src='" + weather.image.url + "'></p>");
+      });
+    }
+  }
 
   function zillowAPIData() {
+    clearData();
+
+    // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
+    // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
+    // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
+
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
     for (i = 0; i < livesHere.length; i++) {

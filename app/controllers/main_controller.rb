@@ -63,4 +63,8 @@ class MainController < ApplicationController
     render nothing: true
   end
 
+  def remove_fav
+    
+  end
+
 end

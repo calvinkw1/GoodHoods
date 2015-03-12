@@ -12,7 +12,7 @@ body {
 
 .overflow {
     height: 600px;
-    overflow: scroll;
+    overflow: scroll;  
 }
 
 #left {
@@ -94,6 +94,14 @@ a:hover {
   color: rgba(255, 102, 102, 0.9);
   background: rgba(255, 102, 102, 0.2);
   text-decoration: none;
+}
+
+a:visited {
+  color: rgba(255, 102, 102, 0.9);
+}
+
+a:active {
+  color: rgba(255, 102, 102, 0.9);
 }
 
 #nohover a:hover {
