@@ -12,7 +12,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-gem 'pry-rails'
 gem 'simple_form'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -26,12 +25,13 @@ gem 'typhoeus'
 gem 'figaro'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem 'better_errors'
 gem 'json'
 gem 'bootstrap-sass', '~> 3.3.3'
 
 gem 'rails_12factor', group: :production
-
+gem 'rspec-rails', '~> 3.0'
+gem 'capybara'
+gem 'guard-rspec', require: false
 # Use Unicorn as the app server
 # gem 'unicorn'
 # Use Capistrano for deployment
@@ -40,11 +40,11 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.0'
-  gem 'capybara'
-  gem 'guard-rspec', require: false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'better_errors'
+  gem 'pry-rails'
+
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
