@@ -46,25 +46,38 @@ class MainController < ApplicationController
     name = params[:name]
     city = params[:city]
     state = params[:state]
-    Hood.create(name:name, city:city, state:state)
-    redirect_to map_path
-  end
+    @hood = Hood.create(name:name, city:city, state:state)
+    render nothing: true
+  end 
 
   def favorites
     @user = User.find session[:user_id]
-    @hoods = @user.hoods
+    @hoods = @user.search
   end
 
   def add_fav 
     user = User.find session[:user_id]
     hood = Hood.find_by name: params[:neighborhood], city: params[:city]
-    hood_id = hood.id
-    Search.create(user_id:user, hood_id:hood_id, is_fav:true)
-    render nothing: true
+    @fav = Search.find_by user_id:user.id, hood_id:hood.id
+    if @fav != nil
+      if @fav.is_fav == true
+        @fav.update_attributes(is_fav:false)
+        respond_to do |format|
+          format.json { render json: @fav }
+        end
+      else
+        @fav.update_attributes(is_fav:true)
+        respond_to do |format|
+          format.json { render json: @fav }
+        end
+      end
+    else
+      @fav = Search.create(user_id:user.id, hood_id:hood.id, is_fav:true)
+      respond_to do |format|
+        format.json { render json: @fav }
+      end
+    end
   end
 
-  def remove_fav
-    
-  end
 
 end

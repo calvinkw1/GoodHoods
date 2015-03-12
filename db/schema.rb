@@ -37,11 +37,11 @@ ActiveRecord::Schema.define(version: 20150307000357) do
   create_table "searches", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "hood_id"
-    t.boolean  "is_fav"
+    t.boolean  "is_fav",     default: false
     t.float    "lat"
     t.float    "lng"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "users", force: :cascade do |t|

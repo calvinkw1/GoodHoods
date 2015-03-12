@@ -22,90 +22,19 @@ function initialize() {
   }; 
 
 
-  var styleArray = [
+  var styleArray = 
 
-    {
-        "featureType": "landscape",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "stylers": [
-            {
-                "hue": "#00aaff"
-            },
-            {
-                "saturation": -100
-            },
-            {
-                "gamma": 2.15
-            },
-            {
-                "lightness": 12
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "lightness": 24
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "lightness": 57
-            }
-        ]
-    }
+  [
+      {
+          "stylers": [
+              {
+                  "saturation": 100
+              },
+              {
+                  "gamma": 0.6
+              }
+          ]
+      }
   ];
 
 var styledMap = new google.maps.StyledMapType(styleArray,
@@ -161,6 +90,14 @@ $(document).ready(function() {
 
   function clearData() {
     // $("#hoodnameandfave").empty();
+    $("#city-summary").empty();
+    $("#people").empty();
+    $("#characteristics").empty();
+    $("#ages").empty();
+    $("#kids").empty();
+    $("#relationships").empty();
+    $("#charts").empty();
+    $("#weather").empty();
   }
 
   $("#search-input").submit(function(e) {
@@ -292,16 +229,6 @@ function mapCall() {
 
   function zillowAPIData() {
     clearData();
-
-    $("#city-summary").empty();
-    $("#people").empty();
-    $("#characteristics").empty();
-    $("#ages").empty();
-    $("#kids").empty();
-    $("#relationships").empty();
-    $("#charts").empty();
-    $("#weather").empty();
-
     // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
     // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
     // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
@@ -441,17 +368,26 @@ function markPlaces(result, status) {
 
 
     $("#fav").click(function() {
+      self = $(this);
       $.ajax({
         url: '/favorites',
-        method: 'PATCH',
+        method: 'POST',
         data: {
           neighborhood: neighborhood,
           city: city,
           state: state
+        },
+        success: function(data) {
+          if (data.is_fav) {
+            self.toggleClass("favorited");
+          } else {
+            self.toggleClass("favorited");
+          }
         }
       }
     );
     });
+
     $("#comment").submit(function() {
       $.ajax({
         url: '/comment',
