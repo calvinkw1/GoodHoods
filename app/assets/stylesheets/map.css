@@ -12,7 +12,7 @@ body {
 
 .overflow {
     height: 600px;
-    overflow: scroll;
+    overflow: scroll;  
 }
 
 #left {
