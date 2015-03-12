@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def login
-  end
+  end 
 
   def attempt_login
     if params[:username].present? && params[:password].present?
@@ -20,6 +20,9 @@ class UsersController < ApplicationController
           flash.now[:notice] = "Wrong username or password. Please try again."
           render :login
         end
+      else
+        flash.now[:notice] = "Username and Password can't be blank."
+        render :login
     end
   end
 
@@ -41,6 +44,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to map_path
     else
+      flash.now[:notice] = "Username and Password can't be blank."
       render :signup
     end
   end
