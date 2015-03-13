@@ -261,9 +261,13 @@ $(document).ready(function() {
     state = $("#state").val();
     mapCall();
     clearData();
+    if (state == "CA") {
     hoodBounds('/CaliZillowSimp.json');
+    } else if (state == "AZ") {
     hoodBounds('/ZillowArizona.json');
+    } else if (state == "CO") {
     hoodBounds('/ZillowColorado2.json');
+    }
   });
   $("#map-canvas").on("click", function(e) {
     e.preventDefault();
