@@ -36,6 +36,15 @@
     padding: 3px;
     text-decoration: none;
   }
+
+  .my-button1 {
+    margin-top: -2px;
+    border-radius: 5px;
+    /*opacity: 0;*/
+    background-color: rgba(255, 102, 102, 0.0);
+    border: 1px solid rgba(255, 102, 102, 0.9)
+  }
+
 </style>
 
 <%= javascript_include_tag "bgcycle", "data-turbolinks-track" => true %>
@@ -96,7 +105,7 @@
     <%= form_tag(login_path) do %>
     <%= text_field_tag(:username, params[:username], placeholder: "Username", autofocus: true)%>
     <%= password_field_tag(:password, nil, placeholder: "Password") %>
-    <%= submit_tag("Go") %>
+    <%= submit_tag("Go", class: "my-button1") %>
     <% end %>
   </div>
 </div>
