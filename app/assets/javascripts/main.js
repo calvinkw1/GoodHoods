@@ -264,10 +264,10 @@ $(document).ready(function() {
 
     if (state == "CA") {
     hoodBounds('/CaliZillowSimp.json');
-    } else if (state == "AZ") {
-    hoodBounds('/ZillowArizona.json');
     } else if (state == "CO") {
     hoodBounds('/ZillowColorado2.json');
+    } else if (state == "NY") {
+    hoodBounds('/ZillowNewYork.json');
     }
 
   });
@@ -320,6 +320,11 @@ $(document).ready(function() {
   }); //end click listener
 function hoodBounds(url) {
   $.getJSON(url, function(hoods) {
+    map.data.forEach(function(feature) {
+        //If you want, check here for some constraints.
+        map.data.remove(feature);
+
+    });
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
         $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
