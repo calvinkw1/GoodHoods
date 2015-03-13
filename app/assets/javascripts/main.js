@@ -188,6 +188,7 @@ $(document).ready(function() {
   
   $("#map-canvas").on("click", function(e) {
     e.preventDefault();
+    $(".fav").show();
     neighborhood = mapClickHood;
     console.log(mapClickHood);
     var clickLocation = mapClickHood.split(' ').join('+') + "+" + city.split(' ').join('+');
