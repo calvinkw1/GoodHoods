@@ -23,86 +23,170 @@ function initialize() {
 
 
   var styleArray = 
-  [
-      {
-          "featureType": "administrative",
-          "elementType": "labels.text.fill",
-          "stylers": [
-              {
-                  "color": "#444444"
-              }
-          ]
-      },
-      {
-          "featureType": "landscape",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "color": "#f2f2f2"
-              }
-          ]
-      },
-      {
-          "featureType": "poi",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "visibility": "off"
-              }
-          ]
-      },
-      {
-          "featureType": "road",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "saturation": -100
-              },
-              {
-                  "lightness": 45
-              }
-          ]
-      },
-      {
-          "featureType": "road.highway",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "visibility": "simplified"
-              }
-          ]
-      },
-      {
-          "featureType": "road.arterial",
-          "elementType": "labels.icon",
-          "stylers": [
-              {
-                  "visibility": "off"
-              }
-          ]
-      },
-      {
-          "featureType": "transit",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "visibility": "off"
-              }
-          ]
-      },
-      {
-          "featureType": "water",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "color": "#46bcec"
-              },
-              {
-                  "visibility": "on"
-              }
-          ]
-      }
-  ];
+    [
+        {
+            "featureType": "administrative.locality",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#2c2e33"
+                },
+                {
+                    "saturation": 7
+                },
+                {
+                    "lightness": 19
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#ffffff"
+                },
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 100
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#ffffff"
+                },
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 100
+                },
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "hue": "#bbc0c4"
+                },
+                {
+                    "saturation": -93
+                },
+                {
+                    "lightness": 31
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "hue": "#bbc0c4"
+                },
+                {
+                    "saturation": -93
+                },
+                {
+                    "lightness": 31
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "hue": "#bbc0c4"
+                },
+                {
+                    "saturation": -93
+                },
+                {
+                    "lightness": -2
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "hue": "#e9ebed"
+                },
+                {
+                    "saturation": -90
+                },
+                {
+                    "lightness": -8
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#e9ebed"
+                },
+                {
+                    "saturation": 10
+                },
+                {
+                    "lightness": 69
+                },
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "hue": "#e9ebed"
+                },
+                {
+                    "saturation": -78
+                },
+                {
+                    "lightness": 67
+                },
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        }
+    ];
 
 var styledMap = new google.maps.StyledMapType(styleArray,
     {name: "Styled Map"});
@@ -185,10 +269,11 @@ $(document).ready(function() {
     } else if (state == "NY") {
     hoodBounds('/ZillowNewYork.json');
     }
-
   });
+  
   $("#map-canvas").on("click", function(e) {
     e.preventDefault();
+    $(".fav").show();
     neighborhood = mapClickHood;
     console.log(mapClickHood);
     var clickLocation = mapClickHood.split(' ').join('+') + "+" + city.split(' ').join('+');
@@ -275,6 +360,7 @@ function mapCall() {
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
       // commented out on 3/11 in order to avoid API usage spikes
+
       // findWUStation();
       // weatherCall();
     });
