@@ -269,8 +269,8 @@ $(document).ready(function() {
     } else if (state == "NY") {
     hoodBounds('/ZillowNewYork.json');
     }
-
   });
+  
   $("#map-canvas").on("click", function(e) {
     e.preventDefault();
     neighborhood = mapClickHood;
@@ -359,8 +359,8 @@ function mapCall() {
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
       // commented out on 3/11 in order to avoid API usage spikes
-      findWUStation();
-      weatherCall();
+      // findWUStation();
+      // weatherCall();
     });
   }
 
