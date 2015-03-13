@@ -65,17 +65,17 @@ function initialize() {
             "elementType": "all",
             "stylers": [
                 {
-                    "hue": "#ffffff"
+                    "hue": "#6686CD"
                 },
                 {
                     "saturation": -100
                 },
                 {
                     "lightness": 100
-                },
-                {
-                    "visibility": "off"
                 }
+
+                    
+                
             ]
         },
         {
@@ -86,7 +86,7 @@ function initialize() {
                     "hue": "#bbc0c4"
                 },
                 {
-                    "saturation": -93
+                    "saturation": -33
                 },
                 {
                     "lightness": 31
@@ -173,19 +173,26 @@ function initialize() {
             "elementType": "all",
             "stylers": [
                 {
-                    "hue": "#e9ebed"
+                    "hue": "#6E72FD"
                 },
                 {
-                    "saturation": -78
+                    "saturation": 60
                 },
                 {
-                    "lightness": 67
+                    "lightness": 20
                 },
                 {
                     "visibility": "simplified"
                 }
             ]
-        }
+        },
+        {
+            "featureType": "administrative.neighborhood", //applies to all hoods
+            "stylers": [
+                { color: "black" },
+                { gamma: 1.0}
+            ]
+      }
     ];
 
 var styledMap = new google.maps.StyledMapType(styleArray,
@@ -203,7 +210,7 @@ var styledMap = new google.maps.StyledMapType(styleArray,
 
   map.data.setStyle(featureStyle); 
   map.data.addListener('mouseover', function(event) {
-   map.data.overrideStyle(event.feature, {fillColor: '#ffffff'}); // update
+  map.data.overrideStyle(event.feature, {fillColor: '#ffffff'}); // update
    document.getElementById('info-box').textContent = event.feature.getProperty('NAME');
   });
   map.data.addListener('mouseout', function(event) {
@@ -261,13 +268,92 @@ $(document).ready(function() {
     state = $("#state").val();
     mapCall();
     clearData();
-
     if (state == "CA") {
-    hoodBounds('/CaliZillowSimp.json');
+    hoodBounds('/CA.json');
+    } else if (state == "AK") {
+    hoodBounds('/AK.json');
+    } else if (state == "AZ") {
+    hoodBounds('/AZ.json');
     } else if (state == "CO") {
-    hoodBounds('/ZillowColorado2.json');
+    hoodBounds('/CO.json');
+    } else if (state == "FL") {
+    hoodBounds('/FL.json');
+    } else if (state == "IL") {
+    hoodBounds('/IL.json');
+    } else if (state == "MA") {
+    hoodBounds('/MA.json');
     } else if (state == "NY") {
-    hoodBounds('/ZillowNewYork.json');
+    hoodBounds('/NY.json');
+    } else if (state == "OR") {
+    hoodBounds('/OR.json');
+    } else if (state == "AL") {
+    hoodBounds('/AL.json');
+    } else if (state == "AR") {
+    hoodBounds('/AR.json');
+    } else if (state == "CT") {
+    hoodBounds('/CT.json');
+    } else if (state == "DC") {
+    hoodBounds('/DC.json');
+    } else if (state == "GA") {
+    hoodBounds('/GA.json');
+    } else if (state == "HI") {
+    hoodBounds('/HI.json');
+    } else if (state == "ID") {
+    hoodBounds('/ID.json');
+    } else if (state == "IN") {
+    hoodBounds('/IN.json');
+    } else if (state == "IA") {
+    hoodBounds('/IA.json');
+    } else if (state == "KC") {
+    hoodBounds('/KC.json');
+    } else if (state == "KY") {
+    hoodBounds('/KY.json');
+    } else if (state == "LA") {
+    hoodBounds('/LA.json');
+    } else if (state == "MA") {
+    hoodBounds('/MA.json');
+    } else if (state == "MD") {
+    hoodBounds('/MD.json');
+    } else if (state == "ME") {
+    hoodBounds('/ME.json');
+    } else if (state == "MI") {
+    hoodBounds('/MI.json');
+    } else if (state == "MN") {
+    hoodBounds('/MN.json');
+    } else if (state == "MO") {
+    hoodBounds('/MO.json');
+    } else if (state == "MS") {
+    hoodBounds('/MS.json');
+    } else if (state == "MT") {
+    hoodBounds('/MT.json');
+    } else if (state == "NC") {
+    hoodBounds('/NC.json');
+    } else if (state == "NE") {
+    hoodBounds('/NE.json');
+    } else if (state == "NJ") {
+    hoodBounds('/NJ.json');
+    } else if (state == "NM") {
+    hoodBounds('/NM.json');
+    } else if (state == "NV") {
+    hoodBounds('/NV.json');
+    } else if (state == "OH") {
+    hoodBounds('/OH.json');
+    } else if (state == "PA") {
+    hoodBounds('/PA.json');
+    } else if (state == "RI") {
+    hoodBounds('/RI.json');
+    } else if (state == "TN") {
+    hoodBounds('/TN.json');
+    } else if (state == "TX") {  //THIS ONE IS HUGE!!
+    hoodBounds('/TX.json');
+    } else if (state == "UT") {
+    hoodBounds('/UT.json');
+    } else if (state == "VA") {
+    hoodBounds('/VA.json');
+    } else if (state == "WA") {
+    hoodBounds('/WA.json');
+    } else if (state == "WI") {
+    hoodBounds('/WI.json');
     }
   });
   
