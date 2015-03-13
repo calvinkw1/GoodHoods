@@ -25,34 +25,169 @@ function initialize() {
 
   var styleArray = 
     [
-        {
-            "featureType": "administrative",
-            "elementType": "labels.text",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.country",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        }
-    ];
+    {
+        "featureType": "administrative.locality",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#2c2e33"
+            },
+            {
+                "saturation": 7
+            },
+            {
+                "lightness": 19
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#bbc0c4"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": 31
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#bbc0c4"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": 31
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#bbc0c4"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": -2
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": -90
+            },
+            {
+                "lightness": -8
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": 10
+            },
+            {
+                "lightness": 69
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": -78
+            },
+            {
+                "lightness": 67
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    }
+  ];
 
 var styledMap = new google.maps.StyledMapType(styleArray,
     {name: "Styled Map"});
@@ -106,7 +241,6 @@ $(document).ready(function() {
   });
 
   function clearData() {
-    // $("#hoodnameandfave").empty();
     $("#city-summary").empty();
     $("#people").empty();
     $("#characteristics").empty();
@@ -224,24 +358,22 @@ function mapCall() {
       zillow = data.zillowData;
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
-      // commented out on 3/11 in order to avoid API usage spikes
-
-      // findWUStation();
-      // weatherCall();
+      findWUStation();
+      weatherCall();
     });
   }
 
-  // function findWUStation() {
-  //   for (i = 0; i < weather.length; i++) {
-  //     wuCity = weather[i].city.toLowerCase();
-  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
-  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-  //       wuStationID = weather[i].id;
-  //       console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
-  //       break;
-  //     }
-  //   }
-  // }
+  function findWUStation() {
+    for (i = 0; i < weather.length; i++) {
+      wuCity = weather[i].city.toLowerCase();
+      wuNeighborhood = weather[i].neighborhood.toLowerCase();
+      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+        wuStationID = weather[i].id;
+        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+        break;
+      }
+    }
+  }
 
   function weatherCall() {
     if (!wuStationID) {
@@ -262,10 +394,8 @@ function mapCall() {
   }
 
   function zillowAPIData() {
+    
     clearData();
-    // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
-    // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
-    // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
 
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
@@ -455,7 +585,6 @@ function markPlaces(result, status) {
   // $(".floatleft").click(window.location.reload());
   
   // google.maps.event.addDomListener(".floatleft", 'click', initialize);
-
 
 });
 
