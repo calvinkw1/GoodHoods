@@ -177,13 +177,15 @@ $(document).ready(function() {
     state = $("#state").val();
     mapCall();
     clearData();
+
     if (state == "CA") {
     hoodBounds('/CaliZillowSimp.json');
-    } else if (state == "AZ") {
-    hoodBounds('/ZillowArizona.json');
     } else if (state == "CO") {
     hoodBounds('/ZillowColorado2.json');
+    } else if (state == "NY") {
+    hoodBounds('/ZillowNewYork.json');
     }
+
   });
   $("#map-canvas").on("click", function(e) {
     e.preventDefault();
@@ -234,6 +236,11 @@ $(document).ready(function() {
   }); //end click listener
 function hoodBounds(url) {
   $.getJSON(url, function(hoods) {
+    map.data.forEach(function(feature) {
+        //If you want, check here for some constraints.
+        map.data.remove(feature);
+
+    });
     for (i = 0; i < hoods.features.length; i++) {
       if (city == hoods.features[i].properties.CITY) {
         $("#hoods").append("<a id='neighborhood' href='javascript:void(0)'>" + hoods.features[i].properties.NAME + "</a><br />");
@@ -273,17 +280,17 @@ function mapCall() {
     });
   }
 
-  function findWUStation() {
-    for (i = 0; i < weather.length; i++) {
-      wuCity = weather[i].city.toLowerCase();
-      wuNeighborhood = weather[i].neighborhood.toLowerCase();
-      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-        wuStationID = weather[i].id;
-        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
-        break;
-      }
-    }
-  }
+  // function findWUStation() {
+  //   for (i = 0; i < weather.length; i++) {
+  //     wuCity = weather[i].city.toLowerCase();
+  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
+  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+  //       wuStationID = weather[i].id;
+  //       console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+  //       break;
+  //     }
+  //   }
+  // }
 
   function weatherCall() {
     if (!wuStationID) {
