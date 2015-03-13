@@ -24,35 +24,36 @@ function initialize() {
 
 
   var styleArray = 
-      [
-          {
-              "featureType": "administrative",
-              "elementType": "labels.text",
-              "stylers": [
-                  {
-                      "visibility": "off"
-                  }
-              ]
-          },
-          {
-              "featureType": "administrative.country",
-              "elementType": "geometry",
-              "stylers": [
-                  {
-                      "visibility": "off"
-                  }
-              ]
-          },
-          {
-              "featureType": "poi",
-              "elementType": "labels.icon",
-              "stylers": [
-                  {
-                      "visibility": "off"
-                  }
-              ]
-          }
-      ];
+    [
+        {
+            "featureType": "administrative",
+            "elementType": "labels.text",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative.country",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        }
+    ];
+
 var styledMap = new google.maps.StyledMapType(styleArray,
     {name: "Styled Map"});
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -95,7 +96,6 @@ var styledMap = new google.maps.StyledMapType(styleArray,
   map.setCenter(location);
   }
 }  //END OF INTIALIZE FUNCTION
-
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
