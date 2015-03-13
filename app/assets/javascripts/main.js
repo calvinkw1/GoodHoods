@@ -198,7 +198,7 @@ var styledMap = new google.maps.StyledMapType(styleArray,
    fillColor: '#33cc33',
    strokeColor: '#336633',
    strokeWeight: 0.3,
-   fillOpacity: 0.2
+   fillOpacity: 0.3
   };
 
   map.data.setStyle(featureStyle); 
@@ -241,7 +241,6 @@ $(document).ready(function() {
   });
 
   function clearData() {
-    // $("#hoodnameandfave").empty();
     $("#city-summary").empty();
     $("#people").empty();
     $("#characteristics").empty();
@@ -312,6 +311,7 @@ $(document).ready(function() {
           checkFav();
         }); //end done function
   }); //end click listener
+
 function hoodBounds(url) {
   $.getJSON(url, function(hoods) {
     for (i = 0; i < hoods.features.length; i++) {
@@ -347,47 +347,44 @@ function mapCall() {
       zillow = data.zillowData;
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
-      // commented out on 3/11 in order to avoid API usage spikes
-      findWUStation();
-      weatherCall();
+      // findWUStation();
+      // weatherCall();
     });
   }
 
-  function findWUStation() {
-    for (i = 0; i < weather.length; i++) {
-      wuCity = weather[i].city.toLowerCase();
-      wuNeighborhood = weather[i].neighborhood.toLowerCase();
-      if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
-        wuStationID = weather[i].id;
-        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
-        break;
-      }
-    }
-  }
+  // function findWUStation() {
+  //   for (i = 0; i < weather.length; i++) {
+  //     wuCity = weather[i].city.toLowerCase();
+  //     wuNeighborhood = weather[i].neighborhood.toLowerCase();
+  //     if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
+  //       wuStationID = weather[i].id;
+  //       console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
+  //       break;
+  //     }
+  //   }
+  // }
 
-  function weatherCall() {
-    if (!wuStationID) {
-      $("#weather").append("<p class='bolded'> Weather Info</p>");
-      $("#weather").append("<p>No weather stations for this neighborhood!</p>");
-    } else {
-      var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
-      $.getJSON(wuURL, function(data) {
-        weather = data.current_observation;
-        $("#weather").append("<p class='bolded'> Weather Info</p>");
-        $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
-        $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
-        $("#weather").append("<p>" + weather.weather + "</p>");
-        $("#weather").append("<p>Wind direction: " + weather.wind_dir + "</p>");
-        $("#weather").append("<p>Wind speed: " + weather.wind_gust_mph + "</p>");
-      });
-    }
-  }
+  // function weatherCall() {
+  //   if (!wuStationID) {
+  //     $("#weather").append("<p class='bolded'> Weather Info</p>");
+  //     $("#weather").append("<p>No weather stations for this neighborhood!</p>");
+  //   } else {
+  //     var wuURL = "https://api.wunderground.com/api/acf7fb055f9d4a5d/conditions/q/pws:" + wuStationID + ".json";
+  //     $.getJSON(wuURL, function(data) {
+  //       weather = data.current_observation;
+  //       $("#weather").append("<p class='bolded'> Weather Info</p>");
+  //       $("#weather").append("<p>Current Temperature: " + weather.temperature_string + "</p>");
+  //       $("#weather").append("<p><img src='" + weather.icon_url + "'></p>");
+  //       $("#weather").append("<p>" + weather.weather + "</p>");
+  //       $("#weather").append("<p>Wind direction: " + weather.wind_dir + "</p>");
+  //       $("#weather").append("<p>Wind speed: " + weather.wind_gust_mph + "</p>");
+  //     });
+  //   }
+  // }
 
   function zillowAPIData() {
+
     clearData();
-    // $("#hoodnameandfave").append("<p class='bolded'> Neighborhood Information</p>");
-    // $("#hoodnameandfave").append("<p><i>Name of neighborhood here</i></p>");    
-    // $("#hoodnameandfave").append("<p><a href=''><span class='glyphicon glyphicon-star-empty' id='fav' aria-hidden='true'></span></a>Favorite this hood</p>");
 
     var livesHere = zillow.demographics.response.pages.page[2].segmentation.liveshere;
     $("#city-summary").append("<p class='bolded'> Resident Psychographics</p>");
