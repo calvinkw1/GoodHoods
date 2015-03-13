@@ -1,6 +1,7 @@
 var result, map, Lat, Lng, myLatLng, latitude, longitude, city, state, neighborhood, weather, wuCity, wuNeighborhood, wuStationID, placesArray = [], placesMarker, mapClickHood;
 
 function initialize() {
+  $("#map-canvas").empty();
   var markers = [];
   var rendererOptions = {
     draggable: true
@@ -587,7 +588,9 @@ function markPlaces(result, status) {
     );
     });
   
-
+  // $(".floatleft").click(window.location.reload());
+  
+  // google.maps.event.addDomListener(".floatleft", 'click', initialize);
 
 
 });
