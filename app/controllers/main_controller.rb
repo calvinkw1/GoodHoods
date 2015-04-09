@@ -15,7 +15,6 @@ class MainController < ApplicationController
     state = params[:state]
     neighborhood = params[:neighborhood]
     requestZillow = Typhoeus::Request.new(
-      # ZWIS ID  X1-ZWz1e2kpo0z8cr_60bkd
       "https://www.zillow.com/webservice/GetDemographics.htm?zws-id=" + ENV["ZILLOW_API_KEY"]+ "&",
       method: :get,
       params: {
