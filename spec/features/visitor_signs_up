@@ -1,0 +1,20 @@
+require 'rails_helper'
+
+feature "visitor logs in" do   
+    scenario "success" do
+
+        #setup phase
+        u = User.create(username: "DoyleMcpoyle", password: "pat")
+        visit login_path
+
+
+        #exercise phase
+        fill_in "Username", with: "DoyleMcpoyle"
+        fill_in "Password", with: "pat"
+        click_button "Signup"
+
+
+        #verify
+        expect(page).to have_content("Welcome DoyleMcpoyle!") 
+    end
+end

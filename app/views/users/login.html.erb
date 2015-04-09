@@ -1,0 +1,132 @@
+<style>
+  body {
+    color: #ffffff;
+    }
+ 
+  input {
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    height: 35px; 
+    background-color: rgba(255, 102, 102, 0.9);
+    margin: 2px;
+    width: 140px;
+    padding: 5px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    }
+
+  input::-webkit-input-placeholder {
+     color: white;
+  }
+
+  .override {
+    color: white;
+    width: 70px;
+  }
+  
+  a {
+    color: rgba(255, 102, 102, 0.9);
+  }
+  
+  a:hover {
+    color: rgba(255, 102, 102, 0.9);
+    background-color: rgba(255, 102, 102, 0.2);
+    padding: 3px;
+    text-decoration: none;
+  }
+
+  .my-button1 {
+    margin-top: -2px;
+    border-radius: 5px;
+    /*opacity: 0;*/
+   /* background-color: rgba(255, 102, 102, 0.0);
+    border: 1px solid rgba(255, 102, 102, 0.9);*/
+  }
+
+  .my-input {
+     background-color: rgba(255, 102, 102, 0.0);
+     border: 1px solid rgba(255, 102, 102, 0.9);
+  }
+
+</style>
+
+<%= javascript_include_tag "bgcycle", "data-turbolinks-track" => true %>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("body").backgroundCycle({
+                    imageUrls: [
+                        "<%= asset_path('bg5_low.jpg') %>", 
+                        "<%= asset_path('bg2.jpg') %>",
+                        "<%= asset_path('bg3.jpg') %>",
+                        "<%= asset_path('bg4.jpg') %>",
+                        "<%= asset_path('bg1.jpg') %>"
+                    ],
+                    fadeSpeed: 1000,
+                    duration: 5000,
+                    backgroundSize: SCALING_MODE_COVER
+                });
+            });
+        </script>
+
+<div class="container-fluid">
+
+<div class="row">
+  <div class="col-md-12">
+    <ol style="visibility:hidden;">
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= image_tag("header.png", size: "650x75") %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <ol style="visibility:hidden;">
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+      <li>&nbsp;</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_tag(login_path) do %>
+    <%= text_field_tag(:username, params[:username], placeholder: "Username", class: "my-input", autofocus: true)%>
+    <%= password_field_tag(:password, nil, placeholder: "Password", class: "my-input") %>
+    <%= submit_tag("Go", class: "my-button1") %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <ol style="visibility:hidden;">
+      <li>&nbsp;</li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to "Don't have an account? Sign up here.", signup_path %>
+  </div>
+</div>
+
+</div>

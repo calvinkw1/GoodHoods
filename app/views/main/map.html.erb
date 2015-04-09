@@ -1,0 +1,84 @@
+<%= stylesheet_link_tag 'map', media: 'all', 'data-turbolinks-track' => true %>
+
+  <nav class="navbar navbar-default navbar-fixed-top mynav">
+    <div class="container">
+      <ul>
+      <div class="floatleft"><li id="nohover"><a href="javascript:history.go(0)"><%= image_tag("header_icon.png") %></a></li></div> 
+      <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
+      <li><%= link_to "Favorites", favorites_path %></li>
+      <li><%= link_to "About", about_path %></li>
+      <li><a href="#" data-toggle="modal" data-target="#myModal">Help</a></li>
+      <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
+      </ul>
+    </div>
+
+  </nav>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">How to use Good Hoods</h4>
+      </div>
+      <div class="modal-body text-left">
+        <p>Good Hoods lets you search for information about neighborhoods you're interested in.</p>
+        <p>Type in a City and State to pull up a listing of all the neighborhoods in that city.</p>
+        <p>Click on a neighborhood and we'll display information from that neighborhood that we've pulled from a variety of services, like Google Places, Zillow and The Weather Underground.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="text-center">
+          <%= form_tag search_path, method: "get", id:"search-input", class:"controls" do %>
+          <%= label_tag(:city, "City: ") %>
+          <%= text_field_tag(:city) %>
+          <%= label_tag(:state, "State: ") %>
+          <%= text_field_tag(:state) %>
+          <%= submit_tag("Search Hoods", :class => "btn-search") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row spacer">
+
+    <div class="col-xs-3 hood-div">
+        <p id="info-box"></p>
+        <ul id="hoods">
+        </ul>
+    </div>
+
+    <div class="col-xs-6">
+      <div id="map-canvas"></div>
+    </div>
+
+    <div class="col-xs-3 info-div">
+      <p class="text-left fav"><a><span class="glyphicon glyphicon-star-empty" id="fav" aria-hidden="true"></span></a>&nbsp; Favorite</p>
+      <div class="text-left" id="people"></div>
+      <div class="text-left" id="city-summary"></div>
+      <div class="text-left" id="characteristics"></div>
+      <div class="text-left" id="ages"></div>
+      <div class="text-left" id="kids"></div>
+      <div class="text-left" id="relationships"></div>
+      <div class="text-left" id="charts"></div>
+      <div class="text-left" id="weather"></div>
+    </div>  
+
+    <div class="col-xs-1"></div>
+  </div>
+
+</div>
+
+</body>
+</html>

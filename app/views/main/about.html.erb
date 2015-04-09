@@ -1,0 +1,146 @@
+<style>
+  body { 
+  padding-top: 60px; 
+  }
+  
+  #left {
+    display: inline-block;
+    text-align: left;
+  }
+
+  .mynav {
+  background-color: rgba(255, 102, 102, 1);
+  color: #888;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  width: 100%; 
+  }
+
+  .mynav ul {
+    text-align: right;
+    margin: 0px;
+    padding: 11px;
+  }
+
+  .mynav ul li {
+      padding-left: 30px;
+      color: white;
+      display: inline-block;
+      list-style-type: none;
+      
+      -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s; 
+  }
+
+  .mynav ul li a {
+      color: white;
+      text-decoration: underline;
+  }
+
+  .mynav ul li a:hover {
+      color: rgba(255, 102, 102, 1);
+      background-color: rgba(255, 255, 255, 1);
+      text-decoration: none;
+  }
+
+  .floatleft {
+    float: left;
+    margin-left: -30px;
+  }
+
+  .floatright {
+    float: right;
+    padding-top: 5px;
+  }
+
+  a {
+    color: rgba(255, 102, 102, 0.9);
+  }
+  
+  a:hover {
+    color: rgba(255, 102, 102, 0.9);
+    background: rgba(255, 102, 102, 0.2);
+    text-decoration: none;
+  }
+
+  #nohover a:hover {
+    color: transparent;
+    background: transparent;
+    text-decoration: none;
+  }
+  </style>
+  
+<nav class="navbar navbar-default navbar-fixed-top mynav">
+  <div class="container">
+    <ul>
+    <div class="floatleft"><li id="nohover"><a href="/"><%= image_tag("header_icon.png") %></a></li></div>
+    <div class="floatright"><li>Logged in as <i><%= @found_user.username %></i></li>
+    <li><%= link_to "Favorites", favorites_path %></li>
+    <li><%= link_to "About", about_path %></li>
+    <li><%= link_to "Sign Out", logout_path, method: :delete %></li></div>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <ol style="visibility:hidden;">
+        <li>&nbsp;</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <p class="text-left lead">
+        We built Good Hoods to let you and other prospective home buyers quickly and easily research neighborhoods where you might one day live.
+
+        We consolidate data from Google Maps, Zillow and The Weather Underground to give you pertinent information about specific neighborhoods you’re interested in, and to save you time to do other things – like secure a home loan! 
+      </p>
+    </div>
+    <div class="col-md-2"></div>
+  </div>  
+
+  <div class="row">
+    <div class="col-md-12">
+      <ol style="visibility:hidden;">
+        <li>&nbsp;</li>
+        <li>&nbsp;</li>
+      </ol>
+      <p class="text-center lead">
+        Good Hoods was built at <a href="http://generalassemb.ly">General Assembly</a> in San Francisco by:
+      </p><br />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/brent1x"><%= image_tag("brent.png", size: "150x150") %></a></p><br />
+      <p><a href="http://github.com/brent1x">@brent1x</a></p>
+    </div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/calvinkw1"><%= image_tag("calvin.png", size: "150x150") %></a></p><br />
+      <p><a href="http://github.com/calvinkw1">@calvinkw1</a></p>
+    </div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/doylemcpoyle"><%= image_tag("pat.png", size: "150x150") %></a></p><br />
+      <p><a href="http://github.com/doylemcpoyle">@doylemcpoyle</a></p>
+      </div>
+    <div class="col-lg-2 lead">
+      <p><a href="http://github.com/MichaelPoP"><%= image_tag("mike.png", size: "150x150") %></a></p><br />
+      <p><a href="http://github.com/MichaelPoP">@michaelpop</a></p>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+
+</div>
+
+</div>

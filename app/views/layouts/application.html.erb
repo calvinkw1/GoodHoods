@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Good Hoods</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=" + ENV["GOOGLE_API_KEY"]></script>
+  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=" + ENV["GOOGLE_API_KEY"]></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+<style type="text/css">
+
+  .my_notice {
+    border-radius: 0px;
+    border: 0px;
+    background-color: rgba(255, 102, 102, 1);
+    color: white;
+  }
+  .my_alert {
+    background-color: rgba(255, 102, 102, 1);
+    color: white;
+    border: 0px;
+  }
+
+</style>
+
+</head>
+
+<body class = "container-fluid text-center">
+
+<% flash.each do |key, value| %>
+  <% if key == "notice" %>
+    <%= content_tag :div, value, class: "text-center alert alert-warning my_notice" %>
+  <% elsif key == "alert" %>
+    <%= content_tag :div, value, class: "text-center alert alert-danger my_alert" %>
+  <% else %>
+    <%= content_tag :div, value, class: "text-center alert alert-success" %>
+  <% end %>
+<% end %>
+
+<%= yield %>
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=" + ENV["GOOGLE_API_KEY"]></script> -->
+
+</body>
+</html>
