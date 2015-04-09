@@ -273,7 +273,7 @@ $(document).ready(function() {
     console.log(mapClickHood);
     var clickLocation = mapClickHood.split(' ').join('+') + "+" + city.split(' ').join('+');
     console.log(clickLocation);
-    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=" + Figaro.env.GOOGLE_API_KEY +  "&z=15");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBQAm-55TNoeLbXvWEYRGf3tOzhFcH-Y5k&z=15");
     $.getJSON(result, function(clickData) {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
@@ -296,7 +296,7 @@ $(document).ready(function() {
     $(".info-div").addClass("overflow");
     neighborhood = $(this).text();
     var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
-    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=" + Figaro.env.GOOGLE_API_KEY + "&z=15");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBQAm-55TNoeLbXvWEYRGf3tOzhFcH-Y5k&z=15");
     $.getJSON(result, function(clickData) {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
@@ -338,7 +338,7 @@ function hoodBounds(url) {
 
 function mapCall() {
   var location = city + "+" + state;
-  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=" + Figaro.env.GOOGLE_API_KEY);
+  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyBQAm-55TNoeLbXvWEYRGf3tOzhFcH-Y5k");
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
