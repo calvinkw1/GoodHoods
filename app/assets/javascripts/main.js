@@ -270,22 +270,16 @@ $(document).ready(function() {
     e.preventDefault();
     $(".fav").show();
     neighborhood = mapClickHood;
-    console.log(mapClickHood);
     var clickLocation = mapClickHood.split(' ').join('+') + "+" + city.split(' ').join('+');
-    console.log(clickLocation);
-    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBQAm-55TNoeLbXvWEYRGf3tOzhFcH-Y5k&z=15");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBI5LF1sVoWrTNs-bBkPwOO38j8vFPUuh4");
     $.getJSON(result, function(clickData) {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
-          console.log(latitude + " " + longitude);
           // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
           map.setCenter(new google.maps.LatLng(latitude,longitude));
           // map.setZoom(13);
-          console.log(latitude);      
         }).done(
         function() {
-          console.log("DONE FUNCTION HIT!!!");
-          console.log(latitude);
           startAPICalls();
           initPlaces();
         }); //end done function
@@ -296,19 +290,15 @@ $(document).ready(function() {
     $(".info-div").addClass("overflow");
     neighborhood = $(this).text();
     var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
-    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBQAm-55TNoeLbXvWEYRGf3tOzhFcH-Y5k&z=15");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBI5LF1sVoWrTNs-bBkPwOO38j8vFPUuh4");
     $.getJSON(result, function(clickData) {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
-          console.log(latitude + " " + longitude);
           // map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
           map.setCenter(new google.maps.LatLng(latitude,longitude));
           map.setZoom(13);
-          console.log(latitude);      
         }).done(
         function() {
-          console.log("DONE FUNCTION HIT!!!");
-          console.log(latitude);
           startAPICalls();
           initPlaces();
           checkFav();
@@ -338,7 +328,7 @@ function hoodBounds(url) {
 
 function mapCall() {
   var location = city + "+" + state;
-  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyBQAm-55TNoeLbXvWEYRGf3tOzhFcH-Y5k");
+  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyBI5LF1sVoWrTNs-bBkPwOO38j8vFPUuh4");
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
@@ -352,7 +342,6 @@ function mapCall() {
     var url = "/search.json";
     $.getJSON(url, {city:city, state:state, neighborhood:neighborhood}, function(data) {
       zillow = data.zillowData;
-      console.log(zillow);
       weather = data.weatherData.location.nearby_weather_stations.pws.station;
       zillowAPIData();
       findWUStation();
@@ -366,7 +355,6 @@ function mapCall() {
       wuNeighborhood = weather[i].neighborhood.toLowerCase();
       if (wuNeighborhood.indexOf(neighborhood.toLowerCase()) !== -1) {
         wuStationID = weather[i].id;
-        console.log(wuCity + " " + wuNeighborhood + " " + wuStationID);
         break;
       }
     }
@@ -402,7 +390,6 @@ function mapCall() {
     }
     
     var people = zillow.demographics.response.pages.page[2].tables.table[0].data.attribute;
-    console.log(people);
     $("#people").append("<p class='bolded'> Resident Demographics</p>");
       $("#people").append("<p><i>" + people[0].name + "</i><p>");
       $("#people").append("<p>$" + Math.round(people[0].values.neighborhood.value) + "</p>");
@@ -466,11 +453,6 @@ function mapCall() {
       $("#charts").append("<p><img src=" + charts[7].url + "></p>");
     }
 function initPlaces() {
-  console.log("check!");
-  console.log(result);
-  // console.log(results);
-  console.log(latitude);
-  console.log(longitude);
   var loc = new google.maps.LatLng(latitude,longitude);
   var request = {
     location: loc,
@@ -485,8 +467,6 @@ function initPlaces() {
 function markPlaces(result, status) {
     // $(".placesList").css("visibility", "visible");
     // $(".listItems").empty();
-    console.log(result);
-    console.log(status);
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       for (var x = 0; x < placesArray.length; x++) {
         placesArray[x].setMap(null);
@@ -521,8 +501,6 @@ function markPlaces(result, status) {
   }
   function openInfoWindow() {
     infowindow.setContent('<div style="color:black; font-family:arial; width: 90px; font-variant: small-caps; font-weight: 800">' + this.title + '</div>');
-    // console.log("infowindow",infowindow);
-    // console.log("placesMarker",this);
     infowindow.open(map, this);
     $(this).css("background-color", "#94BF74");
   }
@@ -538,7 +516,6 @@ function markPlaces(result, status) {
       },
       success: function(data) {
         if (data.is_fav) {
-          console.log(data.is_fav);
           $("#fav").addClass("favorited");
         }
       }
