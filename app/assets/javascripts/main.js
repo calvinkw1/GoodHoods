@@ -271,7 +271,7 @@ $(document).ready(function() {
     $(".fav").show();
     neighborhood = mapClickHood;
     var clickLocation = mapClickHood.split(' ').join('+') + "+" + city.split(' ').join('+');
-    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBI5LF1sVoWrTNs-bBkPwOO38j8vFPUuh4");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyAFfWfAz9d6AIPeZaDi9_WFaKcUCSsAs5I");
     $.getJSON(result, function(clickData) {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
@@ -290,7 +290,7 @@ $(document).ready(function() {
     $(".info-div").addClass("overflow");
     neighborhood = $(this).text();
     var clickLocation = $(this).text().split(' ').join('+') + "+" + city.split(' ').join('+');
-    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyBI5LF1sVoWrTNs-bBkPwOO38j8vFPUuh4");
+    result = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + clickLocation +  "&key=AIzaSyAFfWfAz9d6AIPeZaDi9_WFaKcUCSsAs5I");
     $.getJSON(result, function(clickData) {
           latitude = clickData.results[0].geometry.location.lat; // json result stored in variable
           longitude = clickData.results[0].geometry.location.lng;
@@ -328,7 +328,7 @@ function hoodBounds(url) {
 
 function mapCall() {
   var location = city + "+" + state;
-  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyBI5LF1sVoWrTNs-bBkPwOO38j8vFPUuh4");
+  var url = encodeURI("https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyAFfWfAz9d6AIPeZaDi9_WFaKcUCSsAs5I");
     // getJSON function below to retrieve the lat/lng from google's geocode api
     $.getJSON(url, function(data) {
       var Lat = data.results[0].geometry.location.lat; // json result stored in variable
